@@ -3,14 +3,20 @@ import Select from "react-select";
 import countryList from "react-select-country-list";
 import { setCountry } from "../redux/features/countrySlice";
 import { useDispatch } from "react-redux";
+import { resetStation } from "../redux/features/stationSlice";
 
 function CountrySelector() {
   const dispatch = useDispatch();
   const [countryValue, setCountryValue] = useState("");
   const options = useMemo(() => countryList().getData(), []);
 
+  useEffect(() => {
+    dispatch(setCountry(countryValue));
+  }, [countryValue]);
+
   const changeHandler = (value) => {
     setCountryValue(value);
+    dispatch(resetStation());
   };
 
   return (

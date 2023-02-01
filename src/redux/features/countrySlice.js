@@ -9,7 +9,7 @@ export const countrySlice = createSlice({
     setCountry: (state, action) => {
       return (state = action.payload);
     },
-    resetCountry: () => initialState,
+    resetCountry: (state) => (state = initialState),
   },
 });
 
