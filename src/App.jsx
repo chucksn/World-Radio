@@ -7,7 +7,7 @@ import { setStation } from "./redux/features/stationSlice";
 function App() {
   const dispatch = useDispatch();
   const selectedCountry = useSelector((state) => state.country);
-  const searchedStation = useSelector((state) => state.station);
+  const stationInfoList = useSelector((state) => state.station);
 
   useEffect(() => {
     const getStation = async () => {
@@ -34,13 +34,19 @@ function App() {
     selectedCountry && getStation();
   }, [selectedCountry]);
 
-  console.log(selectedCountry);
-  console.log(searchedStation);
-
   return (
-    <>
-      <CountrySelector />
-    </>
+    <div className="main-container min-h-screen flex flex-col bg-gradient-to-r from-slate-600 to-gray-900 p-6 ">
+      <div className="header flex flex-col items-center lg:flex-row justify-between">
+        <div className="logo-container flex items-center bg-slate-900 p-2 rounded-xl shadow-c_1 mb-6 lg:mb-0">
+          <h1 className="font-medium text-2xl font-unbounded text-cyan-500  md:text-3xl lg:text-4xl">
+            World Radio
+          </h1>
+          <i className="fa-solid fa-radio text-2xl text-amber-600 ml-2 lg:text-3xl"></i>
+        </div>
+        <CountrySelector />
+      </div>
+      <div className="card-container lg:px-4"></div>
+    </div>
   );
 }
 
