@@ -13,6 +13,10 @@ module.exports = {
     extend: {
       boxShadow: {
         "c-1": "0 0 6px rgb(1, 202, 202)",
+        "c-2": "0 0 6px 2px rgb(30, 41, 59)",
+        "c-3": "0 0 8px 3px rgb(173, 255, 47)",
+        "c-4": "0 0 6px rgb(200, 200, 200)",
+        "c-5": "0 0 8px 3px rgb(220, 38, 38)",
         "c-1-top": "0 -6px 6px -6px rgb(1, 202, 202)",
       },
     },
