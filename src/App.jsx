@@ -3,6 +3,7 @@ import { RadioBrowserApi } from "radio-browser-api";
 import CountrySelector from "./components/countrySelector";
 import { useSelector, useDispatch } from "react-redux";
 import { setStation } from "./redux/features/stationSlice";
+import Footer from "./footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,9 +36,9 @@ function App() {
   }, [selectedCountry]);
 
   return (
-    <div className="main-container min-h-screen flex flex-col bg-gradient-to-r from-slate-600 to-gray-900 p-6 ">
+    <div className="main-container w-full min-h-screen flex flex-col bg-gradient-to-r from-slate-600 to-gray-900 p-6 relative">
       <div className="header flex flex-col items-center lg:flex-row justify-between">
-        <div className="logo-container flex items-center bg-slate-900 p-2 rounded-xl shadow-c_1 mb-6 lg:mb-0">
+        <div className="logo-container flex items-center bg-slate-900 p-2 rounded-xl shadow-c-1 mb-6 lg:mb-0">
           <h1 className="font-medium text-2xl font-unbounded text-cyan-500  md:text-3xl lg:text-4xl">
             World Radio
           </h1>
@@ -45,7 +46,13 @@ function App() {
         </div>
         <CountrySelector />
       </div>
-      <div className="card-container lg:px-4"></div>
+      <div className="body-container w-full flex flex-col mt-5 items-center lg:mt-10">
+        <span className="country text-lg font-ubuntu text-amber-200 md:text-xl lg:text-2xl">
+          Spain
+        </span>
+        <div className="card-container flex flex-wrap gap-4 lg:px-4"></div>
+      </div>
+      <Footer />
     </div>
   );
 }
