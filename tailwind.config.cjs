@@ -19,6 +19,9 @@ module.exports = {
         "c-5": "0 0 8px 3px rgb(220, 38, 38)",
         "c-1-top": "0 -6px 6px -6px rgb(1, 202, 202)",
       },
+      screens: {
+        "xs-c": "560px",
+      },
     },
   },
   plugins: [],

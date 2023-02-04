@@ -37,7 +37,8 @@ function App() {
   }, [selectedCountry]);
 
   const list = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 1, 2,
+    3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
   ];
 
   return (
@@ -55,7 +56,7 @@ function App() {
         <span className="country text-lg font-ubuntu text-amber-200 md:text-xl lg:text-2xl">
           Spain
         </span>
-        <div className="card-container flex flex-wrap mt-4 lg:px-4 mt-6 gap-8 justify-center">
+        <div className="card-container flex flex-wrap mt-4 lg:px-4 lg:mt-6 gap-4 xs-c:gap-8 justify-center">
           {list.map((value, index) => (
             <RadioStationCard key={index} />
           ))}
