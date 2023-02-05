@@ -1,8 +1,8 @@
 function Footer() {
   let year = new Date().getFullYear();
   return (
-    <div className="footer flex flex-col items-center p-3 absolute bottom-0 left-0 w-full shadow-c-1-top bg-slate-900 lg:p-4 text-slate-400 ">
-      <div className="footer-links flex justify-center gap-x-8 text-slate-300 text-lg hover:cursor-pointer lg:text-2xl gap-x-12  ">
+    <div className="footer flex flex-col items-center pt-3 pb-28 absolute bottom-0 left-0 w-full shadow-c-1-top bg-slate-900 lg:pt-4 text-slate-400 ">
+      <div className="footer-links flex justify-center gap-x-8 lg:gap-x-12 text-slate-300 text-lg hover:cursor-pointer lg:text-2xl   ">
         <a href="https://github.com/chucksn" rel="noreferrer" target="_blank">
           <i className="fa-brands fa-github"></i>
         </a>

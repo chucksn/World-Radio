@@ -11,7 +11,7 @@ function CountrySelector() {
   const options = useMemo(() => countryList().getData(), []);
 
   useEffect(() => {
-    dispatch(setCountry(countryValue));
+    countryValue && dispatch(setCountry(countryValue));
   }, [countryValue]);
 
   const changeHandler = (value) => {
