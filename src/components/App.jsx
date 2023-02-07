@@ -14,6 +14,9 @@ function App() {
   const stations = useSelector((state) => state.station);
   const playerData = useSelector((state) => state.playerData);
   const [activePage, setActivePage] = useState(1);
+  const [playing, setPlayStatus] = useState(false);
+  // const [paused, setPauseStatus] = useState(true);
+
   const [clickedCardIndex, setClickedCardIndex] = useState(null);
 
   useEffect(() => {
@@ -46,6 +49,14 @@ function App() {
     window.scrollTo(0, 0, "smooth");
   };
 
+  const handlePlay = () => {
+    setPlayStatus(true);
+  };
+
+  const handlePause = () => {
+    setPlayStatus(false);
+  };
+
   const cardsPerPage = 20;
   const displayedStations =
     stations &&
@@ -64,12 +75,21 @@ function App() {
           <CountrySelector />
         </div>
         <div className="body-container w-full flex flex-col my-5 items-center lg:mt-12">
-          <div className="hero-section"></div>
-          <span className="country text-lg font-ubuntu text-amber-200 md:text-xl lg:text-2xl">
-            <i className="fa-solid fa-location-dot text-red-600 text-xl"></i>{" "}
+          <div className="hero-section relative w-11/12 min-h-32 md:min-h-40 lg:min-h-52 mb-4 lg:mb-8 rounded-xl bg-[url('../src/assets/radio-studio.jpg')] bg-no-repeat bg-center bg-cover">
+            <div className="hero-bg-overlay absolute w-full h-full top-0 bg-black/40 rounded-xl p-4 sm:p-6 lg:p-12">
+              <div className="w-1/2 lg:w-1/4">
+                <span className="hero-text1 block font-itim sm:text-xl lg:text-2xl text-gray-400">
+                  Stream Over 5000 Radio Stations Worldwide{" "}
+                  <span className="text-red-500 font-semibold">Live...</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <span className="country font-ubuntu text-amber-400 md:text-xl">
+            <i className="fa-solid fa-location-dot text-red-600 md:text-xl"></i>{" "}
             {selectedCountry.label}
           </span>
-          <div className="card-container bg-slate-400/20 shadow-c-1 flex flex-wrap mt-4 w-11/12 min-h-72 lg:min-h-96 p-3 xs-c:p-8 rounded-lg lg:mt-6  gap-4 xs-c:gap-8 lg:gap-12 justify-center">
+          <div className="card-container bg-black/50 shadow-c-1 flex flex-wrap mt-4 w-11/12 min-h-72 lg:min-h-96 p-3 xs-c:p-8 rounded-lg lg:mt-6  gap-4 xs-c:gap-8 lg:gap-12 justify-center">
             {displayedStations &&
               displayedStations.map((station, index) => {
                 return (
@@ -84,10 +104,13 @@ function App() {
                       stationName={station.name}
                       url={station.urlResolved}
                       clickedCardIndex={clickedCardIndex}
+                      playing={playing}
                     />
 
                     {playerData && clickedCardIndex === index && (
                       <Player
+                        onPlay={handlePlay}
+                        onPause={handlePause}
                         icon={playerData.favicon}
                         state={playerData.state}
                         stationName={playerData.stationName}

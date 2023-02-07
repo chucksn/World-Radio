@@ -4,9 +4,10 @@ import { resetCardClicked } from "../redux/cardClickSlice";
 import { useDispatch } from "react-redux";
 import { useRef } from "react";
 
-function Player({ url, stationName, state, icon }) {
+function Player({ url, stationName, state, icon, onPlay, onPause }) {
   const dispatch = useDispatch();
   const playerRef = useRef();
+
   const handleClosePlayer = () => {
     dispatch(resetPlayerData());
     dispatch(resetCardClicked());
@@ -27,6 +28,8 @@ function Player({ url, stationName, state, icon }) {
       />
       <AudioPlayer
         src={url}
+        onPlay={onPlay}
+        onPause={onPause}
         showJumpControls={false}
         showDownloadProgress={false}
         showFilledProgress={false}
@@ -50,7 +53,7 @@ function Player({ url, stationName, state, icon }) {
       </div>
       <span
         onClick={handleClosePlayer}
-        className="close-btn text-white font-semibold absolute top-0 right-3 text-lg cursor-pointer"
+        className="close-btn text-white font-semibold absolute top-0 right-3 text-lg md:text-2xl cursor-pointer"
       >
         &times;
       </span>

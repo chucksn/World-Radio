@@ -1,5 +1,5 @@
 import "react-h5-audio-player/lib/styles.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCardClicked } from "../redux/cardClickSlice";
 import { setPlayerData } from "../redux/features/playerDataSlice";
 
@@ -12,13 +12,18 @@ function RadioStationCard({
   index,
   setClickedCardIndex,
   clickedCardIndex,
+  playing,
 }) {
   const dispatch = useDispatch();
+  const playerData = useSelector((state) => state.playerData);
 
-  const handleCardClick = (e) => {
+  const mainControlBtn = document.querySelector(".rhap_play-pause-button");
+
+  const handleCardClick = () => {
     dispatch(setCardClicked());
     dispatch(setPlayerData({ url, stationName, state, favicon, id }));
     setClickedCardIndex(index);
+    playerData && mainControlBtn.click();
   };
 
   const icon = favicon ? favicon : "../src/assets/radio2.jpg";
@@ -46,12 +51,12 @@ function RadioStationCard({
       <div className="control-display relative w-12 h-12">
         <i
           className={`fa-solid fa-circle-play text-5xl text-white opacity-40 absolute left-0 ${
-            clickedCardIndex === index ? "hidden" : "block"
+            clickedCardIndex === index && playing ? "hidden" : "block"
           }`}
         ></i>
         <i
           className={`fa-solid fa-circle-pause  text-5xl text-white opacity-40 absolute left-0 ${
-            clickedCardIndex === index ? "block" : "hidden"
+            clickedCardIndex === index && playing ? "block" : "hidden"
           }`}
         ></i>
       </div>
