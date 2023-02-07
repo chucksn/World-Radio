@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = null;
+const initialState = [];
 
 const stationSlice = createSlice({
   name: "station",

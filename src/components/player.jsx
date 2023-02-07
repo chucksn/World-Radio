@@ -18,7 +18,7 @@ function Player({ url, stationName, state, icon }) {
   return (
     <div
       ref={playerRef}
-      className="player flex justify-between lg:justify-around items-center p-4 w-full h-20 fixed left-0  bottom-0 bg-zinc-900 rounded-xl shadow-c-6 z-10"
+      className="player flex justify-between lg:justify-around items-center p-4 w-full h-20 fixed left-0  bottom-0 bg-black/90  z-10"
     >
       <img
         src={favicon}

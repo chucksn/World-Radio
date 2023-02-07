@@ -36,6 +36,7 @@ function App() {
         clickTimestamp: s.clickTimestamp.toString(),
       }));
       dispatch(setStation(station));
+      setActivePage(1);
     };
     selectedCountry && getStation();
   }, [selectedCountry]);
@@ -52,8 +53,8 @@ function App() {
 
   return (
     <>
-      <div className="main-container w-full min-h-screen flex flex-col bg-gradient-to-r from-slate-600 to-gray-900 p-6 pb-72 relative">
-        <div className="header flex flex-col items-center lg:flex-row justify-between">
+      <div className="main-container w-full min-h-screen flex flex-col bg-gradient-to-r from-slate-600 to-gray-900 pb-72 relative">
+        <div className="header flex flex-col items-center p-6 justify-between lg:flex-row bg-slate-400/5 shadow ">
           <div className="logo-container flex items-center bg-slate-900 p-2 rounded-xl shadow-c-1 mb-6 lg:mb-0">
             <h1 className="font-medium text-2xl font-unbounded text-cyan-500  md:text-3xl lg:text-4xl">
               World Radio
@@ -62,17 +63,19 @@ function App() {
           </div>
           <CountrySelector />
         </div>
-        <div className="body-container w-full flex flex-col mt-5 items-center lg:mt-12">
+        <div className="body-container w-full flex flex-col my-5 items-center lg:mt-12">
+          <div className="hero-section"></div>
           <span className="country text-lg font-ubuntu text-amber-200 md:text-xl lg:text-2xl">
             <i className="fa-solid fa-location-dot text-red-600 text-xl"></i>{" "}
             {selectedCountry.label}
           </span>
-          <div className="card-container flex flex-wrap mt-4 lg:px-8 lg:mt-6 gap-4 xs-c:gap-8 lg:gap-12 justify-center">
+          <div className="card-container bg-slate-400/20 shadow-c-1 flex flex-wrap mt-4 w-11/12 min-h-72 lg:min-h-96 p-3 xs-c:p-8 rounded-lg lg:mt-6  gap-4 xs-c:gap-8 lg:gap-12 justify-center">
             {displayedStations &&
               displayedStations.map((station, index) => {
                 return (
                   <>
                     <RadioStationCard
+                      id={station.id}
                       index={index}
                       setClickedCardIndex={setClickedCardIndex}
                       key={station.id}
@@ -80,6 +83,7 @@ function App() {
                       state={station.state}
                       stationName={station.name}
                       url={station.urlResolved}
+                      clickedCardIndex={clickedCardIndex}
                     />
 
                     {playerData && clickedCardIndex === index && (
@@ -94,7 +98,7 @@ function App() {
                 );
               })}
           </div>
-          {stations && (
+          {stations.length > 0 && (
             <Pagination
               activePage={activePage}
               onChange={handlePageChange}

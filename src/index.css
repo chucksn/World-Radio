@@ -5,7 +5,7 @@
 .rhap_container {
   padding: 0;
   width: 40%;
-  background-color: rgb(24, 24, 27);
+  background-color: rgba(0, 0, 0, 0);
   box-shadow: none;
 }
 
@@ -23,7 +23,7 @@
   background-color: rgb(255, 255, 255, 0.2);
   border-radius: 0.6rem;
   color: white;
-  margin-top: 3rem;
+  margin: 3rem;
   width: 60%;
   font-weight: 500;
   padding: 0.3rem;
@@ -43,7 +43,7 @@
 
 @media screen and (max-width: 640px) {
   .pagination {
-    width: 100%;
+    width: 90%;
     font-size: 0.9rem;
   }
 }
