@@ -15,7 +15,8 @@ function App() {
   const playerData = useSelector((state) => state.playerData);
   const [activePage, setActivePage] = useState(1);
   const [playing, setPlayStatus] = useState(false);
-  // const [paused, setPauseStatus] = useState(true);
+  const [pageNumber, setPageNumber] = useState(null);
+  const [activeCountry, setActiveCountry] = useState(null);
 
   const [clickedCardIndex, setClickedCardIndex] = useState(null);
 
@@ -105,14 +106,22 @@ function App() {
                       url={station.urlResolved}
                       clickedCardIndex={clickedCardIndex}
                       playing={playing}
+                      activePage={activePage}
+                      pageNumber={pageNumber}
+                      setPageNumber={setPageNumber}
+                      country={selectedCountry.value}
+                      activeCountry={activeCountry}
+                      setActiveCountry={setActiveCountry}
                     />
 
                     {playerData && clickedCardIndex === index && (
                       <Player
                         onPlay={handlePlay}
                         onPause={handlePause}
+                        playing={playing}
                         icon={playerData.favicon}
                         state={playerData.state}
+                        country={playerData.activeCountry}
                         stationName={playerData.stationName}
                         url={playerData.url}
                       />

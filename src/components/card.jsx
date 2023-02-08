@@ -8,11 +8,17 @@ function RadioStationCard({
   url,
   stationName,
   state,
+  country,
   favicon,
   index,
   setClickedCardIndex,
   clickedCardIndex,
   playing,
+  pageNumber,
+  setPageNumber,
+  activePage,
+  activeCountry,
+  setActiveCountry,
 }) {
   const dispatch = useDispatch();
   const playerData = useSelector((state) => state.playerData);
@@ -21,8 +27,12 @@ function RadioStationCard({
 
   const handleCardClick = () => {
     dispatch(setCardClicked());
-    dispatch(setPlayerData({ url, stationName, state, favicon, id }));
+    dispatch(
+      setPlayerData({ url, stationName, state, favicon, id, activeCountry })
+    );
     setClickedCardIndex(index);
+    setPageNumber(activePage);
+    setActiveCountry(country);
     playerData && mainControlBtn.click();
   };
 
@@ -31,7 +41,11 @@ function RadioStationCard({
   return (
     <div
       className={`radio-card flex items-center justify-between w-full h-24 xs-c:w-60 xs-c:h-48 xs-c:flex-col text-center p-3 bg-zinc-900  rounded-lg hover:cursor-pointer lg:hover:shadow-c-3 ${
-        clickedCardIndex === index ? "shadow-c-5" : "shadow-c-4"
+        clickedCardIndex === index &&
+        pageNumber === activePage &&
+        country === activeCountry
+          ? "shadow-c-5"
+          : "shadow-c-4"
       }`}
       onClick={handleCardClick}
     >
@@ -51,14 +65,29 @@ function RadioStationCard({
       <div className="control-display relative w-12 h-12">
         <i
           className={`fa-solid fa-circle-play text-5xl text-white opacity-40 absolute left-0 ${
-            clickedCardIndex === index && playing ? "hidden" : "block"
+            clickedCardIndex === index &&
+            pageNumber === activePage &&
+            country === activeCountry &&
+            playing
+              ? "hidden"
+              : "block"
           }`}
         ></i>
         <i
           className={`fa-solid fa-circle-pause  text-5xl text-white opacity-40 absolute left-0 ${
-            clickedCardIndex === index && playing ? "block" : "hidden"
+            clickedCardIndex === index &&
+            pageNumber === activePage &&
+            country === activeCountry &&
+            playing
+              ? "block"
+              : "hidden"
           }`}
         ></i>
+        {clickedCardIndex === index &&
+          country === activeCountry &&
+          !playing && (
+            <i className="fa-solid fa-circle-notch fa-spin text-neutral-300 text-5xl absolute left-0"></i>
+          )}
       </div>
     </div>
   );

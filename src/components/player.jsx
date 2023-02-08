@@ -4,7 +4,16 @@ import { resetCardClicked } from "../redux/cardClickSlice";
 import { useDispatch } from "react-redux";
 import { useRef } from "react";
 
-function Player({ url, stationName, state, icon, onPlay, onPause }) {
+function Player({
+  url,
+  stationName,
+  state,
+  country,
+  icon,
+  onPlay,
+  onPause,
+  playing,
+}) {
   const dispatch = useDispatch();
   const playerRef = useRef();
 
@@ -24,8 +33,15 @@ function Player({ url, stationName, state, icon, onPlay, onPause }) {
       <img
         src={favicon}
         alt="favicon"
-        className="favicon w-10 h-10  rounded-full  "
+        className={`favicon w-10 h-10  rounded-full ${
+          playing ? "animate-spin" : "animate-none"
+        }`}
       />
+      {playing && (
+        <span className="text-xs sm:text-base block ml-1 text-yellow-300">
+          Playing
+        </span>
+      )}
       <AudioPlayer
         src={url}
         onPlay={onPlay}
@@ -39,9 +55,6 @@ function Player({ url, stationName, state, icon, onPlay, onPause }) {
         customProgressBarSection={[]}
         customControlsSection={["MAIN_CONTROLS", "VOLUME_CONTROLS"]}
       />
-      <span className="now-playing hidden lg:block text-yellow-300">
-        Now playing
-      </span>
 
       <div className="flex flex-col justify-center items-center m-3 text-center">
         <span className="station-name block text-slate-200 font-unbounded text-xs">
@@ -49,6 +62,7 @@ function Player({ url, stationName, state, icon, onPlay, onPause }) {
         </span>
         <span className="state block text-lime-300 text-xs font-unbounded mt-1">
           {state}
+          {state && ","} {country}
         </span>
       </div>
       <span
