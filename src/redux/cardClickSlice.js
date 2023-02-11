@@ -6,8 +6,12 @@ const cardClickSlice = createSlice({
   name: "cardClick",
   initialState,
   reducers: {
-    setCardClicked: (state) => (state = true),
-    resetCardClicked: (state) => (state = initialState),
+    setCardClicked: (state) => {
+      return (state = true);
+    },
+    resetCardClicked: (state) => {
+      return (state = initialState);
+    },
   },
 });
 

@@ -11,9 +11,18 @@ module.exports = {
       unbounded: ["Unbounded", "cursive"],
     },
     extend: {
+      animation: {
+        "spin-slow": "spin 2s linear infinite",
+      },
+
       minHeight: (theme) => ({
         ...theme("spacing"),
       }),
+
+      maxWidth: (theme) => ({
+        ...theme("spacing"),
+      }),
+
       boxShadow: {
         "c-1": "0 0 6px rgb(1, 202, 202)", //blue shadow round
         "c-2": "0 0 6px 2px rgb(30, 41, 59)",

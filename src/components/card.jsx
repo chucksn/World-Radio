@@ -8,17 +8,18 @@ function RadioStationCard({
   url,
   stationName,
   state,
-  country,
+  activeCountry,
+  setActiveCountry,
   favicon,
   index,
   setClickedCardIndex,
   clickedCardIndex,
   playing,
+  paused,
   pageNumber,
   setPageNumber,
   activePage,
-  activeCountry,
-  setActiveCountry,
+  selectedCountry,
 }) {
   const dispatch = useDispatch();
   const playerData = useSelector((state) => state.playerData);
@@ -28,22 +29,22 @@ function RadioStationCard({
   const handleCardClick = () => {
     dispatch(setCardClicked());
     dispatch(
-      setPlayerData({ url, stationName, state, favicon, id, activeCountry })
+      setPlayerData({ url, stationName, state, favicon, id, selectedCountry })
     );
+    setActiveCountry(selectedCountry);
     setClickedCardIndex(index);
     setPageNumber(activePage);
-    setActiveCountry(country);
-    playerData && mainControlBtn.click();
+    playerData && mainControlBtn && mainControlBtn.click();
   };
 
   const icon = favicon ? favicon : "../src/assets/radio2.jpg";
 
   return (
     <div
-      className={`radio-card flex items-center justify-between w-full h-24 xs-c:w-60 xs-c:h-48 xs-c:flex-col text-center p-3 bg-zinc-900  rounded-lg hover:cursor-pointer lg:hover:shadow-c-3 ${
+      className={`radio-card flex items-center justify-between w-full min-h-24 xs-c:w-60 xs-c:min-h-48 xs-c:flex-col text-center p-3 bg-zinc-900  rounded-lg hover:cursor-pointer lg:hover:shadow-c-3 ${
         clickedCardIndex === index &&
         pageNumber === activePage &&
-        country === activeCountry
+        activeCountry === selectedCountry
           ? "shadow-c-5"
           : "shadow-c-4"
       }`}
@@ -54,7 +55,7 @@ function RadioStationCard({
         alt="favicon"
         className="favicon w-10 h-10 xs-c:w-16 xs-c:h-16 rounded-full xs-c:mb-2 "
       />
-      <div className="flex flex-col justify-center ">
+      <div className=" card-info flex flex-col justify-center max-w-48">
         <span className="station-name block text-slate-200 font-unbounded text-xs">
           {stationName}
         </span>
@@ -62,12 +63,12 @@ function RadioStationCard({
           {state}
         </span>
       </div>
-      <div className="control-display relative w-12 h-12">
+      <div className="control-display relative w-12 h-12 xs-c:mt-2">
         <i
           className={`fa-solid fa-circle-play text-5xl text-white opacity-40 absolute left-0 ${
             clickedCardIndex === index &&
             pageNumber === activePage &&
-            country === activeCountry &&
+            activeCountry === selectedCountry &&
             playing
               ? "hidden"
               : "block"
@@ -77,16 +78,17 @@ function RadioStationCard({
           className={`fa-solid fa-circle-pause  text-5xl text-white opacity-40 absolute left-0 ${
             clickedCardIndex === index &&
             pageNumber === activePage &&
-            country === activeCountry &&
+            activeCountry === selectedCountry &&
             playing
               ? "block"
               : "hidden"
           }`}
         ></i>
         {clickedCardIndex === index &&
-          country === activeCountry &&
+          pageNumber === activePage &&
+          activeCountry === selectedCountry &&
           !playing && (
-            <i className="fa-solid fa-circle-notch fa-spin text-neutral-300 text-5xl absolute left-0"></i>
+            <i className="fa-solid fa-circle-notch fa-spin text-neutral-200 text-5xl absolute left-0"></i>
           )}
       </div>
     </div>

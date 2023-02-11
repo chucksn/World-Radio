@@ -9,7 +9,9 @@ const stationSlice = createSlice({
     setStation: (state, action) => {
       return (state = action.payload);
     },
-    resetStation: (state) => (state = initialState),
+    resetStation: (state) => {
+      return (state = initialState);
+    },
   },
 });
 

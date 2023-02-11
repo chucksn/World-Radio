@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { RadioBrowserApi } from "radio-browser-api";
 import CountrySelector from "./countrySelector";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,18 +7,26 @@ import Footer from "./footer";
 import RadioStationCard from "./card";
 import Pagination from "react-js-pagination";
 import Player from "./player";
+import { useId } from "react-id-generator";
 
 function App() {
   const dispatch = useDispatch();
-  const selectedCountry = useSelector((state) => state.country);
+  const country = useSelector((state) => state.country);
   const stations = useSelector((state) => state.station);
   const playerData = useSelector((state) => state.playerData);
   const [activePage, setActivePage] = useState(1);
   const [playing, setPlayStatus] = useState(false);
+  const [paused, setPauseStatus] = useState(true);
+  const [waiting, setWaitStatus] = useState(false);
   const [pageNumber, setPageNumber] = useState(null);
-  const [activeCountry, setActiveCountry] = useState(null);
-
+  const [selectedCountry, setSelectedCountry] = useState("United States");
+  const [activeCountry, setActiveCountry] = useState("United States");
   const [clickedCardIndex, setClickedCardIndex] = useState(null);
+  const id_1 = useId();
+  const id_2 = useId();
+
+  const loadingAnimationRef = useRef();
+  const loadingFailRef = useRef();
 
   useEffect(() => {
     const getStation = async () => {
@@ -27,7 +35,7 @@ function App() {
         languageExact: "english",
         hideBroken: true,
         removeDuplicates: true,
-        countryCode: selectedCountry.value,
+        countryCode: country.value,
       });
 
       // The logic below prevents non-serializable value error
@@ -42,8 +50,8 @@ function App() {
       dispatch(setStation(station));
       setActivePage(1);
     };
-    selectedCountry && getStation();
-  }, [selectedCountry]);
+    country && getStation();
+  }, [country]);
 
   const handlePageChange = (pageNumber) => {
     setActivePage(pageNumber);
@@ -52,11 +60,30 @@ function App() {
 
   const handlePlay = () => {
     setPlayStatus(true);
+    setPauseStatus(false);
+    setWaitStatus(false);
   };
 
   const handlePause = () => {
     setPlayStatus(false);
+    setPauseStatus(true);
+    setWaitStatus(false);
   };
+
+  useEffect(() => {
+    if (stations && stations.length <= 0) {
+      setTimeout(() => {
+        if (loadingAnimationRef.current && loadingFailRef.current) {
+          loadingAnimationRef.current.style.display = "none";
+          loadingFailRef.current.style.display = "block";
+        }
+      }, 10000);
+    }
+  }, [country]);
+
+  useEffect(() => {
+    country && setSelectedCountry(country.label);
+  }, [country]);
 
   const cardsPerPage = 20;
   const displayedStations =
@@ -79,7 +106,7 @@ function App() {
           <div className="hero-section relative w-11/12 min-h-32 md:min-h-40 lg:min-h-52 mb-4 lg:mb-8 rounded-xl bg-[url('../src/assets/radio-studio.jpg')] bg-no-repeat bg-center bg-cover">
             <div className="hero-bg-overlay absolute w-full h-full top-0 bg-black/40 rounded-xl p-4 sm:p-6 lg:p-12">
               <div className="w-1/2 lg:w-1/4">
-                <span className="hero-text1 block font-itim sm:text-xl lg:text-2xl text-gray-400">
+                <span className="hero-text1 block font-unbounded text-sm lg:text-lg lg:max-w-56 text-gray-300">
                   Stream Over 5000 Radio Stations Worldwide{" "}
                   <span className="text-red-500 font-semibold">Live...</span>
                 </span>
@@ -88,10 +115,25 @@ function App() {
           </div>
           <span className="country font-ubuntu text-amber-400 md:text-xl">
             <i className="fa-solid fa-location-dot text-red-600 md:text-xl"></i>{" "}
-            {selectedCountry.label}
+            {country.label}
           </span>
-          <div className="card-container bg-black/50 shadow-c-1 flex flex-wrap mt-4 w-11/12 min-h-72 lg:min-h-96 p-3 xs-c:p-8 rounded-lg lg:mt-6  gap-4 xs-c:gap-8 lg:gap-12 justify-center">
-            {displayedStations &&
+          <div className="card-container bg-black/50 shadow-c-1 flex flex-wrap mt-4 w-11/12 min-h-60 lg:min-h-64 p-3 xs-c:p-8 rounded-lg lg:mt-6  gap-4 xs-c:gap-8 lg:gap-12 justify-center items-center">
+            {stations.length <= 0 && (
+              <>
+                <i
+                  className="loading-animation fa-solid fa-circle-notch fa-spin  text-5xl text-sky-500 "
+                  ref={loadingAnimationRef}
+                ></i>
+                <span
+                  className="loading-fail-text hidden text-yellow-500 text-sm xs-c:text-base lg:text-lg text-center"
+                  ref={loadingFailRef}
+                >
+                  No available Station in selected Country at the moment
+                </span>
+              </>
+            )}
+
+            {displayedStations.length > 0 &&
               displayedStations.map((station, index) => {
                 return (
                   <>
@@ -106,26 +148,14 @@ function App() {
                       url={station.urlResolved}
                       clickedCardIndex={clickedCardIndex}
                       playing={playing}
+                      paused={paused}
                       activePage={activePage}
                       pageNumber={pageNumber}
                       setPageNumber={setPageNumber}
-                      country={selectedCountry.value}
+                      selectedCountry={selectedCountry}
                       activeCountry={activeCountry}
                       setActiveCountry={setActiveCountry}
                     />
-
-                    {playerData && clickedCardIndex === index && (
-                      <Player
-                        onPlay={handlePlay}
-                        onPause={handlePause}
-                        playing={playing}
-                        icon={playerData.favicon}
-                        state={playerData.state}
-                        country={playerData.activeCountry}
-                        stationName={playerData.stationName}
-                        url={playerData.url}
-                      />
-                    )}
                   </>
                 );
               })}
@@ -144,6 +174,19 @@ function App() {
           )}
         </div>
         <Footer />
+        {playerData && (
+          <Player
+            onPlay={handlePlay}
+            onPause={handlePause}
+            playing={playing}
+            paused={paused}
+            icon={playerData.favicon}
+            state={playerData.state}
+            country={playerData.selectedCountry}
+            stationName={playerData.stationName}
+            url={playerData.url}
+          />
+        )}
       </div>
     </>
   );
