@@ -39,9 +39,11 @@ function Player({
         }`}
       />
       {playing && (
-        <span className="text-xs sm:text-base block ml-1 text-yellow-300">
-          Playing
-        </span>
+        <img
+          src="../src/assets/audio.svg"
+          alt="playing"
+          className="playing-svg"
+        />
       )}
       {paused && (
         <span className="text-xs sm:text-base block ml-1 text-yellow-300">

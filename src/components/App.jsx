@@ -120,10 +120,11 @@ function App() {
           <div className="card-container bg-black/50 shadow-c-1 flex flex-wrap mt-4 w-11/12 min-h-60 lg:min-h-64 p-3 xs-c:p-8 rounded-lg lg:mt-6  gap-4 xs-c:gap-8 lg:gap-12 justify-center items-center">
             {stations.length <= 0 && (
               <>
-                <i
-                  className="loading-animation fa-solid fa-circle-notch fa-spin  text-5xl text-sky-500 "
+                <img
+                  src="../src/assets/tail-spin.svg"
+                  alt="Loading..."
                   ref={loadingAnimationRef}
-                ></i>
+                ></img>
                 <span
                   className="loading-fail-text hidden text-yellow-500 text-sm xs-c:text-base lg:text-lg text-center"
                   ref={loadingFailRef}
@@ -162,6 +163,7 @@ function App() {
           </div>
           {stations.length > 0 && (
             <Pagination
+              key="pagination"
               activePage={activePage}
               onChange={handlePageChange}
               totalItemsCount={stations.length}
@@ -176,6 +178,7 @@ function App() {
         <Footer />
         {playerData && (
           <Player
+            key="player"
             onPlay={handlePlay}
             onPause={handlePause}
             playing={playing}
