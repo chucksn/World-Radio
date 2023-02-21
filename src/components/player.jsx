@@ -14,6 +14,8 @@ function Player({
   onPause,
   playing,
   paused,
+  waiting,
+  onWaiting,
 }) {
   const dispatch = useDispatch();
   const playerRef = useRef();
@@ -45,16 +47,24 @@ function Player({
           className="playing-svg"
         />
       )}
-      {paused && (
+      {paused && !waiting && (
         <span className="text-xs sm:text-base block ml-1 text-yellow-300">
           Paused
         </span>
+      )}
+      {!playing && waiting && (
+        <img
+          src="../src/assets/tail-spin2.svg"
+          alt="playing"
+          className="playing-svg ml-1"
+        />
       )}
 
       <AudioPlayer
         src={url}
         onPlay={onPlay}
         onPause={onPause}
+        onPlayError={onWaiting}
         showJumpControls={false}
         showDownloadProgress={false}
         showFilledProgress={false}

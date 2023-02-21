@@ -8,6 +8,7 @@ import RadioStationCard from "./card";
 import Pagination from "react-js-pagination";
 import Player from "./player";
 import { useId } from "react-id-generator";
+import AboutModal from "./aboutModal";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ function App() {
   const [selectedCountry, setSelectedCountry] = useState("United States");
   const [activeCountry, setActiveCountry] = useState("United States");
   const [clickedCardIndex, setClickedCardIndex] = useState(null);
+  const [aboutToggle, setAboutToggle] = useState(false);
   const id_1 = useId();
   const id_2 = useId();
 
@@ -53,6 +55,10 @@ function App() {
     country && getStation();
   }, [country]);
 
+  const handleAboutClick = () => {
+    setAboutToggle(!aboutToggle);
+  };
+
   const handlePageChange = (pageNumber) => {
     setActivePage(pageNumber);
     window.scrollTo(0, 0, "smooth");
@@ -67,7 +73,11 @@ function App() {
   const handlePause = () => {
     setPlayStatus(false);
     setPauseStatus(true);
-    setWaitStatus(false);
+  };
+
+  const handleWaiting = () => {
+    setWaitStatus(true);
+    setPauseStatus(false);
   };
 
   useEffect(() => {
@@ -100,6 +110,16 @@ function App() {
             </h1>
             <i className="fa-solid fa-radio text-2xl text-amber-600 ml-2 lg:text-3xl"></i>
           </div>
+          <span
+            className="about font-unbounded text-teal-500 block pb-4 text-sm cursor-pointer"
+            onClick={handleAboutClick}
+          >
+            ABOUT APP{" "}
+            {!aboutToggle && (
+              <i className="fa-solid fa-circle-chevron-down"></i>
+            )}
+            {aboutToggle && <i className="fa-solid fa-circle-chevron-up "></i>}
+          </span>
           <CountrySelector />
         </div>
         <div className="body-container w-full flex flex-col my-5 items-center lg:mt-12">
@@ -150,6 +170,7 @@ function App() {
                       clickedCardIndex={clickedCardIndex}
                       playing={playing}
                       paused={paused}
+                      waiting={waiting}
                       activePage={activePage}
                       pageNumber={pageNumber}
                       setPageNumber={setPageNumber}
@@ -181,8 +202,10 @@ function App() {
             key="player"
             onPlay={handlePlay}
             onPause={handlePause}
+            onWaiting={handleWaiting}
             playing={playing}
             paused={paused}
+            waiting={waiting}
             icon={playerData.favicon}
             state={playerData.state}
             country={playerData.selectedCountry}
@@ -191,6 +214,7 @@ function App() {
           />
         )}
       </div>
+      {aboutToggle && <AboutModal setAboutToggle={setAboutToggle} />}
     </>
   );
 }

@@ -16,6 +16,7 @@ function RadioStationCard({
   clickedCardIndex,
   playing,
   paused,
+  waiting,
   pageNumber,
   setPageNumber,
   activePage,
@@ -87,9 +88,8 @@ function RadioStationCard({
         {clickedCardIndex === index &&
           pageNumber === activePage &&
           activeCountry === selectedCountry &&
-          !playing && (
-            <i className="fa-solid fa-circle-notch fa-spin text-neutral-200 text-5xl absolute left-0"></i>
-          )}
+          !playing &&
+          waiting && <img src="../src/assets/tail-spin.svg" alt="spin" />}
       </div>
     </div>
   );
