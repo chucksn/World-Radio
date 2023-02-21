@@ -2,6 +2,8 @@ import "react-h5-audio-player/lib/styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setCardClicked } from "../redux/cardClickSlice";
 import { setPlayerData } from "../redux/features/playerDataSlice";
+import radioImg from "../assets/radio2.jpg";
+import tailSpin from "../assets/tail-spin2.svg";
 
 function RadioStationCard({
   id,
@@ -38,7 +40,7 @@ function RadioStationCard({
     playerData && mainControlBtn && mainControlBtn.click();
   };
 
-  const icon = favicon ? favicon : "../src/assets/radio2.jpg";
+  const icon = favicon ? favicon : radioImg;
 
   return (
     <div
@@ -89,7 +91,7 @@ function RadioStationCard({
           pageNumber === activePage &&
           activeCountry === selectedCountry &&
           !playing &&
-          waiting && <img src="../src/assets/tail-spin.svg" alt="spin" />}
+          waiting && <img src={tailSpin} alt="spin" />}
       </div>
     </div>
   );

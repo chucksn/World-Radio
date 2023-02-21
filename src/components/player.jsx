@@ -4,6 +4,9 @@ import { resetCardClicked } from "../redux/cardClickSlice";
 import { useDispatch } from "react-redux";
 import { useRef } from "react";
 import { motion } from "framer-motion";
+import radioImg from "../assets/radio2.jpg";
+import audioVisualizer from "../assets/audio.svg";
+import tailSpin from "../assets/tail-spin2.svg";
 
 const playerVariant = {
   hidden: {
@@ -39,7 +42,7 @@ function Player({
     playerRef.current.style.display = "none";
   };
 
-  const favicon = icon ? icon : "../src/assets/radio2.jpg";
+  const favicon = icon ? icon : radioImg;
 
   return (
     <motion.div
@@ -57,11 +60,7 @@ function Player({
         }`}
       />
       {playing && (
-        <img
-          src="../src/assets/audio.svg"
-          alt="playing"
-          className="playing-svg"
-        />
+        <img src={audioVisualizer} alt="playing" className="playing-svg" />
       )}
       {paused && !waiting && (
         <span className="text-xs sm:text-base block ml-1 text-yellow-300">
@@ -69,11 +68,7 @@ function Player({
         </span>
       )}
       {!playing && waiting && (
-        <img
-          src="../src/assets/tail-spin2.svg"
-          alt="playing"
-          className="playing-svg ml-1"
-        />
+        <img src={tailSpin} alt="playing" className="playing-svg ml-1" />
       )}
 
       <AudioPlayer

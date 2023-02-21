@@ -7,8 +7,8 @@ import Footer from "./footer";
 import RadioStationCard from "./card";
 import Pagination from "react-js-pagination";
 import Player from "./player";
-import { useId } from "react-id-generator";
 import AboutModal from "./aboutModal";
+import tailSpin from "../assets/tail-spin.svg";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,8 +24,6 @@ function App() {
   const [activeCountry, setActiveCountry] = useState("United States");
   const [clickedCardIndex, setClickedCardIndex] = useState(null);
   const [aboutToggle, setAboutToggle] = useState(false);
-  const id_1 = useId();
-  const id_2 = useId();
 
   const loadingAnimationRef = useRef();
   const loadingFailRef = useRef();
@@ -141,7 +139,7 @@ function App() {
             {stations.length <= 0 && (
               <>
                 <img
-                  src="../src/assets/tail-spin.svg"
+                  src={tailSpin}
                   alt="Loading..."
                   ref={loadingAnimationRef}
                 ></img>

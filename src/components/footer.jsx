@@ -1,3 +1,7 @@
+import twitterIcon from "../assets/twitter.svg";
+import tictokIcon from "../assets/tictok.svg";
+import facebookIcon from "../assets/facebook.svg";
+
 function Footer() {
   let year = new Date().getFullYear();
   return (
@@ -8,18 +12,18 @@ function Footer() {
           rel="noreferrer"
           target="_blank"
         >
-          <img src="../src/assets/twitter.svg" alt="twitter" />
+          <img src={twitterIcon} alt="twitter" />
         </a>
         <a
           href="https://www.tiktok.com/@chuckx892?_t=8YbFb8cvrSI&_r=1"
           rel="noreferrer"
           target="_blank"
         >
-          <img src="../src/assets/tictok.svg" alt="tictok" />
+          <img src={tictokIcon} alt="tictok" />
         </a>
 
         <a href="#" rel="noreferrer" target="_blank">
-          <img src="../src/assets/facebook.svg" alt="facebook" />
+          <img src={facebookIcon} alt="facebook" />
         </a>
       </div>
       <div className="footer-text flex flex-col items-center mt-2  lg:mt-4">
