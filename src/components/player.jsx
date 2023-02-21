@@ -3,6 +3,19 @@ import { resetPlayerData } from "../redux/features/playerDataSlice";
 import { resetCardClicked } from "../redux/cardClickSlice";
 import { useDispatch } from "react-redux";
 import { useRef } from "react";
+import { motion } from "framer-motion";
+
+const playerVariant = {
+  hidden: {
+    opacity: 0,
+    y: 100,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1, ease: "linear" },
+  },
+};
 
 function Player({
   url,
@@ -29,9 +42,12 @@ function Player({
   const favicon = icon ? icon : "../src/assets/radio2.jpg";
 
   return (
-    <div
+    <motion.div
       ref={playerRef}
       className="player flex justify-between lg:justify-around items-center p-2 w-full min-h-20 fixed left-0  bottom-0 bg-black/90  z-10"
+      variants={playerVariant}
+      initial="hidden"
+      animate="visible"
     >
       <img
         src={favicon}
@@ -84,13 +100,11 @@ function Player({
           {state && ","} {country}
         </span>
       </div>
-      <span
+      <i
         onClick={handleClosePlayer}
-        className="close-btn text-white font-semibold absolute top-0 right-3 text-lg md:text-2xl cursor-pointer"
-      >
-        &times;
-      </span>
-    </div>
+        className="close-btn fa-solid fa-circle-xmark text-white/60 font-semibold absolute top-0 right-4 text-xl md:text-2xl cursor-pointer"
+      ></i>
+    </motion.div>
   );
 }
 

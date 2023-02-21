@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
 .rhap_container {
   padding: 0;
   width: 40%;

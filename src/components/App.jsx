@@ -209,7 +209,7 @@ function App() {
             icon={playerData.favicon}
             state={playerData.state}
             country={playerData.selectedCountry}
-            stationName={playerData.stationName}
+            stationName={playerData.stationName.slice(0, 36)}
             url={playerData.url}
           />
         )}
