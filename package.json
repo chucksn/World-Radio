@@ -5,12 +5,12 @@
   "type": "module",
   "homepage": "https://chucksn.github.io/World-Radio",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview --port 8080",
-    "host": "vite --host",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "host": "vite --host"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.2",
