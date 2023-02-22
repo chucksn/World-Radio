@@ -31,6 +31,7 @@ function App() {
   useEffect(() => {
     const getStation = async () => {
       const api = new RadioBrowserApi("My Radio App");
+      api.setBaseUrl("https://de1.api.radio-browser.info");
       let station = await api.searchStations({
         languageExact: "english",
         hideBroken: true,
