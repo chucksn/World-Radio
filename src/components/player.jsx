@@ -90,7 +90,7 @@ function Player({
         <span className="station-name block text-slate-200 font-prosto md:font-unbounded text-xs ">
           {stationName}
         </span>
-        <span className="state block text-lime-300 text-xs font-prosto md:font-unbounded mt-1">
+        <span className="state block text-sky-500 text-xs font-prosto md:font-unbounded mt-1">
           {state}
           {state && ","} {country}
         </span>
