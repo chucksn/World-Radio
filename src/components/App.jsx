@@ -164,7 +164,7 @@ function App() {
                       key={station.id}
                       favicon={station.favicon}
                       state={station.state}
-                      stationName={station.name}
+                      stationName={station.name.slice(0, 36)}
                       url={station.urlResolved}
                       clickedCardIndex={clickedCardIndex}
                       playing={playing}
