@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCardClicked } from "../redux/cardClickSlice";
 import { setPlayerData } from "../redux/features/playerDataSlice";
 import radioImg from "../assets/radio2.jpg";
-import tailSpin from "../assets/tail-spin2.svg";
+import tailSpin from "../assets/tail-spin.svg";
 
 function RadioStationCard({
   id,
