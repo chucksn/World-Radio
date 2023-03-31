@@ -9,6 +9,8 @@ import Pagination from "react-js-pagination";
 import Player from "./player";
 import AboutModal from "./aboutModal";
 import tailSpin from "../assets/tail-spin.svg";
+import Hero from "./hero-section";
+import Header from "./header";
 
 function App() {
   const dispatch = useDispatch();
@@ -102,36 +104,9 @@ function App() {
   return (
     <>
       <div className="main-container w-full min-h-screen flex flex-col bg-gradient-to-r from-slate-600 to-gray-900 pb-72 relative">
-        <div className="header flex flex-col items-center p-6 justify-between lg:flex-row bg-slate-400/5 shadow ">
-          <div className="logo-container flex items-center bg-slate-900 p-2 rounded-xl shadow-c-1 mb-6 lg:mb-0">
-            <h1 className="font-medium text-2xl font-unbounded text-cyan-500  md:text-3xl lg:text-4xl">
-              World Radio
-            </h1>
-            <i className="fa-solid fa-radio text-2xl text-amber-600 ml-2 lg:text-3xl"></i>
-          </div>
-          <span
-            className="about font-unbounded text-teal-500 block pb-4 text-sm cursor-pointer"
-            onClick={handleAboutClick}
-          >
-            ABOUT APP{" "}
-            {!aboutToggle && (
-              <i className="fa-solid fa-circle-chevron-down"></i>
-            )}
-            {aboutToggle && <i className="fa-solid fa-circle-chevron-up "></i>}
-          </span>
-          <CountrySelector />
-        </div>
+        <Header aboutToggle={aboutToggle} onAboutClick={handleAboutClick} />
         <div className="body-container w-full flex flex-col my-5 items-center lg:mt-12">
-          <div className="hero-section relative w-11/12 min-h-32 md:min-h-40 lg:min-h-52 mb-4 lg:mb-8 rounded-xl bg-[url('../src/assets/radio-studio.jpg')] bg-no-repeat bg-center bg-cover">
-            <div className="hero-bg-overlay absolute w-full h-full top-0 bg-black/40 rounded-xl p-4 sm:p-6 lg:p-12">
-              <div className="w-1/2 lg:w-1/4">
-                <span className="hero-text1 block font-unbounded text-sm lg:text-lg lg:max-w-56 text-gray-300">
-                  Stream Over 15,000 Radio Stations Worldwide{" "}
-                  <span className="text-red-500 font-semibold">Live...</span>
-                </span>
-              </div>
-            </div>
-          </div>
+          <Hero />
           <span className="country font-ubuntu text-amber-400 md:text-xl">
             <i className="fa-solid fa-location-dot text-red-600 md:text-xl"></i>{" "}
             {country.label}

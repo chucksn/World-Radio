@@ -26,6 +26,7 @@ function RadioStationCard({
 }) {
   const dispatch = useDispatch();
   const playerData = useSelector((state) => state.playerData);
+  const cardClicked = useSelector((state) => state.cardClicked);
 
   const mainControlBtn = document.querySelector(".rhap_play-pause-button");
 
@@ -47,7 +48,8 @@ function RadioStationCard({
       className={`radio-card flex items-center justify-between w-full min-h-24 xs-c:w-60 xs-c:min-h-48 xs-c:flex-col text-center p-3 bg-zinc-900  rounded-lg hover:cursor-pointer lg:hover:shadow-c-3 ${
         clickedCardIndex === index &&
         pageNumber === activePage &&
-        activeCountry === selectedCountry
+        activeCountry === selectedCountry &&
+        cardClicked
           ? "shadow-c-5"
           : "shadow-c-4"
       }`}
