@@ -38,9 +38,9 @@ function AboutModal({ setAboutToggle }) {
         <span className="about-text font-unbounded text-xs">
           World radio is a web radio application that streams live radio
           stations from almost all the countries of the world. Streaming over
-          5000 radio station worldwide. All you have to do is search or select
-          for your desired country. <br />
-          Developed with ReactJs, Redux-Toolkit, Tailwind, Framer-motion
+          15,000 radio station worldwide. All you have to do is search or select
+          any Country of your choice to load all available stations. <br />
+          Developed with React.js, Redux-Toolkit, Tailwind, Framer-motion
         </span>
       </motion.div>
     </div>

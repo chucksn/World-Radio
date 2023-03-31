@@ -126,7 +126,7 @@ function App() {
             <div className="hero-bg-overlay absolute w-full h-full top-0 bg-black/40 rounded-xl p-4 sm:p-6 lg:p-12">
               <div className="w-1/2 lg:w-1/4">
                 <span className="hero-text1 block font-unbounded text-sm lg:text-lg lg:max-w-56 text-gray-300">
-                  Stream Over 10,000 Radio Stations Worldwide{" "}
+                  Stream Over 15,000 Radio Stations Worldwide{" "}
                   <span className="text-red-500 font-semibold">Live...</span>
                 </span>
               </div>
