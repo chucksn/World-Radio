@@ -40,7 +40,8 @@ function AboutModal({ setAboutToggle }) {
           stations from almost all the countries of the world. Streaming over
           15,000 radio station worldwide. All you have to do is search or select
           any Country of your choice to load all available stations. <br />
-          Developed with React.js, Redux-Toolkit, Tailwind, Framer-motion
+          Tech stack: React.js, Redux-Toolkit, Tailwind, Framer-motion, APIs,
+          Vite.
         </span>
       </motion.div>
     </div>

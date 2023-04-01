@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { RadioBrowserApi } from "radio-browser-api";
-import CountrySelector from "./countrySelector";
+import Select from "react-select";
 import { useSelector, useDispatch } from "react-redux";
 import { setStation } from "../redux/features/stationSlice";
 import Footer from "./footer";
@@ -26,6 +26,8 @@ function App() {
   const [activeCountry, setActiveCountry] = useState("United States");
   const [clickedCardIndex, setClickedCardIndex] = useState(null);
   const [aboutToggle, setAboutToggle] = useState(false);
+  const [cardCtnItems, setCardCtnItems] = useState("country");
+  const [favorites, setFavorites] = useState([]);
 
   const loadingAnimationRef = useRef();
   const loadingFailRef = useRef();
@@ -81,6 +83,12 @@ function App() {
     setPauseStatus(false);
   };
 
+  const handleClickFavorite = () => {
+    cardCtnItems === "country"
+      ? setCardCtnItems("favorite")
+      : setCardCtnItems("country");
+  };
+
   useEffect(() => {
     if (stations && stations.length <= 0) {
       setTimeout(() => {
@@ -107,10 +115,26 @@ function App() {
         <Header aboutToggle={aboutToggle} onAboutClick={handleAboutClick} />
         <div className="body-container w-full flex flex-col my-5 items-center lg:mt-12">
           <Hero />
-          <span className="country font-ubuntu text-amber-400 md:text-xl">
-            <i className="fa-solid fa-location-dot text-red-600 md:text-xl"></i>{" "}
-            {country.label}
-          </span>
+          <div className="country-favorite-txt-ctn w-full px-10 lg:px-20  flex items-center  justify-between">
+            {cardCtnItems === "country" && (
+              <span className="country font-unbounded text-amber-400 text-sm md:text-lg">
+                <i className="fa-solid fa-location-dot text-red-500 md:text-xl"></i>{" "}
+                {country.label}
+              </span>
+            )}
+            {cardCtnItems === "favorite" && (
+              <span className="font-unbounded text-amber-400 text-sm md:text-lg">
+                Favorite Stations
+              </span>
+            )}
+            <button
+              onClick={handleClickFavorite}
+              className="favorite-country-toggle text-slate-200 bg-sky-900 p-2 md:p-3 text-xs md:text-sm rounded-lg font-unbounded shadow-md lg:hover:bg-sky-800 lg:hover:cursor-pointer"
+            >
+              {cardCtnItems === "country" && "Show Favorite"}
+              {cardCtnItems === "favorite" && "Back to Country Stations"}
+            </button>
+          </div>
           <div className="card-container bg-black/50 shadow-c-1 flex flex-wrap mt-4 w-11/12 min-h-60 lg:min-h-64 p-3 xs-c:p-8 rounded-lg lg:mt-6  gap-4 xs-c:gap-8 lg:gap-12 justify-center items-center">
             {stations.length <= 0 && (
               <>
@@ -129,6 +153,7 @@ function App() {
             )}
 
             {displayedStations.length > 0 &&
+              cardCtnItems === "country" &&
               displayedStations.map((station, index) => {
                 return (
                   <>
@@ -156,7 +181,7 @@ function App() {
                 );
               })}
           </div>
-          {stations.length > 0 && (
+          {stations.length > 0 && cardCtnItems === "country" && (
             <Pagination
               key="pagination"
               activePage={activePage}

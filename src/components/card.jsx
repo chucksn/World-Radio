@@ -23,6 +23,8 @@ function RadioStationCard({
   setPageNumber,
   activePage,
   selectedCountry,
+  favorites,
+  setFavorites,
 }) {
   const dispatch = useDispatch();
   const playerData = useSelector((state) => state.playerData);
@@ -45,7 +47,7 @@ function RadioStationCard({
 
   return (
     <div
-      className={`radio-card flex items-center justify-between w-full min-h-24 xs-c:w-60 xs-c:min-h-48 xs-c:flex-col text-center p-3 bg-zinc-900  rounded-lg hover:cursor-pointer lg:hover:shadow-c-3 ${
+      className={`radio-card flex items-center justify-between relative w-full min-h-24 xs-c:w-60 xs-c:min-h-48 xs-c:flex-col p-3 bg-zinc-900  rounded-lg hover:cursor-pointer lg:hover:shadow-c-3 ${
         clickedCardIndex === index &&
         pageNumber === activePage &&
         activeCountry === selectedCountry &&
@@ -55,16 +57,20 @@ function RadioStationCard({
       }`}
       onClick={handleCardClick}
     >
+      <i
+        className="fa-solid fa-heart absolute text-white/20 text-xl left-14 bottom-0 xs-c:top-2 xs-c:right-4 "
+        title="Add to favorite"
+      ></i>
       <img
         src={icon}
         alt="favicon"
         className="favicon w-10 h-10 xs-c:w-16 xs-c:h-16 rounded-full xs-c:mb-2 "
       />
-      <div className=" card-info flex flex-col justify-center max-w-48">
+      <div className=" card-info flex flex-col justify-center max-w-48 text-center">
         <span className="station-name block text-slate-200 font-unbounded text-xs">
           {stationName}
         </span>
-        <span className="state block text-lime-300 text-xs font-unbounded mt-1">
+        <span className="state-txt block text-lime-300 text-xs font-unbounded mt-1">
           {state}
         </span>
       </div>
