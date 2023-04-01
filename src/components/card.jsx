@@ -2,6 +2,14 @@ import "react-h5-audio-player/lib/styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setCardClicked } from "../redux/cardClickSlice";
 import { setPlayerData } from "../redux/features/playerDataSlice";
+import {
+  setFavCardClicked,
+  resetFavCardClicked,
+} from "../redux/features/favCardClickSlice";
+import {
+  setCountryCardClicked,
+  resetCountryCardClicked,
+} from "../redux/features/countryCardClickSlice";
 import radioImg from "../assets/radio2.jpg";
 import tailSpin from "../assets/tail-spin.svg";
 
@@ -25,10 +33,16 @@ function RadioStationCard({
   selectedCountry,
   favorites,
   setFavorites,
+  cardCtnItems,
+  setClickedFavCardIndex,
+  clickedFavCardIndex,
+  favoriteIndex,
 }) {
   const dispatch = useDispatch();
   const playerData = useSelector((state) => state.playerData);
   const cardClicked = useSelector((state) => state.cardClicked);
+  const favCardClicked = useSelector((state) => state.favCardClicked);
+  const countryCardClicked = useSelector((state) => state.countryCardClicked);
 
   const mainControlBtn = document.querySelector(".rhap_play-pause-button");
 
@@ -37,10 +51,28 @@ function RadioStationCard({
     dispatch(
       setPlayerData({ url, stationName, state, favicon, id, selectedCountry })
     );
-    setActiveCountry(selectedCountry);
-    setClickedCardIndex(index);
-    setPageNumber(activePage);
+    cardCtnItems === "country" && setActiveCountry(selectedCountry);
+    cardCtnItems === "country" && setClickedCardIndex(index);
+    cardCtnItems === "country" && setPageNumber(activePage);
+    cardCtnItems != "country" && setClickedFavCardIndex(favoriteIndex);
+    cardClicked &&
+      cardCtnItems === "country" &&
+      dispatch(setCountryCardClicked());
+    cardClicked &&
+      cardCtnItems != "country" &&
+      dispatch(resetCountryCardClicked());
+    cardClicked && cardCtnItems != "country" && dispatch(setFavCardClicked());
+    cardClicked &&
+      cardCtnItems === "country" &&
+      dispatch(resetFavCardClicked());
+
     playerData && mainControlBtn && mainControlBtn.click();
+  };
+
+  const addFavorite = (item) => {
+    const newFavorites = [...favorites, item];
+    setFavorites(newFavorites);
+    localStorage.setItem("favorites", JSON.stringify(newFavorites));
   };
 
   const icon = favicon ? favicon : radioImg;
@@ -48,18 +80,23 @@ function RadioStationCard({
   return (
     <div
       className={`radio-card flex items-center justify-between relative w-full min-h-24 xs-c:w-60 xs-c:min-h-48 xs-c:flex-col p-3 bg-zinc-900  rounded-lg hover:cursor-pointer lg:hover:shadow-c-3 ${
-        clickedCardIndex === index &&
-        pageNumber === activePage &&
-        activeCountry === selectedCountry &&
-        cardClicked
+        (clickedCardIndex === index &&
+          pageNumber === activePage &&
+          activeCountry === selectedCountry &&
+          countryCardClicked) ||
+        (clickedFavCardIndex === favoriteIndex &&
+          favCardClicked &&
+          cardCtnItems != "country")
           ? "shadow-c-5"
           : "shadow-c-4"
       }`}
       onClick={handleCardClick}
     >
       <i
-        className="fa-solid fa-heart absolute text-white/20 text-xl left-14 bottom-0 xs-c:top-2 xs-c:right-4 "
-        title="Add to favorite"
+        className="fa-solid fa-heart absolute inline-block text-white/20 text-xl left-14 bottom-0 xs-c:top-2 xs-c:right-4  "
+        onClick={() =>
+          addFavorite({ id, url, stationName, state, favicon, selectedCountry })
+        }
       ></i>
       <img
         src={icon}
@@ -77,20 +114,28 @@ function RadioStationCard({
       <div className="control-display relative w-12 h-12 xs-c:mt-2">
         <i
           className={`fa-solid fa-circle-play text-5xl text-white opacity-40 absolute left-0 ${
-            clickedCardIndex === index &&
-            pageNumber === activePage &&
-            activeCountry === selectedCountry &&
-            playing
+            (clickedCardIndex === index &&
+              pageNumber === activePage &&
+              activeCountry === selectedCountry &&
+              countryCardClicked &&
+              playing) ||
+            (clickedFavCardIndex === favoriteIndex &&
+              favCardClicked &&
+              cardCtnItems != "country")
               ? "hidden"
               : "block"
           }`}
         ></i>
         <i
           className={`fa-solid fa-circle-pause  text-5xl text-white opacity-40 absolute left-0 ${
-            clickedCardIndex === index &&
-            pageNumber === activePage &&
-            activeCountry === selectedCountry &&
-            playing
+            (clickedCardIndex === index &&
+              pageNumber === activePage &&
+              activeCountry === selectedCountry &&
+              countryCardClicked &&
+              playing) ||
+            (clickedFavCardIndex === favoriteIndex &&
+              favCardClicked &&
+              cardCtnItems != "country")
               ? "block"
               : "hidden"
           }`}

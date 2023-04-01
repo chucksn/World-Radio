@@ -25,6 +25,7 @@ function App() {
   const [selectedCountry, setSelectedCountry] = useState("United States");
   const [activeCountry, setActiveCountry] = useState("United States");
   const [clickedCardIndex, setClickedCardIndex] = useState(null);
+  const [clickedFavCardIndex, setClickedFavCardIndex] = useState(null);
   const [aboutToggle, setAboutToggle] = useState(false);
   const [cardCtnItems, setCardCtnItems] = useState("country");
   const [favorites, setFavorites] = useState([]);
@@ -104,6 +105,14 @@ function App() {
     country && setSelectedCountry(country.label);
   }, [country]);
 
+  // Load favorites from local storage on mount
+  useEffect(() => {
+    const storedFavorites = localStorage.getItem("favorites");
+    if (storedFavorites) {
+      setFavorites(JSON.parse(storedFavorites));
+    }
+  }, []);
+
   const cardsPerPage = 20;
   const displayedStations =
     stations &&
@@ -176,6 +185,28 @@ function App() {
                       selectedCountry={selectedCountry}
                       activeCountry={activeCountry}
                       setActiveCountry={setActiveCountry}
+                      favorites={favorites}
+                      setFavorites={setFavorites}
+                      cardCtnItems={cardCtnItems}
+                    />
+                  </>
+                );
+              })}
+            {favorites.length > 0 &&
+              cardCtnItems === "favorite" &&
+              favorites.map((favorite, index) => {
+                return (
+                  <>
+                    <RadioStationCard
+                      key={favorite.id}
+                      favicon={favorite.favicon}
+                      state={favorite.state}
+                      stationName={favorite.stationName}
+                      url={favorite.url}
+                      selectedCountry={favorite.selectedCountry}
+                      favoriteIndex={index}
+                      clickedFavCardIndex={clickedFavCardIndex}
+                      setClickedFavCardIndex={setClickedFavCardIndex}
                     />
                   </>
                 );
