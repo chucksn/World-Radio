@@ -27,7 +27,8 @@ module.exports = {
       boxShadow: {
         "c-1": "0 0 6px rgb(1, 202, 202)", //blue shadow round
         "c-2": "0 0 6px 2px rgb(30, 41, 59)",
-        "c-3": "0 0 1px rgb(173, 255, 47)", //yellow
+        "c-3": "0 0 6px 2px rgb(173, 255, 47)", //yellow
+        "c-7": "0 0 3px rgb(212, 175, 55)", //gold
         "c-4": "0 0 4px rgb(200, 200, 200)", //white shadow round
         "c-5": "0 0 8px 3px rgb(220, 38, 38)",
         "c-6": "0 0 5px 1px rgb(220, 38, 38) inset",
