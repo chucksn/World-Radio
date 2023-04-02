@@ -47,7 +47,7 @@ function Player({
   return (
     <motion.div
       ref={playerRef}
-      className="player flex justify-between lg:justify-around items-center p-2 w-full min-h-20 fixed left-0  bottom-0 bg-black/90  z-10"
+      className="player flex justify-between lg:justify-around items-center p-2 w-full min-h-20 fixed left-0  bottom-0 bg-black/90 shadow-c-3 z-10"
       variants={playerVariant}
       initial="hidden"
       animate="visible"

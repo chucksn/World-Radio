@@ -1,5 +1,6 @@
 import "react-h5-audio-player/lib/styles.css";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { setCardClicked } from "../redux/cardClickSlice";
 import { setPlayerData } from "../redux/features/playerDataSlice";
 import {
@@ -10,6 +11,7 @@ import {
   setCountryCardClicked,
   resetCountryCardClicked,
 } from "../redux/features/countryCardClickSlice";
+import { setFavorites } from "../redux/features/favoritesSlice";
 import radioImg from "../assets/radio2.jpg";
 import tailSpin from "../assets/tail-spin.svg";
 
@@ -31,18 +33,18 @@ function RadioStationCard({
   setPageNumber,
   activePage,
   selectedCountry,
-  favorites,
-  setFavorites,
   cardCtnItems,
   setClickedFavCardIndex,
   clickedFavCardIndex,
   favoriteIndex,
+  favoriteID,
 }) {
   const dispatch = useDispatch();
   const playerData = useSelector((state) => state.playerData);
-  const cardClicked = useSelector((state) => state.cardClicked);
   const favCardClicked = useSelector((state) => state.favCardClicked);
   const countryCardClicked = useSelector((state) => state.countryCardClicked);
+  const favorites = useSelector((state) => state.favorites);
+  const [isIdMatched, setIsIdMatched] = useState(false);
 
   const mainControlBtn = document.querySelector(".rhap_play-pause-button");
 
@@ -51,29 +53,54 @@ function RadioStationCard({
     dispatch(
       setPlayerData({ url, stationName, state, favicon, id, selectedCountry })
     );
-    cardCtnItems === "country" && setActiveCountry(selectedCountry);
-    cardCtnItems === "country" && setClickedCardIndex(index);
-    cardCtnItems === "country" && setPageNumber(activePage);
-    cardCtnItems != "country" && setClickedFavCardIndex(favoriteIndex);
-    cardClicked &&
-      cardCtnItems === "country" &&
-      dispatch(setCountryCardClicked());
-    cardClicked &&
-      cardCtnItems != "country" &&
-      dispatch(resetCountryCardClicked());
-    cardClicked && cardCtnItems != "country" && dispatch(setFavCardClicked());
-    cardClicked &&
-      cardCtnItems === "country" &&
-      dispatch(resetFavCardClicked());
 
+    if (cardCtnItems === "country") {
+      setActiveCountry(selectedCountry);
+      setClickedCardIndex(index);
+      setPageNumber(activePage);
+      dispatch(setCountryCardClicked());
+      dispatch(resetFavCardClicked());
+    } else {
+      setClickedFavCardIndex(favoriteIndex);
+      dispatch(resetCountryCardClicked());
+      dispatch(setFavCardClicked());
+    }
     playerData && mainControlBtn && mainControlBtn.click();
   };
 
-  const addFavorite = (item) => {
-    const newFavorites = [...favorites, item];
-    setFavorites(newFavorites);
-    localStorage.setItem("favorites", JSON.stringify(newFavorites));
+  const add_removeFavorite = (e, item) => {
+    e.stopPropagation();
+    if (!isIdMatched && cardCtnItems === "country") {
+      const newFavorites = [...favorites, item];
+      dispatch(setFavorites(newFavorites));
+      localStorage.setItem(
+        "radio-app-favorites-data",
+        JSON.stringify(newFavorites)
+      );
+    } else if (isIdMatched) {
+      const newFavorites = favorites.filter((favorite) => favorite.id !== id);
+      dispatch(setFavorites(newFavorites));
+      localStorage.setItem(
+        "radio-app-favorites-data",
+        JSON.stringify(newFavorites)
+      );
+      setIsIdMatched(false);
+    } else if (cardCtnItems !== "country") {
+      const newFavorites = favorites.filter(
+        (favorite) => favorite.id !== favoriteID
+      );
+      dispatch(setFavorites(newFavorites));
+      localStorage.setItem(
+        "radio-app-favorites-data",
+        JSON.stringify(newFavorites)
+      );
+    }
   };
+
+  useEffect(() => {
+    favorites &&
+      favorites.find((favorite) => favorite.id === id && setIsIdMatched(true));
+  }, [favorites]);
 
   const icon = favicon ? favicon : radioImg;
 
@@ -92,12 +119,23 @@ function RadioStationCard({
       }`}
       onClick={handleCardClick}
     >
-      <i
-        className="fa-solid fa-heart absolute inline-block text-white/20 text-xl left-14 bottom-0 xs-c:top-2 xs-c:right-4  "
-        onClick={() =>
-          addFavorite({ id, url, stationName, state, favicon, selectedCountry })
+      <div
+        className={`absolute w-8 h-8 flex justify-center items-center text-xl cursor-default left-12 bottom-0 xs-c:top-2 xs-c:right-4 ${
+          isIdMatched || favoriteID ? "text-sky-700" : "text-white/20"
+        }`}
+        onClick={(e) =>
+          add_removeFavorite(e, {
+            id,
+            url,
+            stationName,
+            state,
+            favicon,
+            selectedCountry,
+          })
         }
-      ></i>
+      >
+        <i className="fa-solid fa-heart "></i>
+      </div>
       <img
         src={icon}
         alt="favicon"

@@ -5,6 +5,7 @@ import playerDataReducer from "./features/playerDataSlice";
 import cardClickStatusReducer from "./cardClickSlice";
 import countryCardClickSliceReducer from "./features/countryCardClickSlice";
 import favCardClickSliceReducer from "./features/favCardClickSlice";
+import favoritesSliceReducer from "./features/favoritesSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     cardClicked: cardClickStatusReducer,
     countryCardClicked: countryCardClickSliceReducer,
     favCardClicked: favCardClickSliceReducer,
+    favorites: favoritesSliceReducer,
   },
 
   middleware: (getDefaultMiddleware) =>

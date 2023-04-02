@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 import { RadioBrowserApi } from "radio-browser-api";
-import Select from "react-select";
 import { useSelector, useDispatch } from "react-redux";
 import { setStation } from "../redux/features/stationSlice";
 import Footer from "./footer";
@@ -11,6 +10,7 @@ import AboutModal from "./aboutModal";
 import tailSpin from "../assets/tail-spin.svg";
 import Hero from "./hero-section";
 import Header from "./header";
+import { setFavorites } from "../redux/features/favoritesSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ function App() {
   const [clickedFavCardIndex, setClickedFavCardIndex] = useState(null);
   const [aboutToggle, setAboutToggle] = useState(false);
   const [cardCtnItems, setCardCtnItems] = useState("country");
-  const [favorites, setFavorites] = useState([]);
+  const favorites = useSelector((state) => state.favorites);
 
   const loadingAnimationRef = useRef();
   const loadingFailRef = useRef();
@@ -107,9 +107,9 @@ function App() {
 
   // Load favorites from local storage on mount
   useEffect(() => {
-    const storedFavorites = localStorage.getItem("favorites");
+    const storedFavorites = localStorage.getItem("radio-app-favorites-data");
     if (storedFavorites) {
-      setFavorites(JSON.parse(storedFavorites));
+      dispatch(setFavorites(JSON.parse(storedFavorites)));
     }
   }, []);
 
@@ -185,14 +185,13 @@ function App() {
                       selectedCountry={selectedCountry}
                       activeCountry={activeCountry}
                       setActiveCountry={setActiveCountry}
-                      favorites={favorites}
-                      setFavorites={setFavorites}
                       cardCtnItems={cardCtnItems}
                     />
                   </>
                 );
               })}
-            {favorites.length > 0 &&
+            {favorites &&
+              favorites.length > 0 &&
               cardCtnItems === "favorite" &&
               favorites.map((favorite, index) => {
                 return (
@@ -207,6 +206,7 @@ function App() {
                       favoriteIndex={index}
                       clickedFavCardIndex={clickedFavCardIndex}
                       setClickedFavCardIndex={setClickedFavCardIndex}
+                      favoriteID={favorite.id}
                     />
                   </>
                 );
