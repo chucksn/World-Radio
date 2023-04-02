@@ -211,6 +211,14 @@ function App() {
                   </>
                 );
               })}
+            {favorites &&
+              favorites.length === 0 &&
+              cardCtnItems === "favorite" && (
+                <span className="block text-slate-400 text-center md:text-lg">
+                  Click on the grey heart icon on the station card to add or
+                  remove station to favorite.
+                </span>
+              )}
           </div>
           {stations.length > 0 && cardCtnItems === "country" && (
             <Pagination

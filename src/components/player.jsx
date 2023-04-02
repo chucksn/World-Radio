@@ -1,6 +1,7 @@
 import AudioPlayer from "react-h5-audio-player";
 import { resetPlayerData } from "../redux/features/playerDataSlice";
-import { resetCardClicked } from "../redux/cardClickSlice";
+import { resetFavCardClicked } from "../redux/features/favCardClickSlice";
+import { resetCountryCardClicked } from "../redux/features/countryCardClickSlice";
 import { useDispatch } from "react-redux";
 import { useRef } from "react";
 import { motion } from "framer-motion";
@@ -38,7 +39,9 @@ function Player({
 
   const handleClosePlayer = () => {
     dispatch(resetPlayerData());
-    dispatch(resetCardClicked());
+    dispatch(resetCountryCardClicked());
+    dispatch(resetFavCardClicked());
+
     playerRef.current.style.display = "none";
   };
 

@@ -121,7 +121,7 @@ function RadioStationCard({
     >
       <div
         className={`absolute w-8 h-8 flex justify-center items-center text-xl cursor-default left-12 bottom-0 xs-c:top-2 xs-c:right-4 ${
-          isIdMatched || favoriteID ? "text-sky-700" : "text-white/20"
+          isIdMatched || favoriteID ? "text-sky-700/80" : "text-white/20"
         }`}
         onClick={(e) =>
           add_removeFavorite(e, {
