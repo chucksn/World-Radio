@@ -159,6 +159,7 @@ function RadioStationCard({
               playing) ||
             (clickedFavCardIndex === favoriteIndex &&
               favCardClicked &&
+              playing &&
               cardCtnItems != "country")
               ? "hidden"
               : "block"
@@ -173,16 +174,22 @@ function RadioStationCard({
               playing) ||
             (clickedFavCardIndex === favoriteIndex &&
               favCardClicked &&
+              playing &&
               cardCtnItems != "country")
               ? "block"
               : "hidden"
           }`}
         ></i>
-        {clickedCardIndex === index &&
+        {(clickedCardIndex === index &&
           pageNumber === activePage &&
           activeCountry === selectedCountry &&
           !playing &&
-          waiting && <img src={tailSpin} alt="spin" />}
+          waiting) ||
+          (clickedFavCardIndex === favoriteIndex &&
+            favCardClicked &&
+            !playing &&
+            waiting &&
+            cardCtnItems != "country" && <img src={tailSpin} alt="spin" />)}
       </div>
     </div>
   );

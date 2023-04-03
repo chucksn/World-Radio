@@ -205,6 +205,9 @@ function App() {
                       clickedFavCardIndex={clickedFavCardIndex}
                       setClickedFavCardIndex={setClickedFavCardIndex}
                       favoriteID={favorite.id}
+                      playing={playing}
+                      waiting={waiting}
+                      paused={paused}
                     />
                   </>
                 );
