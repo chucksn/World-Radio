@@ -30,7 +30,6 @@ function App() {
   const [cardCtnItems, setCardCtnItems] = useState("country");
   const favorites = useSelector((state) => state.favorites);
 
-  const loadingAnimationRef = useRef();
   const loadingFailRef = useRef();
 
   useEffect(() => {
@@ -93,13 +92,12 @@ function App() {
   useEffect(() => {
     if (stations && stations.length <= 0) {
       setTimeout(() => {
-        if (loadingAnimationRef.current && loadingFailRef.current) {
-          loadingAnimationRef.current.style.display = "none";
+        if (loadingFailRef.current) {
           loadingFailRef.current.style.display = "block";
         }
       }, 10000);
     }
-  }, [country]);
+  }, [country, cardCtnItems]);
 
   useEffect(() => {
     country && setSelectedCountry(country.label);
@@ -145,12 +143,12 @@ function App() {
             </button>
           </div>
           <div className="card-container bg-black/50 shadow-c-1 flex flex-wrap mt-4 w-11/12 min-h-60 lg:min-h-64 p-3 xs-c:p-8 rounded-lg lg:mt-6  gap-4 xs-c:gap-8 lg:gap-12 justify-center items-center">
-            {stations.length <= 0 && (
-              <>
+            {cardCtnItems === "country" && stations.length === 0 && (
+              <div className="flex flex-col justify-center items-center">
                 <img
                   src={tailSpin}
                   alt="Loading..."
-                  ref={loadingAnimationRef}
+                  className="mb-8 md:mb-16"
                 ></img>
                 <span
                   className="loading-fail-text hidden text-yellow-500 text-sm xs-c:text-base lg:text-lg text-center"
@@ -158,7 +156,7 @@ function App() {
                 >
                   No available Station in selected Country at the moment
                 </span>
-              </>
+              </div>
             )}
 
             {displayedStations.length > 0 &&
