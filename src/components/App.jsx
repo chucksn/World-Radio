@@ -216,8 +216,8 @@ function App() {
               favorites.length === 0 &&
               cardCtnItems === "favorite" && (
                 <span className="block text-slate-400 text-center md:text-lg">
-                  Click on the grey heart icon on the station card to add or
-                  remove station to favorite.
+                  Click on the grey heart icon on the station card to add/remove
+                  station to/from favorite.
                 </span>
               )}
           </div>
