@@ -28,6 +28,7 @@ stations from almost all the countries of the world. Streaming over
 ![fav-feature](https://user-images.githubusercontent.com/104119055/232251929-5f1b5088-4ebd-4793-bbf4-03bd5af2e4db.jpg)
 
 4. **Responsiveness on other device sizes**
+
 ![radio-mobile](https://user-images.githubusercontent.com/104119055/232251934-eb6025ac-b1c5-4146-9c29-4e4bfd19e996.jpg)
 
 - This app uses CRUD operations with the aid of browser local storage to implement the favorite feature.
