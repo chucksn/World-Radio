@@ -36,8 +36,6 @@ stations from almost all the countries of the world. Streaming over
 
 ## Tech Stack
 
----
-
 - JavaScript
 - React.js
 - Redux-Toolkit
