@@ -43,7 +43,8 @@ function App() {
         countryCode: country.value,
       });
 
-      // The logic below prevents non-serializable value error
+      // The logic below prevents non-serializable value redux error
+      // converts date values to string.
       station = station.map((s) => ({
         ...s,
         lastChangeTime: s.lastChangeTime.toString(),
