@@ -17,7 +17,7 @@ function Header({ onAboutClick, aboutToggle }) {
         <img
           src={logoSvg}
           alt="logo"
-          className="w-32 md:w-40 lg:w-48 bg-slate-300 rounded-xl p-[1px] shadow-c-cyan"
+          className="w-32 h-[19.38px] md:w-40 md:h-[23.78px] lg:w-48 lg:h-[28.2px] bg-slate-300 rounded-xl p-[1px] shadow-c-cyan"
         />
 
         {/* <span

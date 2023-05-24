@@ -2,17 +2,15 @@ import { useEffect, useState, useRef } from "react";
 import { RadioBrowserApi } from "radio-browser-api";
 import { useSelector, useDispatch } from "react-redux";
 import { setStation } from "../redux/features/stationSlice";
-import Footer from "./footer";
-import RadioStationCard from "./card";
+import RadioStationCard from "../components/card";
 import Pagination from "react-js-pagination";
-import Player from "./player";
-import AboutModal from "./aboutModal";
+import Player from "../components/player";
+import AboutModal from "../components/aboutModal";
 import tailSpin from "../assets/tail-spin.svg";
-import Hero from "./hero-section";
-import Header from "./header";
+import Hero from "../components/hero-section";
 import { setFavorites } from "../redux/features/favoritesSlice";
 
-function App() {
+function Home() {
   const dispatch = useDispatch();
   const country = useSelector((state) => state.country);
   const stations = useSelector((state) => state.station);
@@ -34,7 +32,7 @@ function App() {
 
   useEffect(() => {
     const getStation = async () => {
-      const api = new RadioBrowserApi("My Radio App");
+      const api = new RadioBrowserApi("My Radio Home");
       api.setBaseUrl("https://de1.api.radio-browser.info");
       let station = await api.searchStations({
         languageExact: "english",
@@ -119,8 +117,7 @@ function App() {
 
   return (
     <>
-      <div className="main-container w-full min-h-screen flex flex-col bg-gradient-to-r from-slate-600 to-gray-900 pt-11 pb-72 relative">
-        <Header aboutToggle={aboutToggle} onAboutClick={handleAboutClick} />
+      <div className="home w-full min-h-screen flex flex-col relative">
         <div className="body-container w-full flex flex-col my-5 items-center lg:mt-12">
           <Hero />
           <div className="country-favorite-txt-ctn w-full px-10 lg:px-20  flex items-center  justify-between">
@@ -236,7 +233,6 @@ function App() {
             />
           )}
         </div>
-        <Footer />
         {playerData && (
           <Player
             key="player"
@@ -259,4 +255,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
