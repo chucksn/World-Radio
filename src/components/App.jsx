@@ -119,7 +119,7 @@ function App() {
 
   return (
     <>
-      <div className="main-container w-full min-h-screen flex flex-col bg-gradient-to-r from-slate-600 to-gray-900 pb-72 relative">
+      <div className="main-container w-full min-h-screen flex flex-col bg-gradient-to-r from-slate-600 to-gray-900 pt-11 pb-72 relative">
         <Header aboutToggle={aboutToggle} onAboutClick={handleAboutClick} />
         <div className="body-container w-full flex flex-col my-5 items-center lg:mt-12">
           <Hero />

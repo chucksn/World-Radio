@@ -21,7 +21,7 @@ function CountrySelector() {
 
   return (
     <Select
-      className=" w-full lg:w-1/5  sm:w-1/2 "
+      className=" w-full "
       options={options}
       value={countryValue}
       onChange={changeHandler}

@@ -6,6 +6,7 @@ import cardClickStatusReducer from "./cardClickSlice";
 import countryCardClickSliceReducer from "./features/countryCardClickSlice";
 import favCardClickSliceReducer from "./features/favCardClickSlice";
 import favoritesSliceReducer from "./features/favoritesSlice";
+import loggedSliceReducer from "./features/loggedSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     countryCardClicked: countryCardClickSliceReducer,
     favCardClicked: favCardClickSliceReducer,
     favorites: favoritesSliceReducer,
+    isLogged: loggedSliceReducer,
   },
 
   middleware: (getDefaultMiddleware) =>

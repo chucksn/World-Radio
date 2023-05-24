@@ -1,23 +1,54 @@
 import CountrySelector from "./countrySelector";
+import logoSvg from "../assets/world-radio-logo2.svg";
+import UserSignIn from "./userSignIn";
+import { BsSearch } from "react-icons/bs";
+import { MdOutlineSearchOff } from "react-icons/md";
+import { useState } from "react";
 
 function Header({ onAboutClick, aboutToggle }) {
+  const [showSmScreenSearch, setShowSmScreenSearch] = useState(false);
+
+  const handleSmScreenSearchClick = () => {
+    setShowSmScreenSearch(!showSmScreenSearch);
+  };
   return (
-    <div className="header flex flex-col items-center p-6 justify-between lg:flex-row bg-slate-400/5 shadow ">
-      <div className="logo-container flex items-center bg-slate-900 p-2 rounded-xl shadow-c-1 mb-6 lg:mb-0">
-        <h1 className="font-medium text-2xl font-unbounded text-cyan-500  md:text-3xl lg:text-4xl">
-          World Radio
-        </h1>
-        <i className="fa-solid fa-radio text-2xl text-amber-600 ml-2 lg:text-3xl"></i>
-      </div>
-      <span
+    <div className="header-main fixed top-0 left-0 w-full z-50 flex flex-col px-3 py-[14px] sm:px-8 sm:py-4 bg-gradient-to-r from-slate-600 to-gray-900 shadow">
+      <div className="header-upper flex items-center justify-between   ">
+        <img
+          src={logoSvg}
+          alt="logo"
+          className="w-32 md:w-40 lg:w-48 bg-slate-300 rounded-xl p-[1px] shadow-c-cyan"
+        />
+
+        {/* <span
         className="about font-unbounded text-teal-500 block pb-4 text-sm cursor-pointer"
         onClick={onAboutClick}
       >
         ABOUT APP{" "}
         {!aboutToggle && <i className="fa-solid fa-circle-chevron-down"></i>}
         {aboutToggle && <i className="fa-solid fa-circle-chevron-up "></i>}
-      </span>
-      <CountrySelector />
+      </span> */}
+        <div className="hidden sm:block sm:w-[40%] ">
+          <CountrySelector />
+        </div>
+        <div
+          className="sm-screen-search sm:hidden hover:cursor-pointer mx-2"
+          onClick={handleSmScreenSearchClick}
+        >
+          {!showSmScreenSearch && (
+            <BsSearch className="text-slate-200 text-xl block " />
+          )}
+          {showSmScreenSearch && (
+            <MdOutlineSearchOff className="text-slate-200 text-3xl block " />
+          )}
+        </div>
+        <UserSignIn />
+      </div>
+      {showSmScreenSearch && (
+        <div className="sm:hidden w-full mt-2">
+          <CountrySelector />
+        </div>
+      )}
     </div>
   );
 }

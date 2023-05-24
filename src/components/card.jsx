@@ -106,7 +106,7 @@ function RadioStationCard({
 
   return (
     <div
-      className={`radio-card flex items-center justify-between relative w-full min-h-24 xs-c:w-60 xs-c:min-h-48 xs-c:flex-col p-3 bg-zinc-900  rounded-lg hover:cursor-pointer lg:hover:shadow-c-3 ${
+      className={`radio-card flex items-center justify-between relative w-full min-h-24 xs-c:w-60 xs-c:min-h-48 xs-c:flex-col p-3 bg-zinc-900  rounded-lg hover:cursor-pointer lg:hover:shadow-c-blue ${
         (clickedCardIndex === index &&
           pageNumber === activePage &&
           activeCountry === selectedCountry &&
@@ -114,7 +114,7 @@ function RadioStationCard({
         (clickedFavCardIndex === favoriteIndex &&
           favCardClicked &&
           cardCtnItems != "country")
-          ? "shadow-c-5"
+          ? "shadow-c-3"
           : "shadow-c-4"
       }`}
       onClick={handleCardClick}
