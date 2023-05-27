@@ -1,70 +1,74 @@
 import { useEffect, useState, useRef } from "react";
-import { RadioBrowserApi } from "radio-browser-api";
 import { useSelector, useDispatch } from "react-redux";
-import { setStation } from "../redux/features/stationSlice";
 import RadioStationCard from "../components/card";
 import Pagination from "react-js-pagination";
 import Player from "../components/player";
-import AboutModal from "../components/aboutModal";
-import tailSpin from "../assets/tail-spin.svg";
+import loadingSvg from "../assets/tail-spin.svg";
 import Hero from "../components/hero-section";
 import { setFavorites } from "../redux/features/favoritesSlice";
+import LoadingAnimation from "../components/loadingAnimation";
 
 function Home() {
+  const baseURL = import.meta.env.VITE_BASE_URL;
+
   const dispatch = useDispatch();
   const country = useSelector((state) => state.country);
-  const stations = useSelector((state) => state.station);
+  const [stations, setStations] = useState(null);
   const playerData = useSelector((state) => state.playerData);
   const [activePage, setActivePage] = useState(1);
   const [playing, setPlayStatus] = useState(false);
   const [paused, setPauseStatus] = useState(true);
   const [waiting, setWaitStatus] = useState(false);
-  const [pageNumber, setPageNumber] = useState(null);
-  const [selectedCountry, setSelectedCountry] = useState("United States");
-  const [activeCountry, setActiveCountry] = useState("United States");
-  const [clickedCardIndex, setClickedCardIndex] = useState(null);
-  const [clickedFavCardIndex, setClickedFavCardIndex] = useState(null);
-  const [aboutToggle, setAboutToggle] = useState(false);
-  const [cardCtnItems, setCardCtnItems] = useState("country");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [category, setCategory] = useState("country");
   const favorites = useSelector((state) => state.favorites);
+  const stationsPerPage = 20;
+  const [totalStation, setTotalStation] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
 
   const loadingFailRef = useRef();
 
   useEffect(() => {
+    setStations(null);
+    setActivePage(1);
+    setCurrentPage(1);
+    setLoading(true);
     const getStation = async () => {
-      const api = new RadioBrowserApi("My Radio Home");
-      api.setBaseUrl("https://de1.api.radio-browser.info");
-      let station = await api.searchStations({
-        languageExact: "english",
-        hideBroken: true,
-        removeDuplicates: true,
-        countryCode: country.value,
-      });
-
-      // The logic below prevents non-serializable value redux error
-      // converts date values to string.
-      station = station.map((s) => ({
-        ...s,
-        lastChangeTime: s.lastChangeTime.toString(),
-        lastCheckOkTime: s.lastCheckOkTime.toString(),
-        lastCheckTime: s.lastCheckTime.toString(),
-        lastLocalCheckTime: s.lastLocalCheckTime.toString(),
-        clickTimestamp: s.clickTimestamp.toString(),
-      }));
-      dispatch(setStation(station));
-      setActivePage(1);
+      const response = await fetch(
+        `${baseURL}/api/v1/stations?countryCode=${country.value}&limit=${stationsPerPage}&page=${currentPage}`
+      );
+      const data = await response.json();
+      setStations(data.stations);
+      setTotalStation(data.totalStation);
+      setLoading(false);
     };
     country && getStation();
   }, [country]);
 
-  const handleAboutClick = () => {
-    setAboutToggle(!aboutToggle);
-  };
+  useEffect(() => {
+    setHasMounted(true);
+    setLoading(true);
+    const getStation = async () => {
+      const response = await fetch(
+        `${baseURL}/api/v1/stations?countryCode=${country.value}&limit=${stationsPerPage}&page=${currentPage}`
+      );
+      const data = await response.json();
+      setStations(data.stations);
+      setTotalStation(data.totalStation);
+      setLoading(false);
+    };
+    hasMounted && getStation();
+  }, [currentPage]);
 
   const handlePageChange = (pageNumber) => {
     setActivePage(pageNumber);
     window.scrollTo(0, 0, "smooth");
   };
+
+  useEffect(() => {
+    setCurrentPage(activePage);
+  }, [activePage]);
 
   const handlePlay = () => {
     setPlayStatus(true);
@@ -82,114 +86,82 @@ function Home() {
     setPauseStatus(false);
   };
 
-  const handleClickFavorite = () => {
-    cardCtnItems === "country"
-      ? setCardCtnItems("favorite")
-      : setCardCtnItems("country");
+  const handleFavoriteBtnClick = () => {
+    category === "country" ? setCategory("favorite") : setCategory("country");
   };
 
   useEffect(() => {
-    if (stations && stations.length <= 0) {
+    if (hasMounted) {
       setTimeout(() => {
         if (loadingFailRef.current) {
           loadingFailRef.current.style.display = "block";
         }
       }, 10000);
     }
-  }, [country, cardCtnItems]);
-
-  useEffect(() => {
-    country && setSelectedCountry(country.label);
-  }, [country]);
-
-  // Load favorites from local storage on mount
-  useEffect(() => {
-    const storedFavorites = localStorage.getItem("radio-app-favorites-data");
-    if (storedFavorites) {
-      dispatch(setFavorites(JSON.parse(storedFavorites)));
-    }
-  }, []);
-
-  const cardsPerPage = 20;
-  const displayedStations =
-    stations &&
-    stations.slice((activePage - 1) * cardsPerPage, activePage * cardsPerPage);
+  }, [country, category]);
 
   return (
     <>
       <div className="home w-full min-h-screen flex flex-col relative">
-        <div className="body-container w-full flex flex-col my-5 items-center lg:mt-12">
+        <div className="body-container w-full flex flex-col my-6 items-center lg:mt-14">
           <Hero />
           <div className="country-favorite-txt-ctn w-full px-10 lg:px-20  flex items-center  justify-between">
-            {cardCtnItems === "country" && (
-              <span className="country font-unbounded text-amber-400 text-sm md:text-lg">
-                <i className="fa-solid fa-location-dot text-red-500 md:text-xl"></i>{" "}
-                {country.label}
+            {category === "country" && (
+              <span className="country font-unbounded text-amber-300 text-sm md:text-base">
+                <i className="fa-solid fa-location-dot text-red-600 md:text-xl"></i>{" "}
+                <span className="bg-neutral-800/80 py-1 px-2 rounded-md">
+                  {country.label}
+                </span>
               </span>
             )}
-            {cardCtnItems === "favorite" && (
+            {category === "favorite" && (
               <span className="font-unbounded text-amber-400 text-sm md:text-lg">
                 Favorite Stations
               </span>
             )}
             <button
-              onClick={handleClickFavorite}
+              onClick={handleFavoriteBtnClick}
               className="favorite-country-toggle text-slate-200 bg-sky-900 p-2 md:p-3 text-xs md:text-sm rounded-lg font-unbounded shadow-md lg:hover:bg-sky-800 lg:hover:cursor-pointer"
             >
-              {cardCtnItems === "country" && "Show Favorite"}
-              {cardCtnItems === "favorite" && "Back to Country Stations"}
+              {category === "country" && "View Favorite"}
+              {category === "favorite" && "Back to Country Stations"}
             </button>
           </div>
-          <div className="card-container bg-black/50 shadow-c-1 flex flex-wrap mt-4 w-11/12 min-h-60 lg:min-h-64 p-3 xs-c:p-8 rounded-lg lg:mt-6  gap-4 xs-c:gap-8 lg:gap-12 justify-center items-center">
-            {cardCtnItems === "country" && stations.length === 0 && (
-              <div className="flex flex-col justify-center items-center">
-                <img
-                  src={tailSpin}
-                  alt="Loading..."
-                  className="mb-8 md:mb-16"
-                ></img>
-                <span
-                  className="loading-fail-text hidden text-yellow-500 text-sm xs-c:text-base lg:text-lg text-center"
-                  ref={loadingFailRef}
-                >
-                  No available Station in selected Country at the moment
-                </span>
-              </div>
-            )}
-
-            {displayedStations.length > 0 &&
-              cardCtnItems === "country" &&
-              displayedStations.map((station, index) => {
+          <div className="card-container relative bg-black/50 shadow-c-1 flex flex-wrap mt-4 w-11/12 min-h-60 lg:min-h-64 p-3 xs-c:p-8 rounded-lg lg:mt-6  gap-4 xs-c:gap-8 lg:gap-12 justify-center items-center">
+            {stations &&
+              category === "country" &&
+              stations.map((station) => {
                 return (
                   <>
                     <RadioStationCard
                       id={station.id}
-                      index={index}
-                      setClickedCardIndex={setClickedCardIndex}
                       key={station.id}
                       favicon={station.favicon}
                       state={station.state}
                       stationName={station.name.slice(0, 36)}
                       url={station.urlResolved}
-                      clickedCardIndex={clickedCardIndex}
                       playing={playing}
                       paused={paused}
                       waiting={waiting}
-                      activePage={activePage}
-                      pageNumber={pageNumber}
-                      setPageNumber={setPageNumber}
-                      selectedCountry={selectedCountry}
-                      activeCountry={activeCountry}
-                      setActiveCountry={setActiveCountry}
-                      cardCtnItems={cardCtnItems}
+                      category={category}
                     />
                   </>
                 );
               })}
+
+            {(loading || (stations && stations.length === 0)) &&
+              category === "country" && (
+                <LoadingAnimation
+                  loadingFailRef={loadingFailRef}
+                  loadingSvg={loadingSvg}
+                  stations={stations}
+                />
+              )}
+
             {favorites &&
               favorites.length > 0 &&
-              cardCtnItems === "favorite" &&
-              favorites.map((favorite, index) => {
+              category === "favorite" &&
+              favorites.map((favorite) => {
                 return (
                   <>
                     <RadioStationCard
@@ -199,9 +171,6 @@ function Home() {
                       stationName={favorite.stationName}
                       url={favorite.url}
                       selectedCountry={favorite.selectedCountry}
-                      favoriteIndex={index}
-                      clickedFavCardIndex={clickedFavCardIndex}
-                      setClickedFavCardIndex={setClickedFavCardIndex}
                       favoriteID={favorite.id}
                       playing={playing}
                       waiting={waiting}
@@ -210,22 +179,21 @@ function Home() {
                   </>
                 );
               })}
-            {favorites &&
-              favorites.length === 0 &&
-              cardCtnItems === "favorite" && (
-                <span className="block text-slate-400 text-center md:text-lg">
-                  Click on the grey heart icon on the station card to add/remove
-                  station to/from favorite.
-                </span>
-              )}
+
+            {favorites && favorites.length === 0 && category === "favorite" && (
+              <span className="block text-slate-400 text-center md:text-lg">
+                Click on the grey heart icon on the station card to add/remove
+                station to/from favorite.
+              </span>
+            )}
           </div>
-          {stations.length > 0 && cardCtnItems === "country" && (
+          {stations && stations.length > 0 && category === "country" && (
             <Pagination
               key="pagination"
               activePage={activePage}
               onChange={handlePageChange}
-              totalItemsCount={stations.length}
-              itemsCountPerPage={cardsPerPage}
+              totalItemsCount={totalStation}
+              itemsCountPerPage={stationsPerPage}
               pageRangeDisplayed={5}
               prevPageText={"< Prev"}
               nextPageText={"Next >"}
@@ -250,7 +218,6 @@ function Home() {
           />
         )}
       </div>
-      {aboutToggle && <AboutModal setAboutToggle={setAboutToggle} />}
     </>
   );
 }

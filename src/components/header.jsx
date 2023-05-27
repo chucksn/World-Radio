@@ -5,14 +5,14 @@ import { BsSearch } from "react-icons/bs";
 import { MdOutlineSearchOff } from "react-icons/md";
 import { useState } from "react";
 
-function Header({ onAboutClick, aboutToggle }) {
+function Header() {
   const [showSmScreenSearch, setShowSmScreenSearch] = useState(false);
 
   const handleSmScreenSearchClick = () => {
     setShowSmScreenSearch(!showSmScreenSearch);
   };
   return (
-    <div className="header-main fixed top-0 left-0 w-full z-50 flex flex-col px-3 py-[14px] sm:px-8 sm:py-4 bg-gradient-to-r from-slate-600 to-gray-900 shadow">
+    <div className="header-main fixed top-0 left-0 w-full z-50 flex flex-col px-3 pt-5 pb-3 sm:px-8 sm:pb-4 sm:pt-7 bg-gradient-to-r from-slate-600 to-gray-900 shadow">
       <div className="header-upper flex items-center justify-between   ">
         <img
           src={logoSvg}
@@ -20,14 +20,6 @@ function Header({ onAboutClick, aboutToggle }) {
           className="w-32 h-[19.38px] md:w-40 md:h-[23.78px] lg:w-48 lg:h-[28.2px] bg-slate-300 rounded-xl p-[1px] shadow-c-cyan"
         />
 
-        {/* <span
-        className="about font-unbounded text-teal-500 block pb-4 text-sm cursor-pointer"
-        onClick={onAboutClick}
-      >
-        ABOUT APP{" "}
-        {!aboutToggle && <i className="fa-solid fa-circle-chevron-down"></i>}
-        {aboutToggle && <i className="fa-solid fa-circle-chevron-up "></i>}
-      </span> */}
         <div className="hidden sm:block sm:w-[40%] ">
           <CountrySelector />
         </div>

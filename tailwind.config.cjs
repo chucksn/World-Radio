@@ -26,6 +26,7 @@ module.exports = {
 
       boxShadow: {
         "c-1": "0 0 6px rgb(1, 202, 202)", //blue shadow round
+        "c-teal-low": "0 0 3px rgb(1, 202, 202)",
         "c-cyan": "0 0 2px 1px rgb(1, 202, 202)",
         "c-amber": "0 0 3px 1px rgb(217, 119, 6)",
         "c-2": "0 0 6px 2px rgb(30, 41, 59)",

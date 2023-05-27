@@ -20,23 +20,11 @@ function RadioStationCard({
   url,
   stationName,
   state,
-  activeCountry,
-  setActiveCountry,
   favicon,
-  index,
-  setClickedCardIndex,
-  clickedCardIndex,
   playing,
   paused,
   waiting,
-  pageNumber,
-  setPageNumber,
-  activePage,
-  selectedCountry,
-  cardCtnItems,
-  setClickedFavCardIndex,
-  clickedFavCardIndex,
-  favoriteIndex,
+  category,
   favoriteID,
 }) {
   const dispatch = useDispatch();
@@ -54,85 +42,36 @@ function RadioStationCard({
       setPlayerData({ url, stationName, state, favicon, id, selectedCountry })
     );
 
-    if (cardCtnItems === "country") {
-      setActiveCountry(selectedCountry);
-      setClickedCardIndex(index);
-      setPageNumber(activePage);
+    if (category === "country") {
       dispatch(setCountryCardClicked());
       dispatch(resetFavCardClicked());
     } else {
-      setClickedFavCardIndex(favoriteIndex);
       dispatch(resetCountryCardClicked());
       dispatch(setFavCardClicked());
     }
     playerData && mainControlBtn && mainControlBtn.click();
   };
 
-  const add_removeFavorite = (e, item) => {
-    e.stopPropagation();
-    if (!isIdMatched && cardCtnItems === "country") {
-      const newFavorites = [...favorites, item];
-      dispatch(setFavorites(newFavorites));
-      localStorage.setItem(
-        "radio-app-favorites-data",
-        JSON.stringify(newFavorites)
-      );
-    } else if (isIdMatched) {
-      const newFavorites = favorites.filter((favorite) => favorite.id !== id);
-      dispatch(setFavorites(newFavorites));
-      localStorage.setItem(
-        "radio-app-favorites-data",
-        JSON.stringify(newFavorites)
-      );
-      setIsIdMatched(false);
-    } else if (cardCtnItems !== "country") {
-      const newFavorites = favorites.filter(
-        (favorite) => favorite.id !== favoriteID
-      );
-      dispatch(setFavorites(newFavorites));
-      localStorage.setItem(
-        "radio-app-favorites-data",
-        JSON.stringify(newFavorites)
-      );
-    }
+  const add_removeFavorite = (event, item) => {
+    event.stopPropagation();
   };
-
-  useEffect(() => {
-    favorites &&
-      favorites.find((favorite) => favorite.id === id && setIsIdMatched(true));
-  }, [favorites]);
 
   const icon = favicon ? favicon : radioImg;
 
   return (
     <div
       className={`radio-card flex items-center justify-between relative w-full min-h-24 xs-c:w-60 xs-c:min-h-48 xs-c:flex-col p-3 bg-zinc-900  rounded-lg hover:cursor-pointer lg:hover:shadow-c-blue ${
-        (clickedCardIndex === index &&
-          pageNumber === activePage &&
-          activeCountry === selectedCountry &&
-          countryCardClicked) ||
-        (clickedFavCardIndex === favoriteIndex &&
-          favCardClicked &&
-          cardCtnItems != "country")
+        countryCardClicked || (favCardClicked && category != "country")
           ? "shadow-c-3"
           : "shadow-c-4"
       }`}
       onClick={handleCardClick}
     >
       <div
-        className={`absolute w-8 h-8 flex justify-center items-center text-xl cursor-default left-12 bottom-0 xs-c:top-2 xs-c:right-4 ${
+        className={`favorite absolute w-8 h-8 flex justify-center items-center text-xl cursor-default left-12 bottom-0 xs-c:top-2 xs-c:right-4 ${
           isIdMatched || favoriteID ? "text-sky-700/80" : "text-white/20"
         }`}
-        onClick={(e) =>
-          add_removeFavorite(e, {
-            id,
-            url,
-            stationName,
-            state,
-            favicon,
-            selectedCountry,
-          })
-        }
+        onClick={(event) => add_removeFavorite(event)}
       >
         <i className="fa-solid fa-heart "></i>
       </div>
@@ -152,44 +91,24 @@ function RadioStationCard({
       <div className="control-display relative w-12 h-12 xs-c:mt-2">
         <i
           className={`fa-solid fa-circle-play text-5xl text-white opacity-40 absolute left-0 ${
-            (clickedCardIndex === index &&
-              pageNumber === activePage &&
-              activeCountry === selectedCountry &&
-              countryCardClicked &&
-              playing) ||
-            (clickedFavCardIndex === favoriteIndex &&
-              favCardClicked &&
-              playing &&
-              cardCtnItems != "country")
+            (countryCardClicked && playing) ||
+            (favCardClicked && playing && category != "country")
               ? "hidden"
               : "block"
           }`}
         ></i>
         <i
           className={`fa-solid fa-circle-pause  text-5xl text-white opacity-40 absolute left-0 ${
-            (clickedCardIndex === index &&
-              pageNumber === activePage &&
-              activeCountry === selectedCountry &&
-              countryCardClicked &&
-              playing) ||
-            (clickedFavCardIndex === favoriteIndex &&
-              favCardClicked &&
-              playing &&
-              cardCtnItems != "country")
+            (countryCardClicked && playing) ||
+            (favCardClicked && playing && category != "country")
               ? "block"
               : "hidden"
           }`}
         ></i>
-        {(clickedCardIndex === index &&
-          pageNumber === activePage &&
-          activeCountry === selectedCountry &&
-          !playing &&
-          waiting) ||
-          (clickedFavCardIndex === favoriteIndex &&
-            favCardClicked &&
-            !playing &&
-            waiting &&
-            cardCtnItems != "country" && <img src={tailSpin} alt="spin" />)}
+        {(!playing && waiting) ||
+          (favCardClicked && !playing && waiting && category != "country" && (
+            <img src={tailSpin} alt="spin" />
+          ))}
       </div>
     </div>
   );
