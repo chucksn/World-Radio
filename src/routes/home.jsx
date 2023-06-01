@@ -7,6 +7,8 @@ import loadingSvg from "../assets/tail-spin.svg";
 import Hero from "../components/hero-section";
 import { setFavorites } from "../redux/features/favoritesSlice";
 import LoadingAnimation from "../components/loadingAnimation";
+import Stations from "../components/stations";
+import Favorites from "../components/favorites";
 
 function Home() {
   const baseURL = import.meta.env.VITE_BASE_URL;
@@ -134,81 +136,34 @@ function Home() {
             </button>
           </div>
           <div className="card-container relative bg-black/50 shadow-c-teal flex flex-wrap mt-4 w-11/12 min-h-60 lg:min-h-64 p-3 xs-c:p-8 rounded-lg lg:mt-6  gap-4 xs-c:gap-8 lg:gap-12 justify-center items-center">
-            {stations &&
-              category === "country" &&
-              stations.map((station) => {
-                return (
-                  <>
-                    <RadioStationCard
-                      id={station._id}
-                      clickedCardId={clickedCardId}
-                      setClickedCardId={setClickedCardId}
-                      key={station._id}
-                      favicon={station.favicon}
-                      state={station.state}
-                      country={country}
-                      stationName={station.name.slice(0, 36)}
-                      url={station.url_resolved}
-                      playing={playing}
-                      paused={paused}
-                      waiting={waiting}
-                      category={category}
-                    />
-                  </>
-                );
-              })}
-
-            {(loading || (stations && stations.length === 0)) &&
-              category === "country" && (
-                <LoadingAnimation
-                  loadingFailRef={loadingFailRef}
-                  loadingSvg={loadingSvg}
-                  stations={stations}
-                />
-              )}
-
-            {favorites &&
-              favorites.length > 0 &&
-              category === "favorite" &&
-              favorites.map((favorite) => {
-                return (
-                  <>
-                    <RadioStationCard
-                      key={favorite.id}
-                      favicon={favorite.favicon}
-                      state={favorite.state}
-                      stationName={favorite.stationName}
-                      url={favorite.url}
-                      selectedCountry={favorite.selectedCountry}
-                      favoriteID={favorite.id}
-                      playing={playing}
-                      waiting={waiting}
-                      paused={paused}
-                    />
-                  </>
-                );
-              })}
-
-            {favorites && favorites.length === 0 && category === "favorite" && (
-              <span className="block text-slate-400 text-center md:text-lg">
-                Click on the grey heart icon on the station card to add/remove
-                station to/from favorite.
-              </span>
-            )}
-          </div>
-          {stations && stations.length > 0 && category === "country" && (
-            <Pagination
-              key="pagination"
+            <Stations
+              key={"stations"}
+              category={category}
+              clickedCardId={clickedCardId}
+              country={country}
+              setClickedCardId={setClickedCardId}
+              stations={stations}
+              paused={paused}
+              playing={playing}
+              waiting={waiting}
+              loading={loading}
+              loadingFailRef={loadingFailRef}
+              loadingSvg={loadingSvg}
               activePage={activePage}
-              onChange={handlePageChange}
-              totalItemsCount={totalStation}
-              itemsCountPerPage={stationsPerPage}
-              pageRangeDisplayed={5}
-              prevPageText={"< Prev"}
-              nextPageText={"Next >"}
-              itemClass={"item"}
+              handlePageChange={handlePageChange}
+              stationsPerPage={stationsPerPage}
+              totalStation={totalStation}
             />
-          )}
+
+            <Favorites
+              key={"favorites"}
+              category={category}
+              favorites={favorites}
+              paused={paused}
+              playing={playing}
+              waiting={waiting}
+            />
+          </div>
         </div>
         {playerData && (
           <Player

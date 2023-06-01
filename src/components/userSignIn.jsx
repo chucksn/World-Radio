@@ -50,7 +50,7 @@ function UserSignIn() {
           onClick={handleUserMenuBtn}
           className="user-menu-btn bg-slate-700 hover:bg-slate-600 lg:text-[1.05rem] text-white px-3 py-[3px] font-medium rounded-[6px] ml-2 outline-none"
         >
-          {capitalizeWords(user.name)}{" "}
+          {capitalizeWords(user.name).split(" ")[0]}{" "}
           {!userMenuToggle && <AiFillCaretDown className="inline-block" />}
           {userMenuToggle && <AiFillCaretUp className="inline-block" />}
         </button>

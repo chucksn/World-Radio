@@ -26,6 +26,7 @@ function UserProfileMenu() {
 
   const handleLogout = () => {
     logout();
+    setShowDeletePrompt(false);
   };
 
   const handleDeleteAccount = () => {
@@ -47,6 +48,7 @@ function UserProfileMenu() {
         if (response.ok) {
           console.log(data.message);
           logout();
+          setShowDeletePrompt(false);
         }
         if (data.error) throw data.error;
       } catch (error) {
