@@ -1,4 +1,4 @@
-import { RiErrorWarningFill } from "react-icons/ri";
+import { MdErrorOutline } from "react-icons/md";
 import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +16,8 @@ function Login({ loading, setLoading }) {
   const baseURL = import.meta.env.VITE_BASE_URL;
   const { getFavorites } = useFavorites();
 
+  const [emailErrorMsg, setEmailErrorMsg] = useState("");
+  const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
   const handleClose = () => {
@@ -50,8 +52,21 @@ function Login({ loading, setLoading }) {
         navigate("/");
         setLoading(false);
       }
+      if (data.error) {
+        setLoading(false);
+        data.error.email
+          ? setEmailErrorMsg(data.error.email)
+          : setEmailErrorMsg("");
+        data.error.password
+          ? setPasswordErrorMsg(data.error.password)
+          : setPasswordErrorMsg("");
+
+        data.error && data.error === "Invalid email or password"
+          ? setErrorMsg(data.error)
+          : setErrorMsg("");
+        throw data.error;
+      }
     } catch (error) {
-      setLoading(false);
       console.error(error);
     }
   };
@@ -66,7 +81,10 @@ function Login({ loading, setLoading }) {
       </span>
       <span className="block my-6">
         Don't have an account?{" "}
-        <span onClick={handleSignUp} className="text-sky-600 cursor-pointer">
+        <span
+          onClick={handleSignUp}
+          className="text-sky-600 cursor-pointer font-medium"
+        >
           Sign Up
         </span>
       </span>
@@ -78,26 +96,38 @@ function Login({ loading, setLoading }) {
           name="email"
           placeholder="Enter email"
           spellCheck={false}
-          className={`p-2 rounded-lg mb-4 ${
-            errorMsg && errorMsg === "Email required"
+          className={`p-2 rounded-lg ${!emailErrorMsg ? "mb-4" : ""}  ${
+            emailErrorMsg
               ? "outline outline-2 outline-red-500"
               : " outline-none"
           }`}
           size={25}
         />
+        {emailErrorMsg && (
+          <label className="block text-red-500 mb-4 mt-[3px] text-center font-medium text-sm">
+            <MdErrorOutline className="inline text-xl" /> {emailErrorMsg}
+          </label>
+        )}
+
         <label htmlFor="password">Password</label>
         <input
           ref={passwordRef}
           type="password"
           name="password"
           placeholder="Enter Password"
-          className={`p-2 rounded-lg mb-4 ${
-            errorMsg && errorMsg === "Password required"
-              ? "outline outline-2 outline-red-500"
+          className={`p-2 rounded-lg ${!passwordErrorMsg ? "mb-4" : ""}  ${
+            passwordErrorMsg
+              ? "outline outline-2 outline-red-500 "
               : " outline-none"
           }`}
           size={25}
         />
+        {passwordErrorMsg && (
+          <label className="block text-red-500 mb-4 mt-[3px] text-center font-medium text-sm">
+            <MdErrorOutline className="inline text-xl " /> {passwordErrorMsg}
+          </label>
+        )}
+
         <button
           type="submit"
           disabled={loading}
@@ -106,9 +136,9 @@ function Login({ loading, setLoading }) {
           Login
         </button>
       </form>
-      {errorMsg && (
-        <span className="block text-red-500">
-          <RiErrorWarningFill className="inline text-xl" /> {errorMsg}
+      {errorMsg && errorMsg === "Invalid email or password" && (
+        <span className="block text-red-500 text-center font-medium text-sm">
+          <MdErrorOutline className="inline text-xl  " /> {errorMsg}
         </span>
       )}
     </div>

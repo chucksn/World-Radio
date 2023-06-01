@@ -33,13 +33,13 @@ function UserSignIn() {
           <Link
             to="/sign-in"
             onClick={handleSignUp}
-            className="sign-up-btn bg-slate-700 hover:bg-slate-600 lg:text-[1.05rem] text-white px-2 py-[2px] font-medium rounded-[6px] mr-2 outline-none"
+            className="sign-up-btn bg-slate-700 hover:bg-slate-600 lg:text-[1.05rem] text-white px-3 py-[3px] font-medium rounded-[6px] mr-2 outline-none"
           >
             Sign up
           </Link>
           <Link
             to="/sign-in"
-            className="login-btn bg-slate-700 hover:bg-slate-600 lg:text-[1.05rem] text-white px-2 py-[2px] font-medium rounded-[6px] ml-2 outline-none"
+            className="login-btn bg-slate-700 hover:bg-slate-600 lg:text-[1.05rem] text-white px-3 py-[3px] font-medium rounded-[6px] ml-2 outline-none"
           >
             Login
           </Link>
@@ -48,7 +48,7 @@ function UserSignIn() {
       {isLogged && user && (
         <button
           onClick={handleUserMenuBtn}
-          className="user-menu-btn bg-slate-700 hover:bg-slate-600 lg:text-[1.05rem] text-white px-3 py-[2px] font-medium rounded-[6px] ml-2 outline-none"
+          className="user-menu-btn bg-slate-700 hover:bg-slate-600 lg:text-[1.05rem] text-white px-3 py-[3px] font-medium rounded-[6px] ml-2 outline-none"
         >
           {capitalizeWords(user.name)}{" "}
           {!userMenuToggle && <AiFillCaretDown className="inline-block" />}
