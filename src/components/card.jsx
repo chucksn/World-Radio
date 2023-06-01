@@ -1,7 +1,6 @@
 import "react-h5-audio-player/lib/styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { setCardClicked } from "../redux/cardClickSlice";
 import { setPlayerData } from "../redux/features/playerDataSlice";
 import {
   setFavCardClicked,
@@ -17,9 +16,12 @@ import tailSpin from "../assets/tail-spin.svg";
 
 function RadioStationCard({
   id,
+  clickedCardId,
+  setClickedCardId,
   url,
   stationName,
   state,
+  country,
   favicon,
   playing,
   paused,
@@ -37,9 +39,16 @@ function RadioStationCard({
   const mainControlBtn = document.querySelector(".rhap_play-pause-button");
 
   const handleCardClick = () => {
-    dispatch(setCardClicked());
+    setClickedCardId(id);
     dispatch(
-      setPlayerData({ url, stationName, state, favicon, id, selectedCountry })
+      setPlayerData({
+        url,
+        stationName,
+        state,
+        favicon,
+        id,
+        country: country.label,
+      })
     );
 
     if (category === "country") {
@@ -60,10 +69,13 @@ function RadioStationCard({
 
   return (
     <div
-      className={`radio-card flex items-center justify-between relative w-full min-h-24 xs-c:w-60 xs-c:min-h-48 xs-c:flex-col p-3 bg-zinc-900  rounded-lg hover:cursor-pointer lg:hover:shadow-c-blue ${
-        countryCardClicked || (favCardClicked && category != "country")
-          ? "shadow-c-3"
-          : "shadow-c-4"
+      className={`radio-card flex items-center justify-between relative w-full min-h-24 xs-c:w-60 xs-c:min-h-48 xs-c:flex-col p-3 bg-zinc-900  rounded-lg hover:cursor-pointer ${
+        clickedCardId === id ? "" : "lg:hover:shadow-c-blue"
+      }  ${
+        (countryCardClicked && clickedCardId === id) ||
+        (favCardClicked && category != "country")
+          ? "shadow-c-lime"
+          : "shadow-c-thin-white"
       }`}
       onClick={handleCardClick}
     >
@@ -91,7 +103,7 @@ function RadioStationCard({
       <div className="control-display relative w-12 h-12 xs-c:mt-2">
         <i
           className={`fa-solid fa-circle-play text-5xl text-white opacity-40 absolute left-0 ${
-            (countryCardClicked && playing) ||
+            (countryCardClicked && clickedCardId === id && playing) ||
             (favCardClicked && playing && category != "country")
               ? "hidden"
               : "block"
@@ -99,16 +111,16 @@ function RadioStationCard({
         ></i>
         <i
           className={`fa-solid fa-circle-pause  text-5xl text-white opacity-40 absolute left-0 ${
-            (countryCardClicked && playing) ||
+            (countryCardClicked && clickedCardId === id && playing) ||
             (favCardClicked && playing && category != "country")
               ? "block"
               : "hidden"
           }`}
         ></i>
-        {(!playing && waiting) ||
-          (favCardClicked && !playing && waiting && category != "country" && (
-            <img src={tailSpin} alt="spin" />
-          ))}
+        {((countryCardClicked && !playing && waiting && clickedCardId === id) ||
+          (favCardClicked && !playing && waiting && category != "country")) && (
+          <img src={tailSpin} alt="spin" />
+        )}
       </div>
     </div>
   );

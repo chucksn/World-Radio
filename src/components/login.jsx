@@ -4,14 +4,18 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setShowSignUp } from "../redux/features/showSignUpSlice";
 import { resetShowLogin } from "../redux/features/showLoginSlice";
+import { setLoggedIn } from "../redux/features/loggedSlice";
+import { setUser } from "../redux/features/userSlice";
+import useFavorites from "../hooks/useFavorites";
 
 function Login({ loading, setLoading }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const emailRef = useRef();
   const passwordRef = useRef();
-  //   const email = emailRef.current.value;
-  //   const password = passwordRef.current.value;
+  const baseURL = import.meta.env.VITE_BASE_URL;
+  const { getFavorites } = useFavorites();
+
   const [errorMsg, setErrorMsg] = useState("");
 
   const handleClose = () => {
@@ -21,8 +25,35 @@ function Login({ loading, setLoading }) {
     dispatch(resetShowLogin());
     dispatch(setShowSignUp());
   };
-  const handleLogin = (e) => {
+
+  const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+
+    try {
+      const response = await fetch(`${baseURL}/api/v1/user/auth/login`, {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await response.json();
+      if (response.status === 200) {
+        localStorage.setItem("user", JSON.stringify(data));
+        dispatch(setLoggedIn());
+        dispatch(setUser(data));
+        getFavorites(data.token);
+        navigate("/");
+        setLoading(false);
+      }
+    } catch (error) {
+      setLoading(false);
+      console.error(error);
+    }
   };
 
   return (
@@ -40,7 +71,7 @@ function Login({ loading, setLoading }) {
         </span>
       </span>
       <form className="flex flex-col " onSubmit={handleLogin}>
-        <label htmlFor="email">Username</label>
+        <label htmlFor="email">Email</label>
         <input
           ref={emailRef}
           type="text"

@@ -1,24 +1,26 @@
 import { configureStore } from "@reduxjs/toolkit";
 import countryReducer from "./features/countrySlice";
 import playerDataReducer from "./features/playerDataSlice";
-import cardClickStatusReducer from "./cardClickSlice";
-import countryCardClickSliceReducer from "./features/countryCardClickSlice";
-import favCardClickSliceReducer from "./features/favCardClickSlice";
-import favoritesSliceReducer from "./features/favoritesSlice";
-import loggedSliceReducer from "./features/loggedSlice";
-import signUpSliceReducer from "./features/showSignUpSlice";
-import loginSliceReducer from "./features/showLoginSlice";
+import countryCardClickReducer from "./features/countryCardClickSlice";
+import favCardClickReducer from "./features/favCardClickSlice";
+import favoritesReducer from "./features/favoritesSlice";
+import loggedReducer from "./features/loggedSlice";
+import signUpReducer from "./features/showSignUpSlice";
+import loginReducer from "./features/showLoginSlice";
+import userReducer from "./features/userSlice";
+import userMenuToggleReducer from "./features/userMenuToggleSlice";
 
 export const store = configureStore({
   reducer: {
     country: countryReducer,
     playerData: playerDataReducer,
-    cardClicked: cardClickStatusReducer,
-    countryCardClicked: countryCardClickSliceReducer,
-    favCardClicked: favCardClickSliceReducer,
-    favorites: favoritesSliceReducer,
-    isLogged: loggedSliceReducer,
-    showLogin: loginSliceReducer,
-    showSignUp: signUpSliceReducer,
+    countryCardClicked: countryCardClickReducer,
+    favCardClicked: favCardClickReducer,
+    favorites: favoritesReducer,
+    isLogged: loggedReducer,
+    showLogin: loginReducer,
+    showSignUp: signUpReducer,
+    user: userReducer,
+    userMenuToggle: userMenuToggleReducer,
   },
 });

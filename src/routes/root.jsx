@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import UserProfileMenu from "../components/userProfileMenu";
 
 function Root() {
   return (
@@ -8,6 +9,7 @@ function Root() {
       <Header />
       <Outlet />
       <Footer />
+      <UserProfileMenu />
     </div>
   );
 }

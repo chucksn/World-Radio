@@ -26,6 +26,7 @@ function Home() {
   const [totalStation, setTotalStation] = useState(null);
   const [loading, setLoading] = useState(false);
   const [hasMounted, setHasMounted] = useState(false);
+  const [clickedCardId, setClickedCardId] = useState(null);
 
   const loadingFailRef = useRef();
 
@@ -123,23 +124,31 @@ function Home() {
               onClick={handleFavoriteBtnClick}
               className="favorite-country-toggle text-slate-200 bg-sky-900 p-2 md:p-3 text-xs md:text-sm rounded-lg font-unbounded shadow-md lg:hover:bg-sky-800 lg:hover:cursor-pointer"
             >
-              {category === "country" && "View Favorite"}
-              {category === "favorite" && "Back to Country Stations"}
+              {category === "country" && "Favorite Stations"}
+              {category === "favorite" && "Searched Stations"}
+              {favorites && favorites.length > 0 && category === "country" && (
+                <span className="inline-block text-amber-400">
+                  {favorites.length}
+                </span>
+              )}
             </button>
           </div>
-          <div className="card-container relative bg-black/50 shadow-c-1 flex flex-wrap mt-4 w-11/12 min-h-60 lg:min-h-64 p-3 xs-c:p-8 rounded-lg lg:mt-6  gap-4 xs-c:gap-8 lg:gap-12 justify-center items-center">
+          <div className="card-container relative bg-black/50 shadow-c-teal flex flex-wrap mt-4 w-11/12 min-h-60 lg:min-h-64 p-3 xs-c:p-8 rounded-lg lg:mt-6  gap-4 xs-c:gap-8 lg:gap-12 justify-center items-center">
             {stations &&
               category === "country" &&
               stations.map((station) => {
                 return (
                   <>
                     <RadioStationCard
-                      id={station.id}
-                      key={station.id}
+                      id={station._id}
+                      clickedCardId={clickedCardId}
+                      setClickedCardId={setClickedCardId}
+                      key={station._id}
                       favicon={station.favicon}
                       state={station.state}
+                      country={country}
                       stationName={station.name.slice(0, 36)}
-                      url={station.urlResolved}
+                      url={station.url_resolved}
                       playing={playing}
                       paused={paused}
                       waiting={waiting}
@@ -212,7 +221,7 @@ function Home() {
             waiting={waiting}
             icon={playerData.favicon}
             state={playerData.state}
-            country={playerData.selectedCountry}
+            country={playerData.country}
             stationName={playerData.stationName.slice(0, 36)}
             url={playerData.url}
           />
