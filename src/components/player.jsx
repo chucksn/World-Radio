@@ -91,10 +91,10 @@ function Player({
         />
 
         <div className="flex flex-col justify-center items-center m-3 text-center max-w-48 pr-2">
-          <span className="station-name block text-slate-200 font-prosto md:font-unbounded text-xs ">
+          <span className="station-name block text-slate-200 font-prosto md:font-unbounded text-[11px] sm:text-xs ">
             {stationName}
           </span>
-          <span className="state block text-sky-500 text-xs font-prosto md:font-unbounded mt-1">
+          <span className="state block text-sky-500 text-[11px] sm:text-xs font-prosto md:font-unbounded mt-1">
             {state}
             {state && ","} {country}
           </span>

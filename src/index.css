@@ -27,11 +27,11 @@ html {
   background-color: rgb(0, 0, 0, 0.5);
   border-radius: 0.6rem;
   color: white;
-  margin: 3rem;
-  width: 60%;
+  margin: 2.5rem 0;
+  width: 95%;
   font-weight: 500;
   padding: 0.3rem;
-  font-size: 1.03rem;
+  font-size: 0.9rem;
   outline: none;
 }
 
@@ -45,16 +45,16 @@ html {
   color: gray;
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (min-width: 640px) {
   .pagination {
-    width: 90%;
+    width: 80%;
     font-size: 0.9rem;
   }
 }
 
-@media screen and (561 <= width <= 1024px) {
+@media screen and (min-width: 1024px) {
   .pagination {
-    width: 80%;
-    font-size: 0.92rem;
+    width: 50%;
+    font-size: 1.03rem;
   }
 }

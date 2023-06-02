@@ -9,6 +9,9 @@ import signUpReducer from "./features/showSignUpSlice";
 import loginReducer from "./features/showLoginSlice";
 import userReducer from "./features/userSlice";
 import userMenuToggleReducer from "./features/userMenuToggleSlice";
+import playingReducer from "./features/playingSlice";
+import waitingReducer from "./features/waitingSlice";
+import pausedReducer from "./features/pausedSlice";
 
 export const store = configureStore({
   reducer: {
@@ -22,5 +25,8 @@ export const store = configureStore({
     showSignUp: signUpReducer,
     user: userReducer,
     userMenuToggle: userMenuToggleReducer,
+    playing: playingReducer,
+    paused: pausedReducer,
+    waiting: waitingReducer,
   },
 });

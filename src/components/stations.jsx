@@ -1,6 +1,7 @@
 import RadioStationCard from "./card";
 import LoadingAnimation from "./loadingAnimation";
 import Pagination from "react-js-pagination";
+import { useSelector } from "react-redux";
 
 function Stations({
   stations,
@@ -8,9 +9,6 @@ function Stations({
   clickedCardId,
   setClickedCardId,
   country,
-  paused,
-  playing,
-  waiting,
   loadingFailRef,
   loadingSvg,
   loading,
@@ -19,6 +17,10 @@ function Stations({
   totalStation,
   stationsPerPage,
 }) {
+  const playing = useSelector((state) => state.playing);
+  const paused = useSelector((state) => state.paused);
+  const waiting = useSelector((state) => state.waiting);
+
   return (
     <>
       {stations &&

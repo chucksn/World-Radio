@@ -16,11 +16,7 @@ function Home() {
   const dispatch = useDispatch();
   const country = useSelector((state) => state.country);
   const [stations, setStations] = useState(null);
-  const playerData = useSelector((state) => state.playerData);
   const [activePage, setActivePage] = useState(1);
-  const [playing, setPlayStatus] = useState(false);
-  const [paused, setPauseStatus] = useState(true);
-  const [waiting, setWaitStatus] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [category, setCategory] = useState("country");
   const favorites = useSelector((state) => state.favorites);
@@ -73,22 +69,6 @@ function Home() {
     setCurrentPage(activePage);
   }, [activePage]);
 
-  const handlePlay = () => {
-    setPlayStatus(true);
-    setPauseStatus(false);
-    setWaitStatus(false);
-  };
-
-  const handlePause = () => {
-    setPlayStatus(false);
-    setPauseStatus(true);
-  };
-
-  const handleWaiting = () => {
-    setWaitStatus(true);
-    setPauseStatus(false);
-  };
-
   const handleFavoriteBtnClick = () => {
     category === "country" ? setCategory("favorite") : setCategory("country");
   };
@@ -127,7 +107,7 @@ function Home() {
               className="favorite-country-toggle text-slate-200 bg-sky-900 p-2 md:p-3 text-xs md:text-sm rounded-lg font-unbounded shadow-md lg:hover:bg-sky-800 lg:hover:cursor-pointer"
             >
               {category === "country" && "Favorite Stations"}
-              {category === "favorite" && "Searched Stations"}
+              {category === "favorite" && "Back to Searched Stations"}
               {favorites && favorites.length > 0 && category === "country" && (
                 <span className="inline-block text-amber-400">
                   {favorites.length}
@@ -143,9 +123,6 @@ function Home() {
               country={country}
               setClickedCardId={setClickedCardId}
               stations={stations}
-              paused={paused}
-              playing={playing}
-              waiting={waiting}
               loading={loading}
               loadingFailRef={loadingFailRef}
               loadingSvg={loadingSvg}
@@ -159,28 +136,9 @@ function Home() {
               key={"favorites"}
               category={category}
               favorites={favorites}
-              paused={paused}
-              playing={playing}
-              waiting={waiting}
             />
           </div>
         </div>
-        {playerData && (
-          <Player
-            key="player"
-            onPlay={handlePlay}
-            onPause={handlePause}
-            onWaiting={handleWaiting}
-            playing={playing}
-            paused={paused}
-            waiting={waiting}
-            icon={playerData.favicon}
-            state={playerData.state}
-            country={playerData.country}
-            stationName={playerData.stationName.slice(0, 36)}
-            url={playerData.url}
-          />
-        )}
       </div>
     </>
   );

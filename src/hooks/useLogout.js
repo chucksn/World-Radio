@@ -1,6 +1,5 @@
 import { useDispatch } from "react-redux";
 import { resetFavorites } from "../redux/features/favoritesSlice";
-import { resetPlayerData } from "../redux/features/playerDataSlice";
 import { setLoggedOut } from "../redux/features/loggedSlice";
 import { resetUser } from "../redux/features/userSlice";
 import { resetStation } from "../redux/features/stationSlice";
@@ -11,7 +10,6 @@ const useLogout = () => {
   const logout = () => {
     localStorage.removeItem("user");
     dispatch(resetFavorites());
-    dispatch(resetPlayerData());
     dispatch(resetStation());
     dispatch(resetUser());
     dispatch(setLoggedOut());
