@@ -48,10 +48,13 @@ const useFavorites = () => {
 
   const removeFavorite = async (token, favoriteId) => {
     try {
-      const response = await fetch(`${baseURL}/api/v1/favorites${favoriteId}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await fetch(
+        `${baseURL}/api/v1/favorites/${favoriteId}`,
+        {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       const data = await response.json();
       if (response.status === 200) console.log("deleted from favorites");

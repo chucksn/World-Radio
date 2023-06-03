@@ -10,7 +10,6 @@ import {
   setCountryCardClicked,
   resetCountryCardClicked,
 } from "../redux/features/countryCardClickSlice";
-import { setFavorites } from "../redux/features/favoritesSlice";
 import useFavorites from "../hooks/useFavorites";
 import radioImg from "../assets/radio2.jpg";
 import tailSpin from "../assets/tail-spin.svg";
@@ -26,6 +25,7 @@ function RadioStationCard({
   country,
   favicon,
   category,
+  countryCode,
 }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -78,6 +78,7 @@ function RadioStationCard({
       stationName,
       state,
       country: country.label,
+      countryCode: country.value,
       favicon,
       id,
     };
@@ -125,8 +126,9 @@ function RadioStationCard({
         <span className="station-name block text-slate-200 font-unbounded text-xs">
           {stationName}
         </span>
-        <span className="state-txt block text-lime-300 text-xs font-unbounded mt-1">
-          {state}
+        <span className="state-country-txt block text-lime-300 text-xs font-unbounded mt-1">
+          {state && `${state}, `}
+          {country.value || countryCode}
         </span>
       </div>
       <div className="control-display relative w-12 h-12 xs-c:mt-2">

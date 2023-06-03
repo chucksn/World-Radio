@@ -44,6 +44,7 @@ function Favorites({ favorites, category, clickedCardId, setClickedCardId }) {
                 state={favorite.state}
                 stationName={favorite.stationName}
                 url={favorite.url}
+                countryCode={favorite.countryCode}
                 playing={playing}
                 waiting={waiting}
                 paused={paused}
