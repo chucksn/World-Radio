@@ -4,19 +4,15 @@ import { resetShowLogin } from "../redux/features/showLoginSlice";
 import { setShowSignUp } from "../redux/features/showSignUpSlice";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import { setUserMenuToggle } from "../redux/features/userMenuToggleSlice";
+import useCapitalize from "../hooks/useCapitalize";
 
 function UserSignIn() {
   const isLogged = useSelector((state) => state.isLogged);
   const user = useSelector((state) => state.user);
   const userMenuToggle = useSelector((state) => state.userMenuToggle);
   const dispatch = useDispatch();
-
-  const capitalizeWords = (str) => {
-    return str
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
-  };
+  const { extractFirstWord } = useCapitalize();
+  const name = user && extractFirstWord(user.name);
 
   const handleUserMenuBtn = () => {
     dispatch(setUserMenuToggle());
@@ -33,13 +29,13 @@ function UserSignIn() {
           <Link
             to="/sign-in"
             onClick={handleSignUp}
-            className="sign-up-btn bg-slate-700 hover:bg-slate-600 lg:text-[1.05rem] text-white px-3 py-[3px] font-medium rounded-[6px] mr-2 outline-none"
+            className="sign-up-btn bg-stone-900 hover:bg-zinc-700 border border-zinc-700 lg:text-[1.05rem] text-white px-3 py-[3px] font-medium rounded-[6px] mr-2 outline-none"
           >
             Sign up
           </Link>
           <Link
             to="/sign-in"
-            className="login-btn bg-slate-700 hover:bg-slate-600 lg:text-[1.05rem] text-white px-3 py-[3px] font-medium rounded-[6px] ml-2 outline-none"
+            className="login-btn bg-stone-900 hover:bg-zinc-700 border border-zinc-700 lg:text-[1.05rem] text-white px-3 py-[3px] font-medium rounded-[6px] ml-2 outline-none"
           >
             Login
           </Link>
@@ -48,9 +44,9 @@ function UserSignIn() {
       {isLogged && user && (
         <button
           onClick={handleUserMenuBtn}
-          className="user-menu-btn bg-slate-700 hover:bg-slate-600 lg:text-[1.05rem] text-white px-3 py-[3px] font-medium rounded-[6px] ml-2 outline-none"
+          className="user-menu-btn bg-stone-900 hover:bg-zinc-700 border border-zinc-700 lg:text-[1.05rem] text-white px-3 py-[3px] font-medium rounded-[6px] ml-2 outline-none"
         >
-          {capitalizeWords(user.name).split(" ")[0]}{" "}
+          {name}{" "}
           {!userMenuToggle && <AiFillCaretDown className="inline-block" />}
           {userMenuToggle && <AiFillCaretUp className="inline-block" />}
         </button>

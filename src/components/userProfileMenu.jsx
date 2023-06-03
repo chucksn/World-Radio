@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState, useRef } from "react";
 import { resetUserMenuToggle } from "../redux/features/userMenuToggleSlice";
 import useLogout from "../hooks/useLogout";
+import useCapitalize from "../hooks/useCapitalize";
 
 function UserProfileMenu() {
   const user = useSelector((state) => state.user);
@@ -9,20 +10,13 @@ function UserProfileMenu() {
   const userMenuToggle = useSelector((state) => state.userMenuToggle);
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
   const { logout } = useLogout();
+  const { capitalizeWords } = useCapitalize();
   const dispatch = useDispatch();
-  const name = user && user.name;
   const email = user && user.email;
   const userMenuRef = useRef();
   const baseURL = import.meta.env.VITE_BASE_URL;
 
-  const capitalizeWords = (str) => {
-    return str
-      .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
-  };
-
-  const capitalizedName = user && capitalizeWords(name);
+  const name = user && capitalizeWords(user.name);
 
   const handleLogout = () => {
     logout();
@@ -83,7 +77,7 @@ function UserProfileMenu() {
                 {name.charAt(0).toUpperCase()}
               </div>
               <span className="name block font-semibold font-roboto">
-                {capitalizedName}
+                {name}
               </span>
               <span className="email block font-semibold font-roboto text-xs ">
                 {email}
