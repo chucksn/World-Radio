@@ -115,31 +115,31 @@ function Home() {
               )}
             </button>
           </div>
-          <div className="card-container relative bg-black/50 shadow-c-teal flex flex-wrap mt-4 w-11/12 min-h-60 lg:min-h-64 p-3 xs-c:p-8 rounded-lg lg:mt-6  gap-4 xs-c:gap-8 lg:gap-12 justify-center items-center">
-            <Stations
-              key={"stations"}
-              category={category}
-              clickedCardId={clickedCardId}
-              country={country}
-              setClickedCardId={setClickedCardId}
-              stations={stations}
-              loading={loading}
-              loadingFailRef={loadingFailRef}
-              loadingSvg={loadingSvg}
-              activePage={activePage}
-              handlePageChange={handlePageChange}
-              stationsPerPage={stationsPerPage}
-              totalStation={totalStation}
-            />
+          {/* <div className="card-container relative bg-black/50 shadow-c-teal flex flex-wrap mt-4 w-11/12 min-h-60 lg:min-h-64 p-3 xs-c:p-8 rounded-lg lg:mt-6  gap-4 xs-c:gap-8 lg:gap-12 justify-center items-center"> */}
+          <Stations
+            key={"stations"}
+            category={category}
+            clickedCardId={clickedCardId}
+            country={country}
+            setClickedCardId={setClickedCardId}
+            stations={stations}
+            loading={loading}
+            loadingFailRef={loadingFailRef}
+            loadingSvg={loadingSvg}
+            activePage={activePage}
+            handlePageChange={handlePageChange}
+            stationsPerPage={stationsPerPage}
+            totalStation={totalStation}
+          />
 
-            <Favorites
-              key={"favorites"}
-              category={category}
-              favorites={favorites}
-              clickedCardId={clickedCardId}
-              setClickedCardId={setClickedCardId}
-            />
-          </div>
+          <Favorites
+            key={"favorites"}
+            category={category}
+            favorites={favorites}
+            clickedCardId={clickedCardId}
+            setClickedCardId={setClickedCardId}
+          />
+          {/* </div> */}
         </div>
       </div>
     </>
