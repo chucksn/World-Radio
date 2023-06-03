@@ -55,7 +55,7 @@ function Player({
       initial="hidden"
       animate="visible"
     >
-      <div className="player w-[95%] flex justify-between lg:justify-around items-center p-2 rounded-t-lg bg-black/90 shadow-c-7 relative">
+      <div className="player w-[95%] flex justify-between  items-center p-2 sm:px-4 md:px-8 lg:px-16 rounded-t-lg bg-black/90 shadow-c-7 relative">
         <img
           src={favicon}
           alt="favicon"

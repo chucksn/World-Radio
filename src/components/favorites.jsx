@@ -2,7 +2,7 @@ import RadioStationCard from "./card";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-function Favorites({ favorites, category }) {
+function Favorites({ favorites, category, clickedCardId, setClickedCardId }) {
   const isLogged = useSelector((state) => state.isLogged);
   const playing = useSelector((state) => state.playing);
   const paused = useSelector((state) => state.paused);
@@ -25,11 +25,14 @@ function Favorites({ favorites, category }) {
                 state={favorite.state}
                 stationName={favorite.stationName}
                 url={favorite.url}
-                selectedCountry={favorite.selectedCountry}
-                favoriteID={favorite.id}
                 playing={playing}
                 waiting={waiting}
                 paused={paused}
+                category={category}
+                country={favorite.country}
+                id={favorite.id}
+                clickedCardId={clickedCardId}
+                setClickedCardId={setClickedCardId}
               />
             </>
           );

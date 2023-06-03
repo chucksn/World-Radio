@@ -38,11 +38,13 @@ function Root() {
   const handlePause = () => {
     dispatch(resetPlaying());
     dispatch(setPaused());
+    dispatch(resetWaiting());
   };
 
   const handleWaiting = () => {
     dispatch(setWaiting());
     dispatch(resetPaused());
+    dispatch(resetPlaying());
   };
 
   return (

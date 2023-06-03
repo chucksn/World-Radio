@@ -1,20 +1,16 @@
 import { useEffect, useState, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import RadioStationCard from "../components/card";
-import Pagination from "react-js-pagination";
-import Player from "../components/player";
+import { useSelector } from "react-redux";
 import loadingSvg from "../assets/tail-spin.svg";
 import Hero from "../components/hero-section";
-import { setFavorites } from "../redux/features/favoritesSlice";
-import LoadingAnimation from "../components/loadingAnimation";
 import Stations from "../components/stations";
 import Favorites from "../components/favorites";
+import useCapitalize from "../hooks/useCapitalize";
 
 function Home() {
   const baseURL = import.meta.env.VITE_BASE_URL;
 
-  const dispatch = useDispatch();
   const country = useSelector((state) => state.country);
+  const user = useSelector((state) => state.user);
   const [stations, setStations] = useState(null);
   const [activePage, setActivePage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,6 +21,8 @@ function Home() {
   const [loading, setLoading] = useState(false);
   const [hasMounted, setHasMounted] = useState(false);
   const [clickedCardId, setClickedCardId] = useState(null);
+  const { extractFirstWord } = useCapitalize();
+  const name = user && extractFirstWord(user.name);
 
   const loadingFailRef = useRef();
 
@@ -71,6 +69,7 @@ function Home() {
 
   const handleFavoriteBtnClick = () => {
     category === "country" ? setCategory("favorite") : setCategory("country");
+    category === "favorite" ? setCategory("country") : setCategory("favorite");
   };
 
   useEffect(() => {
@@ -88,28 +87,28 @@ function Home() {
       <div className="home w-full min-h-screen flex flex-col relative">
         <div className="body-container w-full flex flex-col my-6 items-center lg:mt-14">
           <Hero />
-          <div className="country-favorite-txt-ctn w-full px-10 lg:px-20  flex items-center  justify-between">
+          <div className="country-favorite-txt-ctn w-full px-5 md:px-10 lg:px-20  flex items-center  justify-between">
             {category === "country" && (
-              <span className="country font-unbounded text-amber-300 text-sm md:text-base">
-                <i className="fa-solid fa-location-dot text-red-600 md:text-xl"></i>{" "}
-                <span className="bg-neutral-800/80 py-1 px-2 rounded-md">
+              <div className="location flex items-center mr-4">
+                <i className="fa-solid fa-location-dot text-red-600 text-sm md:text-xl mr-1"></i>{" "}
+                <span className="bg-neutral-800/80 text-amber-300 font-unbounded py-1 px-2 rounded-md text-xs md:text-base text-center">
                   {country.label}
                 </span>
-              </span>
+              </div>
             )}
             {category === "favorite" && (
-              <span className="font-unbounded text-amber-400 text-sm md:text-lg">
-                Favorite Stations
+              <span className="bg-neutral-800/80 text-amber-300 font-unbounded py-1 px-2 rounded-md text-xs md:text-base text-center mr-4">
+                {`${name}'s Favorite(s)`}
               </span>
             )}
             <button
               onClick={handleFavoriteBtnClick}
               className="favorite-country-toggle text-slate-200 bg-sky-900 p-2 md:p-3 text-xs md:text-sm rounded-lg font-unbounded shadow-md lg:hover:bg-sky-800 lg:hover:cursor-pointer"
             >
-              {category === "country" && "Favorite Stations"}
-              {category === "favorite" && "Back to Searched Stations"}
+              {category === "country" && "Favorite Stations -"}
+              {category === "favorite" && "Back to Searched Stations"}{" "}
               {favorites && favorites.length > 0 && category === "country" && (
-                <span className="inline-block text-amber-400">
+                <span className="inline-block text-[yellow]">
                   {favorites.length}
                 </span>
               )}
@@ -136,6 +135,8 @@ function Home() {
               key={"favorites"}
               category={category}
               favorites={favorites}
+              clickedCardId={clickedCardId}
+              setClickedCardId={setClickedCardId}
             />
           </div>
         </div>

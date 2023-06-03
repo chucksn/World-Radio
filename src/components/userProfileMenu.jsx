@@ -75,7 +75,7 @@ function UserProfileMenu() {
       {isLogged && userMenuToggle && (
         <div
           ref={userMenuRef}
-          className="user-menu-layer absolute top-0 left-0 w-full h-full z-50"
+          className="user-menu-layer fixed top-0 left-0 w-full h-full z-50"
         >
           <div className="user-menu-content min-h-72 min-w-[16rem] text-black/80 bg-slate-300 border border-gray-300 rounded-lg absolute top-16 right-4 sm:top-20 sm:right-5 flex flex-col py-4 px-6 justify-between">
             <div className="user-profile p-2 flex flex-col justify-center items-center">
