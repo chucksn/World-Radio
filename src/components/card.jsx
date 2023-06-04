@@ -123,10 +123,10 @@ function RadioStationCard({
         className="favicon w-10 h-10 xs-c:w-16 xs-c:h-16 rounded-full xs-c:mb-2 "
       />
       <div className=" card-info flex flex-col justify-center max-w-48 text-center">
-        <span className="station-name block text-slate-200 font-unbounded text-xs">
+        <span className="station-name block text-slate-200 font-unbounded text-[0.7rem]">
           {stationName}
         </span>
-        <span className="state-country-txt block text-lime-300 text-xs font-unbounded mt-1">
+        <span className="state-country-txt block text-green-200 text-[0.7rem] font-unbounded mt-1">
           {state && `${state}, `}
           {country.value || countryCode}
         </span>

@@ -91,7 +91,7 @@ function Home() {
             {category === "country" && (
               <div className="location flex items-center mr-4">
                 <i className="fa-solid fa-location-dot text-red-600 text-sm md:text-xl mr-1"></i>{" "}
-                <span className="bg-neutral-800/80 text-amber-300 font-unbounded py-1 px-2 rounded-md text-xs md:text-base text-center">
+                <span className="bg-neutral-800/80 text-amber-300 font-unbounded py-1 px-2 rounded-md text-xs md:text-[15px] text-center">
                   {country.label}
                 </span>
               </div>
@@ -115,7 +115,7 @@ function Home() {
               )}
             </button>
           </div>
-          {/* <div className="card-container relative bg-black/50 shadow-c-teal flex flex-wrap mt-4 w-11/12 min-h-60 lg:min-h-64 p-3 xs-c:p-8 rounded-lg lg:mt-6  gap-4 xs-c:gap-8 lg:gap-12 justify-center items-center"> */}
+
           <Stations
             key={"stations"}
             category={category}
@@ -139,7 +139,6 @@ function Home() {
             clickedCardId={clickedCardId}
             setClickedCardId={setClickedCardId}
           />
-          {/* </div> */}
         </div>
       </div>
     </>
