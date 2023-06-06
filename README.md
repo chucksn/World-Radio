@@ -16,7 +16,7 @@ World radio is a full-stack A web-based application that allows users to listen 
 
 ### Backend
 
-[Backend Repo](https://chucksn.github.io/World-Radio/)
+[Backend Repo](https://github.com/chucksn/world-radio-api)
 
 ## Features
 
@@ -24,6 +24,8 @@ World radio is a full-stack A web-based application that allows users to listen 
 
 - Create an account with the sign-up form by entering name, email and password.
 - Login to your created account by entering email and password.
+
+![Screenshot 2023-06-05 075851](https://github.com/chucksn/World-Radio/assets/104119055/93e6c05b-1f55-4cbc-b71e-ac94ccc92442)
 
 2. **Authorization on email and password login**
 
@@ -34,17 +36,16 @@ World radio is a full-stack A web-based application that allows users to listen 
 3. **Search/Select Country Feature**
 
 - This is a search or select feature that enable's you search or select a country in other to load available internet radio station's in the selected country.
-  ![search-feature](https://user-images.githubusercontent.com/104119055/232251826-5509d3e2-f3ec-4f28-844a-3199760ba7cc.jpg)
+  
 
 4. **Customized animated audio player**
-   ![player-feature](https://user-images.githubusercontent.com/104119055/232251893-48a3b61c-4524-41f2-b41e-990ff3e500e1.jpg)
+  
 
 5. **Favorite Feature**
-   ![fav-feature](https://user-images.githubusercontent.com/104119055/232251929-5f1b5088-4ebd-4793-bbf4-03bd5af2e4db.jpg)
+   
 
 6. **Responsiveness on other device sizes**
 
-![radio-mobile](https://user-images.githubusercontent.com/104119055/232251934-eb6025ac-b1c5-4146-9c29-4e4bfd19e996.jpg)
 
 - This app uses CRUD operations on the backend to implement the auth and favorite feature.
 
