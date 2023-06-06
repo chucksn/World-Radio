@@ -42,7 +42,7 @@ World radio is a full-stack A web-based application that allows users to listen 
 
 6. **Responsiveness on other device sizes**
 
-- This app uses CRUD operations on the backend to implement the authorization and favorite feature.
+- This app uses CRUD operations on the backend to implement the Authorization and favorite feature.
 
 ## Tech Stack
 
