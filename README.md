@@ -1,7 +1,8 @@
 # World-Radio
 
-![radio-2](https://user-images.githubusercontent.com/104119055/232251744-28a00ff6-1cfe-4c71-86d6-515de1794c4a.jpg)
-![radio-mobile](https://user-images.githubusercontent.com/104119055/232251749-25d619ca-2476-48a5-b347-836534dfed0b.jpg)
+![radio-3](https://github.com/chucksn/World-Radio/assets/104119055/dfe6756c-44ef-46ce-94db-f96fa374ff2c)
+![Screenshot 2023-06-05 075820](https://github.com/chucksn/World-Radio/assets/104119055/8374ad86-6bc9-4fe6-a7d3-0ff249c42765)
+
 
 ## About this app
 
@@ -11,11 +12,11 @@ World radio is a full-stack A web-based application that allows users to listen 
 
 ### Frontend
 
-[Click To Go Live](https://chucksn.github.io/World-Radio/)
+[Click To Go Live](https://world-radio.vercel.app/)
 
 ### Backend
 
-[Click To Go Live](https://chucksn.github.io/World-Radio/)
+[Backend Repo](https://chucksn.github.io/World-Radio/)
 
 ## Features
 
