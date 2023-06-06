@@ -91,22 +91,22 @@ function Home() {
             {category === "country" && (
               <div className="location flex items-center mr-4">
                 <i className="fa-solid fa-location-dot text-red-600 text-sm md:text-xl mr-1"></i>{" "}
-                <span className="bg-neutral-800/80 text-amber-300 font-unbounded py-1 px-2 rounded-md text-xs md:text-[15px] text-center">
+                <span className="bg-neutral-800/80 text-amber-300 font-unbounded py-1 px-2 rounded-full text-xs md:text-[15px] text-center">
                   {country.label}
                 </span>
               </div>
             )}
             {category === "favorite" && (
-              <span className="bg-neutral-800/80 text-amber-300 font-unbounded py-1 px-2 rounded-md text-xs md:text-[0.85rem] lg:text-base text-center mr-4">
+              <span className="bg-neutral-800/80 text-amber-300 font-unbounded py-1 px-2 rounded-full text-xs md:text-[0.85rem] lg:text-base text-center mr-4">
                 {user && `${name}'s Favorite(s)`}
-                {!user && "Favorite Stations"}
+                {!user && "Favorite Station(s)"}
               </span>
             )}
             <button
               onClick={handleFavoriteBtnClick}
-              className="favorite-country-toggle text-slate-200 bg-sky-900 p-2 md:p-3 text-xs lg:text-sm rounded-lg font-unbounded shadow-md lg:hover:bg-sky-800 lg:hover:cursor-pointer"
+              className="favorite-country-toggle text-slate-200 bg-sky-900 shadow p-2 md:p-3 text-xs lg:text-sm rounded-lg font-unbounded lg:hover:bg-sky-800 lg:hover:cursor-pointer"
             >
-              {category === "country" && "Favorite Stations"}
+              {category === "country" && "Favorite Station(s)"}
               {category === "favorite" && "Back to Searched Stations"}{" "}
               {favorites && favorites.length > 0 && category === "country" && (
                 <span className="inline-block text-[yellow]">

@@ -50,12 +50,12 @@ function Player({
   return (
     <motion.div
       ref={playerRef}
-      className="player-ctn flex justify-center w-full min-h-20 fixed left-0 bottom-0  z-10"
+      className="player-ctn flex justify-center w-full min-h-20 fixed left-0 bottom-0 z-10"
       variants={playerVariant}
       initial="hidden"
       animate="visible"
     >
-      <div className="player w-[95%] flex justify-between  items-center p-2 sm:px-4 md:px-8 lg:px-16 rounded-t-lg bg-black/90 shadow-c-7 relative">
+      <div className="player w-[95%] flex justify-between  items-center pt-6 md:pt-2 pb-2 px-4 md:px-8 lg:px-16 rounded-t-lg bg-black/90 shadow-c-7 relative">
         <img
           src={favicon}
           alt="favicon"
@@ -90,7 +90,7 @@ function Player({
           customControlsSection={["MAIN_CONTROLS"]}
         />
 
-        <div className="flex flex-col justify-center items-center m-3 text-center max-w-48 pr-2">
+        <div className="name-location-details flex flex-col justify-center items-center text-center max-w-40 ">
           <span className="station-name block text-slate-200 font-prosto md:font-unbounded text-[11px] sm:text-xs ">
             {stationName}
           </span>
