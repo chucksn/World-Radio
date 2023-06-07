@@ -21,7 +21,7 @@ World radio is a full-stack A web-based application that allows users to listen 
 
 1. **Authentication Login/Sign-up Feature**
 
-- Create an account with the sign-up form by entering Name, Email and Password.
+- Create an account with the sign-up form by entering name, email and password.
 - Login to your created account by entering email and password.
 
 ![Screenshot 2023-06-05 075851](https://github.com/chucksn/World-Radio/assets/104119055/93e6c05b-1f55-4cbc-b71e-ac94ccc92442)
