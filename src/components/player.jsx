@@ -55,7 +55,7 @@ function Player({
       initial="hidden"
       animate="visible"
     >
-      <div className="player w-[95%] flex justify-between  items-center pt-6 md:pt-2 pb-2 px-4 md:px-8 lg:px-16 rounded-t-lg bg-black/90 shadow-c-gold relative">
+      <div className="player w-[95%] flex justify-between  items-center pt-4 md:pt-2 pb-2 px-6 md:px-8 lg:px-16 rounded-t-lg bg-black/90 shadow-c-gold relative">
         <img
           src={favicon}
           alt="favicon"
@@ -101,7 +101,7 @@ function Player({
         </div>
         <i
           onClick={handleClosePlayer}
-          className="close-btn fa-solid fa-circle-xmark text-white/60 font-semibold absolute top-0 right-4 text-xl md:text-2xl cursor-pointer"
+          className="close-btn fa-solid fa-circle-xmark text-white/60 font-semibold absolute top-1 right-1 sm:top-2 sm:right-4 text-xl md:text-2xl cursor-pointer"
         ></i>
       </div>
     </motion.div>
