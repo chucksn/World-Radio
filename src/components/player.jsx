@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import radioImg from "../assets/radio2.jpg";
 import audioVisualizer from "../assets/audio.svg";
 import tailSpin from "../assets/tail-spin2.svg";
+import { useState } from "react";
 
 const playerVariant = {
   hidden: {
@@ -45,7 +46,13 @@ function Player({
     playerRef.current.style.display = "none";
   };
 
-  const favicon = icon ? icon : radioImg;
+  const [imgHasError, setImgHasError] = useState(false);
+
+  const handleImgError = () => {
+    setImgHasError(true);
+  };
+
+  const favicon = !icon || imgHasError ? radioImg : icon;
 
   return (
     <motion.div
@@ -58,6 +65,7 @@ function Player({
       <div className="player w-[95%] flex justify-between  items-center pt-4 md:pt-2 pb-2 px-6 md:px-8 lg:px-16 rounded-t-lg bg-black/90 shadow-c-gold relative">
         <img
           src={favicon}
+          onError={handleImgError}
           alt="favicon"
           className={`favicon w-10 h-10  rounded-full ${
             playing ? "animate-spin-slow" : "animate-none"

@@ -93,7 +93,13 @@ function RadioStationCard({
     }
   };
 
-  const icon = favicon ? favicon : radioImg;
+  const [imgHasError, setImgHasError] = useState(false);
+
+  const handleImgError = () => {
+    setImgHasError(true);
+  };
+
+  const icon = !favicon || imgHasError ? radioImg : favicon;
 
   return (
     <div
@@ -119,6 +125,7 @@ function RadioStationCard({
       </div>
       <img
         src={icon}
+        onError={handleImgError}
         alt="favicon"
         className="favicon w-10 h-10 xs-c:w-16 xs-c:h-16 rounded-full xs-c:mb-2 "
       />
