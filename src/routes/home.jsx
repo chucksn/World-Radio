@@ -82,6 +82,10 @@ function Home() {
     }
   }, [country, category]);
 
+  useEffect(() => {
+    setCategory("country");
+  }, [country]);
+
   return (
     <>
       <div className="home w-full min-h-screen flex flex-col relative">
