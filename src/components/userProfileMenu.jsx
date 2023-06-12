@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useRef } from "react";
-import { resetUserMenuToggle } from "../features/userMenuToggleSlice";
+import { resetUserMenuToggle } from "../features/user/userMenuToggleSlice";
 import useLogout from "../hooks/useLogout";
 import useCapitalize from "../hooks/useCapitalize";
 

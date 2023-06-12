@@ -1,9 +1,8 @@
 import React, { useState, useMemo, useEffect } from "react";
 import Select from "react-select";
 import countryList from "react-select-country-list";
-import { setCountry } from "../features/countrySlice";
+import { setCountry } from "../features/other/countrySlice";
 import { useDispatch } from "react-redux";
-import { resetStation } from "../features/stationSlice";
 
 function CountrySelector() {
   const dispatch = useDispatch();
@@ -16,7 +15,6 @@ function CountrySelector() {
 
   const changeHandler = (value) => {
     setCountryValue(value);
-    dispatch(resetStation());
   };
 
   return (

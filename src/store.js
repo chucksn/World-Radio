@@ -1,17 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
-import countryReducer from "./features/countrySlice";
-import playerDataReducer from "./features/playerDataSlice";
-import countryCardClickReducer from "./features/countryCardClickSlice";
-import favCardClickReducer from "./features/favCardClickSlice";
-import favoritesReducer from "./features/favoritesSlice";
-import loggedReducer from "./features/loggedSlice";
-import signUpReducer from "./features/showSignUpSlice";
-import loginReducer from "./features/showLoginSlice";
-import userReducer from "./features/userSlice";
-import userMenuToggleReducer from "./features/userMenuToggleSlice";
-import playingReducer from "./features/playingSlice";
-import waitingReducer from "./features/waitingSlice";
-import pausedReducer from "./features/pausedSlice";
+import countryReducer from "./features/other/countrySlice";
+import playerDataReducer from "./features/player/playerDataSlice";
+import countryCardClickReducer from "./features/other/countryCardClickSlice";
+import favCardClickReducer from "./features/other/favCardClickSlice";
+import favoritesReducer from "./features/favorite/favoritesSlice";
+import loggedReducer from "./features/user/loggedSlice";
+import signUpReducer from "./features/sign-in/showSignUpSlice";
+import loginReducer from "./features/sign-in/showLoginSlice";
+import userReducer from "./features/user/userSlice";
+import userMenuToggleReducer from "./features/user/userMenuToggleSlice";
+import playingReducer from "./features/player/playingSlice";
+import waitingReducer from "./features/player/waitingSlice";
+import pausedReducer from "./features/player/pausedSlice";
 
 export const store = configureStore({
   reducer: {

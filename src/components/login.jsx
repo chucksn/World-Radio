@@ -2,10 +2,10 @@ import { MdErrorOutline } from "react-icons/md";
 import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setShowSignUp } from "../features/showSignUpSlice";
-import { resetShowLogin } from "../features/showLoginSlice";
-import { setLoggedIn } from "../features/loggedSlice";
-import { setUser } from "../features/userSlice";
+import { setShowSignUp } from "../features/sign-in/showSignUpSlice";
+import { resetShowLogin } from "../features/sign-in/showLoginSlice";
+import { setLoggedIn } from "../features/user/loggedSlice";
+import { setUser } from "../features/user/userSlice";
 import useFavorites from "../hooks/useFavorites";
 
 function Login({ loading, setLoading }) {
