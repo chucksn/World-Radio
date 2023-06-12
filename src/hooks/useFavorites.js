@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { setFavorites } from "../redux/features/favoritesSlice";
+import { setFavorites } from "../features/favoritesSlice";
 import useLogout from "./useLogout";
 import { useNavigate } from "react-router-dom";
 

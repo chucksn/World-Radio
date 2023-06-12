@@ -4,12 +4,12 @@ import Footer from "../components/footer";
 import UserProfileMenu from "../components/userProfileMenu";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoggedIn } from "../redux/features/loggedSlice";
-import { setUser } from "../redux/features/userSlice";
+import { setLoggedIn } from "../features/loggedSlice";
+import { setUser } from "../features/userSlice";
 import useFavorites from "../hooks/useFavorites";
-import { setPaused, resetPaused } from "../redux/features/pausedSlice";
-import { setPlaying, resetPlaying } from "../redux/features/playingSlice";
-import { setWaiting, resetWaiting } from "../redux/features/waitingSlice";
+import { setPaused, resetPaused } from "../features/pausedSlice";
+import { setPlaying, resetPlaying } from "../features/playingSlice";
+import { setWaiting, resetWaiting } from "../features/waitingSlice";
 import Player from "../components/player";
 
 function Root() {

@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { resetShowLogin } from "../redux/features/showLoginSlice";
-import { setShowSignUp } from "../redux/features/showSignUpSlice";
+import { resetShowLogin } from "../features/showLoginSlice";
+import { setShowSignUp } from "../features/showSignUpSlice";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
-import { setUserMenuToggle } from "../redux/features/userMenuToggleSlice";
+import { setUserMenuToggle } from "../features/userMenuToggleSlice";
 import useCapitalize from "../hooks/useCapitalize";
 
 function UserSignIn() {

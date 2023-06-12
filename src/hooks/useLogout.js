@@ -1,9 +1,9 @@
 import { useDispatch } from "react-redux";
-import { resetFavorites } from "../redux/features/favoritesSlice";
-import { setLoggedOut } from "../redux/features/loggedSlice";
-import { resetUser } from "../redux/features/userSlice";
-import { resetStation } from "../redux/features/stationSlice";
-import { resetUserMenuToggle } from "../redux/features/userMenuToggleSlice";
+import { resetFavorites } from "../features/favoritesSlice";
+import { setLoggedOut } from "../features/loggedSlice";
+import { resetUser } from "../features/userSlice";
+import { resetStation } from "../features/stationSlice";
+import { resetUserMenuToggle } from "../features/userMenuToggleSlice";
 
 const useLogout = () => {
   const dispatch = useDispatch();

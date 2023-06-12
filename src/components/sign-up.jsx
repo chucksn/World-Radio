@@ -2,8 +2,8 @@ import { MdErrorOutline } from "react-icons/md";
 import { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { resetShowSignUp } from "../redux/features/showSignUpSlice";
-import { setShowLogin } from "../redux/features/showLoginSlice";
+import { resetShowSignUp } from "../features/showSignUpSlice";
+import { setShowLogin } from "../features/showLoginSlice";
 
 function SignUp({ loading, setLoading }) {
   const dispatch = useDispatch();

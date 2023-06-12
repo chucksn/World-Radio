@@ -1,7 +1,7 @@
 import AudioPlayer from "react-h5-audio-player";
-import { resetPlayerData } from "../redux/features/playerDataSlice";
-import { resetFavCardClicked } from "../redux/features/favCardClickSlice";
-import { resetCountryCardClicked } from "../redux/features/countryCardClickSlice";
+import { resetPlayerData } from "../features/playerDataSlice";
+import { resetFavCardClicked } from "../features/favCardClickSlice";
+import { resetCountryCardClicked } from "../features/countryCardClickSlice";
 import { useDispatch } from "react-redux";
 import { useRef } from "react";
 import { motion } from "framer-motion";

@@ -1,15 +1,15 @@
 import "react-h5-audio-player/lib/styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { setPlayerData } from "../redux/features/playerDataSlice";
+import { setPlayerData } from "../features/playerDataSlice";
 import {
   setFavCardClicked,
   resetFavCardClicked,
-} from "../redux/features/favCardClickSlice";
+} from "../features/favCardClickSlice";
 import {
   setCountryCardClicked,
   resetCountryCardClicked,
-} from "../redux/features/countryCardClickSlice";
+} from "../features/countryCardClickSlice";
 import useFavorites from "../hooks/useFavorites";
 import radioImg from "../assets/radio2.jpg";
 import tailSpin from "../assets/tail-spin.svg";
