@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { setupListeners } from "@reduxjs/toolkit/query";
 import countryReducer from "./features/other/countrySlice";
 import playerDataReducer from "./features/player/playerDataSlice";
 import countryCardClickReducer from "./features/other/countryCardClickSlice";
@@ -12,6 +13,7 @@ import userMenuToggleReducer from "./features/user/userMenuToggleSlice";
 import playingReducer from "./features/player/playingSlice";
 import waitingReducer from "./features/player/waitingSlice";
 import pausedReducer from "./features/player/pausedSlice";
+import { api } from "./features/api/apiSlice";
 
 export const store = configureStore({
   reducer: {
@@ -28,5 +30,10 @@ export const store = configureStore({
     playing: playingReducer,
     paused: pausedReducer,
     waiting: waitingReducer,
+    [api.reducerPath]: api.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(api.middleware),
 });
+
+setupListeners(store.dispatch);

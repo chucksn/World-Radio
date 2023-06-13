@@ -1,62 +1,28 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import loadingSvg from "../assets/tail-spin.svg";
 import Hero from "../components/hero-section";
 import Stations from "../components/stations";
 import Favorites from "../components/favorites";
 import useCapitalize from "../hooks/useCapitalize";
+import { useGetStationsQuery } from "../features/api/apiSlice";
 
 function Home() {
-  const baseURL = import.meta.env.VITE_BASE_URL;
-
   const country = useSelector((state) => state.country);
   const user = useSelector((state) => state.user);
-  const [stations, setStations] = useState(null);
   const [activePage, setActivePage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [category, setCategory] = useState("country");
   const favorites = useSelector((state) => state.favorites);
   const stationsPerPage = 20;
-  const [totalStation, setTotalStation] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [hasMounted, setHasMounted] = useState(false);
   const [clickedCardId, setClickedCardId] = useState(null);
   const { extractFirstWord } = useCapitalize();
   const name = user && extractFirstWord(user.name);
 
-  const loadingFailRef = useRef();
-
-  useEffect(() => {
-    setStations(null);
-    setActivePage(1);
-    setCurrentPage(1);
-    setLoading(true);
-    const getStation = async () => {
-      const response = await fetch(
-        `${baseURL}/api/v1/stations?countryCode=${country.value}&limit=${stationsPerPage}&page=${currentPage}`
-      );
-      const data = await response.json();
-      setStations(data.stations);
-      setTotalStation(data.totalStation);
-      setLoading(false);
-    };
-    country && getStation();
-  }, [country]);
-
-  useEffect(() => {
-    setHasMounted(true);
-    setLoading(true);
-    const getStation = async () => {
-      const response = await fetch(
-        `${baseURL}/api/v1/stations?countryCode=${country.value}&limit=${stationsPerPage}&page=${currentPage}`
-      );
-      const data = await response.json();
-      setStations(data.stations);
-      setTotalStation(data.totalStation);
-      setLoading(false);
-    };
-    hasMounted && getStation();
-  }, [currentPage]);
+  const { data, isLoading, isError, error, isFetching } = useGetStationsQuery([
+    country.value,
+    stationsPerPage,
+    currentPage,
+  ]);
 
   const handlePageChange = (pageNumber) => {
     setActivePage(pageNumber);
@@ -71,16 +37,6 @@ function Home() {
     category === "country" ? setCategory("favorite") : setCategory("country");
     category === "favorite" ? setCategory("country") : setCategory("favorite");
   };
-
-  useEffect(() => {
-    if (hasMounted) {
-      setTimeout(() => {
-        if (loadingFailRef.current) {
-          loadingFailRef.current.style.display = "block";
-        }
-      }, 10000);
-    }
-  }, [country, category]);
 
   useEffect(() => {
     setCategory("country");
@@ -126,14 +82,15 @@ function Home() {
             clickedCardId={clickedCardId}
             country={country}
             setClickedCardId={setClickedCardId}
-            stations={stations}
-            loading={loading}
-            loadingFailRef={loadingFailRef}
-            loadingSvg={loadingSvg}
+            stations={data && data.stations}
+            loading={isLoading}
             activePage={activePage}
             handlePageChange={handlePageChange}
             stationsPerPage={stationsPerPage}
-            totalStation={totalStation}
+            totalStation={data && data.totalStation}
+            isError={isError}
+            error={error}
+            isFetching={isFetching}
           />
 
           <Favorites

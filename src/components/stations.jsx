@@ -16,6 +16,9 @@ function Stations({
   handlePageChange,
   totalStation,
   stationsPerPage,
+  isError,
+  error,
+  isFetching,
 }) {
   const playing = useSelector((state) => state.playing);
   const paused = useSelector((state) => state.paused);
@@ -48,11 +51,14 @@ function Stations({
                   </>
                 );
               })}
-            {(loading || (stations && stations.length === 0)) && (
+            {(loading || isFetching || (stations && stations.length === 0)) && (
               <LoadingAnimation
-                loadingFailRef={loadingFailRef}
-                loadingSvg={loadingSvg}
                 stations={stations}
+                isError={isError}
+                error={error}
+                category={category}
+                country={country}
+                key={"loading-animation"}
               />
             )}
           </div>
