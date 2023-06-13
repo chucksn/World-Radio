@@ -13,7 +13,7 @@ import userMenuToggleReducer from "./features/user/userMenuToggleSlice";
 import playingReducer from "./features/player/playingSlice";
 import waitingReducer from "./features/player/waitingSlice";
 import pausedReducer from "./features/player/pausedSlice";
-import { api } from "./features/api/apiSlice";
+import { stationsApi } from "./features/api/stationsApiSlice";
 
 export const store = configureStore({
   reducer: {
@@ -30,10 +30,10 @@ export const store = configureStore({
     playing: playingReducer,
     paused: pausedReducer,
     waiting: waitingReducer,
-    [api.reducerPath]: api.reducer,
+    [stationsApi.reducerPath]: stationsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(api.middleware),
+    getDefaultMiddleware().concat(stationsApi.middleware),
 });
 
 setupListeners(store.dispatch);

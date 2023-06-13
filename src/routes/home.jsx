@@ -4,7 +4,7 @@ import Hero from "../components/hero-section";
 import Stations from "../components/stations";
 import Favorites from "../components/favorites";
 import useCapitalize from "../hooks/useCapitalize";
-import { useGetStationsQuery } from "../features/api/apiSlice";
+import { useGetStationsQuery } from "../features/api/stationsApiSlice";
 
 function Home() {
   const country = useSelector((state) => state.country);

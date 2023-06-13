@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const api = createApi({
-  reducerPath: "api",
+export const stationsApi = createApi({
+  reducerPath: "stationsApi",
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),
   endpoints: (builder) => ({
     getStations: builder.query({
@@ -11,4 +11,4 @@ export const api = createApi({
   }),
 });
 
-export const { useGetStationsQuery } = api;
+export const { useGetStationsQuery } = stationsApi;
