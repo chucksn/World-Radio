@@ -4,34 +4,15 @@ import Hero from "../components/hero-section";
 import Stations from "../components/stations";
 import Favorites from "../components/favorites";
 import useCapitalize from "../hooks/useCapitalize";
-import { useGetStationsQuery } from "../features/api/stationsApiSlice";
 
 function Home() {
   const country = useSelector((state) => state.country);
   const user = useSelector((state) => state.user);
-  const [activePage, setActivePage] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
   const [category, setCategory] = useState("country");
   const favorites = useSelector((state) => state.favorites);
-  const stationsPerPage = 20;
   const [clickedCardId, setClickedCardId] = useState(null);
   const { extractFirstWord } = useCapitalize();
   const name = user && extractFirstWord(user.name);
-
-  const { data, isLoading, isError, error, isFetching } = useGetStationsQuery([
-    country.value,
-    stationsPerPage,
-    currentPage,
-  ]);
-
-  const handlePageChange = (pageNumber) => {
-    setActivePage(pageNumber);
-    window.scrollTo(0, 0, "smooth");
-  };
-
-  useEffect(() => {
-    setCurrentPage(activePage);
-  }, [activePage]);
 
   const handleFavoriteBtnClick = () => {
     category === "country" ? setCategory("favorite") : setCategory("country");
@@ -80,23 +61,12 @@ function Home() {
             key={"stations"}
             category={category}
             clickedCardId={clickedCardId}
-            country={country}
             setClickedCardId={setClickedCardId}
-            stations={data && data.stations}
-            loading={isLoading}
-            activePage={activePage}
-            handlePageChange={handlePageChange}
-            stationsPerPage={stationsPerPage}
-            totalStation={data && data.totalStation}
-            isError={isError}
-            error={error}
-            isFetching={isFetching}
           />
 
           <Favorites
             key={"favorites"}
             category={category}
-            favorites={favorites}
             clickedCardId={clickedCardId}
             setClickedCardId={setClickedCardId}
           />

@@ -90,6 +90,7 @@ function RadioStationCard({
       await getFavorites(user.token);
     } else {
       navigate("/sign-in");
+      window.scrollTo(0, 0, "smooth");
     }
   };
 

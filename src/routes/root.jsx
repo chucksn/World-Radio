@@ -10,6 +10,8 @@ import useFavorites from "../hooks/useFavorites";
 import { setPaused, resetPaused } from "../features/player/pausedSlice";
 import { setPlaying, resetPlaying } from "../features/player/playingSlice";
 import { setWaiting, resetWaiting } from "../features/player/waitingSlice";
+import { resetActivePage } from "../features/other/activePage-mainSlice";
+import { resetCurrentPage } from "../features/other/currentPage-mainSlice";
 import Player from "../components/player";
 
 function Root() {
@@ -18,6 +20,7 @@ function Root() {
   const paused = useSelector((state) => state.paused);
   const waiting = useSelector((state) => state.waiting);
   const playerData = useSelector((state) => state.playerData);
+  const country = useSelector((state) => state.country);
   const { getFavorites } = useFavorites();
 
   useEffect(() => {
@@ -28,6 +31,12 @@ function Root() {
       getFavorites(user.token);
     }
   }, []);
+
+  useEffect(() => {
+    dispatch(resetActivePage());
+    dispatch(resetCurrentPage());
+    window.scrollTo(0, 0, "smooth");
+  }, [country]);
 
   const handlePlay = () => {
     dispatch(setPlaying());

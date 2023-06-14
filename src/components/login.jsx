@@ -21,7 +21,7 @@ function Login({ loading, setLoading }) {
   const [errorMsg, setErrorMsg] = useState("");
 
   const handleClose = () => {
-    navigate("/");
+    navigate(-1);
   };
   const handleSignUp = () => {
     dispatch(resetShowLogin());
@@ -49,7 +49,7 @@ function Login({ loading, setLoading }) {
         dispatch(setLoggedIn());
         dispatch(setUser(data));
         getFavorites(data.token);
-        navigate("/");
+        navigate(-1);
         setLoading(false);
       }
       if (data.error) {

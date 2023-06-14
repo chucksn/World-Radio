@@ -4,28 +4,29 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Pagination from "react-js-pagination";
 
-function Favorites({ favorites, category, clickedCardId, setClickedCardId }) {
+function Favorites({ category, clickedCardId, setClickedCardId }) {
   const isLogged = useSelector((state) => state.isLogged);
   const playing = useSelector((state) => state.playing);
   const paused = useSelector((state) => state.paused);
   const waiting = useSelector((state) => state.waiting);
+  const favorites = useSelector((state) => state.favorites);
   const navigate = useNavigate();
-  const [activePage, setActivePage] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [favActivePage, setFavActivePage] = useState(1);
+  const [favCurrentPage, setFavCurrentPage] = useState(1);
 
   const totalStation = favorites && favorites.length;
   const stationsPerPage = 10;
-  const startIndex = (currentPage - 1) * stationsPerPage;
-  const endIndex = currentPage * stationsPerPage;
+  const startIndex = (favCurrentPage - 1) * stationsPerPage;
+  const endIndex = favCurrentPage * stationsPerPage;
   const displayedFavorites = favorites && favorites.slice(startIndex, endIndex);
 
   const handlePageChange = (pageNumber) => {
-    setActivePage(pageNumber);
+    setFavActivePage(pageNumber);
   };
 
   useEffect(() => {
-    setCurrentPage(activePage);
-  }, [activePage]);
+    setFavCurrentPage(favActivePage);
+  }, [favActivePage]);
 
   const handleLoginBtn = () => {
     navigate("/sign-in");
@@ -85,7 +86,7 @@ function Favorites({ favorites, category, clickedCardId, setClickedCardId }) {
           {favorites && favorites.length > 0 && (
             <Pagination
               key="favorite-pagination"
-              activePage={activePage}
+              activePage={favActivePage}
               onChange={handlePageChange}
               totalItemsCount={totalStation}
               itemsCountPerPage={stationsPerPage}

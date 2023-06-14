@@ -1,28 +1,39 @@
 import RadioStationCard from "./card";
 import LoadingAnimation from "./loadingAnimation";
 import Pagination from "react-js-pagination";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setActivePage } from "../features/other/activePage-mainSlice";
+import { setCurrentPage } from "../features/other/currentPage-mainSlice";
+import { useEffect } from "react";
+import { useGetStationsQuery } from "../features/api/stationsApiSlice";
 
-function Stations({
-  stations,
-  category,
-  clickedCardId,
-  setClickedCardId,
-  country,
-  loadingFailRef,
-  loadingSvg,
-  loading,
-  activePage,
-  handlePageChange,
-  totalStation,
-  stationsPerPage,
-  isError,
-  error,
-  isFetching,
-}) {
+function Stations({ category, clickedCardId, setClickedCardId }) {
   const playing = useSelector((state) => state.playing);
   const paused = useSelector((state) => state.paused);
   const waiting = useSelector((state) => state.waiting);
+  const activePage_main = useSelector((state) => state.activePage_main);
+  const country = useSelector((state) => state.country);
+  const currentPage_main = useSelector((state) => state.currentPage_main);
+  const dispatch = useDispatch();
+  const stationsPerPage = 20;
+
+  const { data, isLoading, isError, error, isFetching } = useGetStationsQuery([
+    country.value,
+    stationsPerPage,
+    currentPage_main,
+  ]);
+
+  const stations = data && data.stations;
+  const totalStation = data && data.totalStation;
+
+  const handlePageChange = (pageNumber) => {
+    dispatch(setActivePage(pageNumber));
+    window.scrollTo(0, 0, "smooth");
+  };
+
+  useEffect(() => {
+    dispatch(setCurrentPage(activePage_main));
+  }, [activePage_main]);
 
   return (
     <>
@@ -51,7 +62,9 @@ function Stations({
                   </>
                 );
               })}
-            {(loading || isFetching || (stations && stations.length === 0)) && (
+            {(isLoading ||
+              isFetching ||
+              (stations && stations.length === 0)) && (
               <LoadingAnimation
                 stations={stations}
                 isError={isError}
@@ -66,7 +79,7 @@ function Stations({
           {stations && stations.length > 0 && (
             <Pagination
               key="pagination"
-              activePage={activePage}
+              activePage={activePage_main}
               onChange={handlePageChange}
               totalItemsCount={totalStation}
               itemsCountPerPage={stationsPerPage}

@@ -13,6 +13,8 @@ import userMenuToggleReducer from "./features/user/userMenuToggleSlice";
 import playingReducer from "./features/player/playingSlice";
 import waitingReducer from "./features/player/waitingSlice";
 import pausedReducer from "./features/player/pausedSlice";
+import activePageMainReducer from "./features/other/activePage-mainSlice";
+import currentPageMainReducer from "./features/other/currentPage-mainSlice";
 import { stationsApi } from "./features/api/stationsApiSlice";
 
 export const store = configureStore({
@@ -30,6 +32,8 @@ export const store = configureStore({
     playing: playingReducer,
     paused: pausedReducer,
     waiting: waitingReducer,
+    activePage_main: activePageMainReducer,
+    currentPage_main: currentPageMainReducer,
     [stationsApi.reducerPath]: stationsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
