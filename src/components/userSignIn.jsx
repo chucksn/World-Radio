@@ -1,6 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { resetShowLogin } from "../features/sign-in/showLoginSlice";
+import {
+  resetShowLogin,
+  setShowLogin,
+} from "../features/sign-in/showLoginSlice";
 import { setShowSignUp } from "../features/sign-in/showSignUpSlice";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import { setUserMenuToggle } from "../features/user/userMenuToggleSlice";
@@ -22,6 +25,10 @@ function UserSignIn() {
     dispatch(setShowSignUp());
   };
 
+  const handleLogin = () => {
+    dispatch(setShowLogin());
+  };
+
   return (
     <div className="sign-in flex">
       {!isLogged && (
@@ -35,6 +42,7 @@ function UserSignIn() {
           </Link>
           <Link
             to="/sign-in"
+            onClick={handleLogin}
             className="login-btn bg-stone-900 hover:bg-zinc-700 border border-zinc-700 lg:text-[1.05rem] text-white px-3 py-[3px] font-medium rounded-[6px] ml-2 outline-none"
           >
             Login
