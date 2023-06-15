@@ -38,7 +38,7 @@ function Stations({ category, clickedCardId, setClickedCardId }) {
   return (
     <>
       {category === "country" && (
-        <div className="card-container relative bg-black/50 shadow-c-teal flex flex-col mt-4 w-11/12 min-h-60 lg:min-h-64 p-3 xs-c:p-8 rounded-lg lg:mt-6  items-center">
+        <div className="card-container relative bg-black/50 shadow-c-teal flex flex-col mt-4 w-11/12 min-h-60 lg:min-h-64 p-3 xs-c:p-8 rounded-lg lg:mt-6 ">
           <div className="card-container-main flex flex-wrap gap-4 xs-c:gap-8 lg:gap-12 justify-center ">
             {stations &&
               stations.map((station) => {
@@ -77,17 +77,19 @@ function Stations({ category, clickedCardId, setClickedCardId }) {
           </div>
 
           {stations && stations.length > 0 && (
-            <Pagination
-              key="pagination"
-              activePage={activePage_main}
-              onChange={handlePageChange}
-              totalItemsCount={totalStation}
-              itemsCountPerPage={stationsPerPage}
-              pageRangeDisplayed={5}
-              prevPageText={"< Prev"}
-              nextPageText={"Next >"}
-              itemClass={"item"}
-            />
+            <div className="flex justify-center">
+              <Pagination
+                key="pagination"
+                activePage={activePage_main}
+                onChange={handlePageChange}
+                totalItemsCount={totalStation}
+                itemsCountPerPage={stationsPerPage}
+                pageRangeDisplayed={5}
+                prevPageText={"< Prev"}
+                nextPageText={"Next >"}
+                itemClass={"item"}
+              />
+            </div>
           )}
         </div>
       )}
