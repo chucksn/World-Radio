@@ -21,6 +21,12 @@ function SignUp({ loading, setLoading }) {
     navigate(-1);
     dispatch(resetShowSignUp());
   };
+
+  const handleLogin = () => {
+    dispatch(setShowLogin());
+    dispatch(resetShowSignUp());
+  };
+
   const handleCreateAccount = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -78,7 +84,7 @@ function SignUp({ loading, setLoading }) {
       <span className="block my-4">
         Already have an account?{" "}
         <span
-          onClick={handleClose}
+          onClick={handleLogin}
           className="text-sky-600 cursor-pointer font-medium"
         >
           Login

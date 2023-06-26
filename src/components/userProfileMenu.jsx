@@ -3,10 +3,12 @@ import { useState, useRef } from "react";
 import { resetUserMenuToggle } from "../features/user/userMenuToggleSlice";
 import useLogout from "../hooks/useLogout";
 import useCapitalize from "../hooks/useCapitalize";
+import { VscUnverified, VscVerifiedFilled } from "react-icons/vsc";
 
 function UserProfileMenu() {
   const user = useSelector((state) => state.user);
   const isLogged = useSelector((state) => state.isLogged);
+  const isVerified = useSelector((state) => state.isVerified);
   const userMenuToggle = useSelector((state) => state.userMenuToggle);
   const [showDeletePrompt, setShowDeletePrompt] = useState(false);
   const { logout } = useLogout();
@@ -77,11 +79,30 @@ function UserProfileMenu() {
                 {name.charAt(0).toUpperCase()}
               </div>
               <span className="name block font-semibold font-roboto">
-                {name}
+                {name}{" "}
+                {!isVerified && (
+                  <VscUnverified className="inline-block text-red-500 text-xl" />
+                )}
+                {isVerified && (
+                  <VscVerifiedFilled className="inline-block text-sky-700 text-xl" />
+                )}
               </span>
               <span className="email block font-semibold font-roboto text-xs ">
                 {email}
               </span>
+              {!isVerified && (
+                <>
+                  <span className="name block font-semibold font-roboto text-sm sm:text-base text-red-500">
+                    Not Verified
+                  </span>
+                  <button
+                    onClick={""}
+                    className="favorite-country-toggle text-slate-200 bg-sky-900 m-4 px-3 py-2 text-xs md:text-sm rounded-lg font-roboto font-semibold shadow-md lg:hover:bg-sky-800 lg:hover:cursor-pointer"
+                  >
+                    Resend Verification Email
+                  </button>
+                </>
+              )}
             </div>
             <div className="logout-delete-ctn flex flex-col text-center">
               <div className="logout block border-y border-zinc-400/60 font-semibold py-2">

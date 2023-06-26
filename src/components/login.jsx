@@ -6,6 +6,7 @@ import { setShowSignUp } from "../features/sign-in/showSignUpSlice";
 import { resetShowLogin } from "../features/sign-in/showLoginSlice";
 import { setLoggedIn } from "../features/user/loggedSlice";
 import { setUser } from "../features/user/userSlice";
+import { setIsVerified } from "../features/user/verificationSlice";
 import useFavorites from "../hooks/useFavorites";
 
 function Login({ loading, setLoading }) {
@@ -45,12 +46,19 @@ function Login({ loading, setLoading }) {
 
       const data = await response.json();
       if (response.status === 200) {
-        localStorage.setItem("user", JSON.stringify(data));
-        dispatch(setLoggedIn());
-        dispatch(setUser(data));
-        getFavorites(data.token);
-        navigate(-1);
-        setLoading(false);
+        if (data.verified) {
+          localStorage.setItem("user", JSON.stringify(data));
+          dispatch(setLoggedIn());
+          dispatch(setUser(data));
+          dispatch(setIsVerified());
+          getFavorites(data.token);
+          navigate(-1);
+          setLoading(false);
+        } else {
+          dispatch(setLoggedIn());
+          dispatch(setUser(data));
+          navigate(-1);
+        }
       }
       if (data.error) {
         setLoading(false);

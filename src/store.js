@@ -15,6 +15,7 @@ import waitingReducer from "./features/player/waitingSlice";
 import pausedReducer from "./features/player/pausedSlice";
 import activePageMainReducer from "./features/other/activePage-mainSlice";
 import currentPageMainReducer from "./features/other/currentPage-mainSlice";
+import verificationReducer from "./features/user/verificationSlice";
 import { stationsApi } from "./features/api/stationsApiSlice";
 
 export const store = configureStore({
@@ -34,6 +35,7 @@ export const store = configureStore({
     waiting: waitingReducer,
     activePage_main: activePageMainReducer,
     currentPage_main: currentPageMainReducer,
+    isVerified: verificationReducer,
     [stationsApi.reducerPath]: stationsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

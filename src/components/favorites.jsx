@@ -6,6 +6,7 @@ import Pagination from "react-js-pagination";
 
 function Favorites({ category, clickedCardId, setClickedCardId }) {
   const isLogged = useSelector((state) => state.isLogged);
+  const isVerified = useSelector((state) => state.isVerified);
   const playing = useSelector((state) => state.playing);
   const paused = useSelector((state) => state.paused);
   const waiting = useSelector((state) => state.waiting);
@@ -69,15 +70,30 @@ function Favorites({ category, clickedCardId, setClickedCardId }) {
             )}
 
             {!isLogged && (
-              <div className="w-full h-full flex flex-col justify-center items-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="not-logged-display w-full h-full flex flex-col justify-center items-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                 <span className="text-amber-300">
                   Login to access your favorite station(s)
                 </span>
                 <button
                   onClick={handleLoginBtn}
-                  className="favorite-country-toggle text-slate-200 bg-sky-900 mt-6 px-2 py-1 md:px-3 md:py-2 text-xs md:text-sm rounded-lg font-unbounded shadow-md lg:hover:bg-sky-800 lg:hover:cursor-pointer"
+                  className="favorite-country-toggle text-slate-200 bg-sky-900 mt-6 px-3 py-2 text-xs md:text-sm rounded-lg font-unbounded shadow-md lg:hover:bg-sky-800 lg:hover:cursor-pointer"
                 >
                   Login
+                </button>
+              </div>
+            )}
+            {isLogged && !isVerified && (
+              <div className="not-verified-display w-full h-full flex flex-col justify-center items-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                <span className="text-green-300">VERIFY YOUR ACCOUNT</span>
+                <span className="text-slate-300 mt-2 text-center text-sm sm:text-base mx-2">
+                  Click the verification link on the verification email sent to
+                  your email address
+                </span>
+                <button
+                  onClick={""}
+                  className="favorite-country-toggle text-slate-200 bg-sky-900 mt-6 px-3 py-2 text-xs md:text-sm rounded-lg font-unbounded shadow-md lg:hover:bg-sky-800 lg:hover:cursor-pointer"
+                >
+                  Resend Verification Email
                 </button>
               </div>
             )}
