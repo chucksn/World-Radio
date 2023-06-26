@@ -4,6 +4,7 @@ import { resetUserMenuToggle } from "../features/user/userMenuToggleSlice";
 import useLogout from "../hooks/useLogout";
 import useCapitalize from "../hooks/useCapitalize";
 import { VscUnverified, VscVerifiedFilled } from "react-icons/vsc";
+import useVerification from "../hooks/useVerification";
 
 function UserProfileMenu() {
   const user = useSelector((state) => state.user);
@@ -17,6 +18,7 @@ function UserProfileMenu() {
   const email = user && user.email;
   const userMenuRef = useRef();
   const baseURL = import.meta.env.VITE_BASE_URL;
+  const { resendVerification } = useVerification();
 
   const name = user && capitalizeWords(user.name);
 
@@ -66,6 +68,10 @@ function UserProfileMenu() {
     }
   };
 
+  const handleResendVerification = () => {
+    resendVerification();
+  };
+
   return (
     <>
       {isLogged && userMenuToggle && (
@@ -92,12 +98,12 @@ function UserProfileMenu() {
               </span>
               {!isVerified && (
                 <>
-                  <span className="name block font-semibold font-roboto text-sm sm:text-base text-red-500">
+                  <span className="not-verified-txt block font-semibold font-roboto text-sm sm:text-base text-red-500">
                     Not Verified
                   </span>
                   <button
-                    onClick={""}
-                    className="favorite-country-toggle text-slate-200 bg-sky-900 m-4 px-3 py-2 text-xs md:text-sm rounded-lg font-roboto font-semibold shadow-md lg:hover:bg-sky-800 lg:hover:cursor-pointer"
+                    onClick={handleResendVerification}
+                    className="resend-verification text-slate-200 bg-sky-900 m-4 px-3 py-2 text-xs md:text-sm rounded-lg font-roboto font-semibold shadow-md lg:hover:bg-sky-800 lg:hover:cursor-pointer"
                   >
                     Resend Verification Email
                   </button>

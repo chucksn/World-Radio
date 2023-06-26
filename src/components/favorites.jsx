@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Pagination from "react-js-pagination";
+import useVerification from "../hooks/useVerification";
 
 function Favorites({ category, clickedCardId, setClickedCardId }) {
   const isLogged = useSelector((state) => state.isLogged);
@@ -14,6 +15,7 @@ function Favorites({ category, clickedCardId, setClickedCardId }) {
   const navigate = useNavigate();
   const [favActivePage, setFavActivePage] = useState(1);
   const [favCurrentPage, setFavCurrentPage] = useState(1);
+  const { resendVerification } = useVerification();
 
   const totalStation = favorites && favorites.length;
   const stationsPerPage = 10;
@@ -32,6 +34,11 @@ function Favorites({ category, clickedCardId, setClickedCardId }) {
   const handleLoginBtn = () => {
     navigate("/sign-in");
   };
+
+  const handleResendVerification = () => {
+    resendVerification();
+  };
+
   return (
     <>
       {category === "favorite" && (
@@ -90,7 +97,7 @@ function Favorites({ category, clickedCardId, setClickedCardId }) {
                   your email address
                 </span>
                 <button
-                  onClick={""}
+                  onClick={handleResendVerification}
                   className="favorite-country-toggle text-slate-200 bg-sky-900 mt-6 px-3 py-2 text-xs md:text-sm rounded-lg font-unbounded shadow-md lg:hover:bg-sky-800 lg:hover:cursor-pointer"
                 >
                   Resend Verification Email
