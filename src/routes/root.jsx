@@ -13,6 +13,7 @@ import { setWaiting, resetWaiting } from "../features/player/waitingSlice";
 import { resetActivePage } from "../features/other/activePage-mainSlice";
 import { resetCurrentPage } from "../features/other/currentPage-mainSlice";
 import Player from "../components/player";
+import Toast from "../components/Toast";
 
 function Root() {
   const dispatch = useDispatch();
@@ -61,6 +62,7 @@ function Root() {
       <Header />
       <Outlet />
       <Footer />
+      <Toast />
       <UserProfileMenu />
       {playerData && (
         <Player
