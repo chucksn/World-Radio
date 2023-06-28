@@ -7,6 +7,7 @@ function Toast() {
   const [isVisible, setIsVisible] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const isLogged = useSelector((state) => state.isLogged);
+  const isVerificationSent = useSelector((state) => state.isVerificationSent);
 
   useEffect(() => {
     setIsMounted(true);
@@ -19,12 +20,12 @@ function Toast() {
         setIsVisible(false);
       }, 3000);
     }
-  }, [isLogged]);
+  }, [isLogged, isVerificationSent]);
   return (
     <>
-      {isLogged && (
+      {isLogged && !isVerificationSent && (
         <div
-          className={`fixed left-1/2 -translate-x-1/2 top-[70px] z-[60] border border-green-600 sm:top-32 px-3 py-1 bg-white/80 rounded-lg md:text-lg font-medium ${
+          className={`fixed left-1/2 -translate-x-1/2 top-[70px] z-[60] sm:top-32 px-4 py-1 bg-green-100/80 rounded-lg md:text-lg font-medium ${
             isVisible ? "block" : "hidden"
           }`}
         >
@@ -33,13 +34,25 @@ function Toast() {
         </div>
       )}
 
-      {!isLogged && (
+      {!isLogged && !isVerificationSent && (
         <div
-          className={`fixed left-1/2 -translate-x-1/2 top-[70px] z-[60] border border-red-500 sm:top-32 px-3 py-1 bg-white/80 rounded-lg md:text-lg font-medium ${
+          className={`fixed left-1/2 -translate-x-1/2 top-[70px] z-[60] sm:top-32 px-4 py-1 bg-red-100/80 rounded-lg md:text-lg font-medium ${
             isVisible ? "block" : "hidden"
           }`}
         >
           Logged Out <AiOutlineLogout className="inline-block text-red-500" />
+        </div>
+      )}
+
+      {isVerificationSent && (
+        <div
+          className={`fixed left-1/2 -translate-x-1/2 top-[70px] z-[60] sm:top-32 px-4 py-1 bg-green-100/80 rounded-lg md:text-lg font-medium ${
+            isVisible ? "block" : "hidden"
+          }`}
+        >
+          Verification Sent{" "}
+          <span className="text-sm text-blue-800">Check Email</span>{" "}
+          <BsCheckCircleFill className="inline-block text-green-600" />
         </div>
       )}
     </>

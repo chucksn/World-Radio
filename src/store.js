@@ -16,6 +16,7 @@ import pausedReducer from "./features/player/pausedSlice";
 import activePageMainReducer from "./features/other/activePage-mainSlice";
 import currentPageMainReducer from "./features/other/currentPage-mainSlice";
 import verificationReducer from "./features/user/verificationSlice";
+import verificationSentReducer from "./features/user/sendVerificationSlice";
 import { stationsApi } from "./features/api/stationsApiSlice";
 
 export const store = configureStore({
@@ -36,6 +37,7 @@ export const store = configureStore({
     activePage_main: activePageMainReducer,
     currentPage_main: currentPageMainReducer,
     isVerified: verificationReducer,
+    isVerificationSent: verificationSentReducer,
     [stationsApi.reducerPath]: stationsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

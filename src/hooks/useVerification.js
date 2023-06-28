@@ -1,9 +1,11 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setVerificationSent } from "../features/user/sendVerificationSlice";
 import useLogout from "./useLogout";
 
 const useVerification = () => {
   const baseURL = import.meta.env.VITE_BASE_URL;
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const { logout } = useLogout();
 
   const resendVerification = async () => {
@@ -17,6 +19,7 @@ const useVerification = () => {
       });
       const data = await response.json();
       if (response.status === 200) {
+        dispatch(setVerificationSent());
         logout();
       }
       if (response.status === 400) throw data.error;

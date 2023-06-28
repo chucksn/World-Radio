@@ -10,6 +10,7 @@ import {
   setCountryCardClicked,
   resetCountryCardClicked,
 } from "../features/other/countryCardClickSlice";
+import { setUserMenuToggle } from "../features/user/userMenuToggleSlice";
 import useFavorites from "../hooks/useFavorites";
 import radioImg from "../assets/radio2.jpg";
 import tailSpin from "../assets/tail-spin.svg";
@@ -35,6 +36,7 @@ function RadioStationCard({
   const favorites = useSelector((state) => state.favorites);
   const user = useSelector((state) => state.user);
   const isLogged = useSelector((state) => state.isLogged);
+  const isVerified = useSelector((state) => state.isVerified);
   const playing = useSelector((state) => state.playing);
   const waiting = useSelector((state) => state.waiting);
   const [isMatched, setIsMatched] = useState(false);
@@ -83,14 +85,18 @@ function RadioStationCard({
       id,
     };
 
-    if (isLogged && user) {
+    if (isLogged && isVerified && user) {
       isMatched
         ? await removeFavorite(user.token, id)
         : await addFavorite(user.token, newFavoriteData);
       await getFavorites(user.token);
-    } else {
+    }
+    if (!isLogged) {
       navigate("/sign-in");
       window.scrollTo(0, 0, "smooth");
+    }
+    if (isLogged && !isVerified) {
+      dispatch(setUserMenuToggle());
     }
   };
 

@@ -70,6 +70,7 @@ function UserProfileMenu() {
 
   const handleResendVerification = () => {
     resendVerification();
+    dispatch(resetUserMenuToggle());
   };
 
   return (

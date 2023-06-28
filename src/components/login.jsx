@@ -7,6 +7,7 @@ import { resetShowLogin } from "../features/sign-in/showLoginSlice";
 import { setLoggedIn } from "../features/user/loggedSlice";
 import { setUser } from "../features/user/userSlice";
 import { setIsVerified } from "../features/user/verificationSlice";
+import { resetVerificationSent } from "../features/user/sendVerificationSlice";
 import useFavorites from "../hooks/useFavorites";
 
 function Login({ loading, setLoading }) {
@@ -46,6 +47,8 @@ function Login({ loading, setLoading }) {
 
       const data = await response.json();
       if (response.status === 200) {
+        dispatch(resetVerificationSent());
+
         if (data.verified) {
           localStorage.setItem("user", JSON.stringify(data));
           dispatch(setLoggedIn());

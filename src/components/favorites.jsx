@@ -1,11 +1,12 @@
 import RadioStationCard from "./card";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Pagination from "react-js-pagination";
 import useVerification from "../hooks/useVerification";
 
 function Favorites({ category, clickedCardId, setClickedCardId }) {
+  const dispatch = useDispatch();
   const isLogged = useSelector((state) => state.isLogged);
   const isVerified = useSelector((state) => state.isVerified);
   const playing = useSelector((state) => state.playing);
