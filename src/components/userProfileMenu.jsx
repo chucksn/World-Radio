@@ -106,7 +106,7 @@ function UserProfileMenu() {
                     onClick={handleResendVerification}
                     className="resend-verification text-slate-200 bg-sky-900 m-4 px-3 py-2 text-xs md:text-sm rounded-lg font-roboto font-semibold shadow-md lg:hover:bg-sky-800 lg:hover:cursor-pointer"
                   >
-                    Resend Verification Email
+                    Resend Verification
                   </button>
                 </>
               )}
