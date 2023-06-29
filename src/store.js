@@ -18,6 +18,7 @@ import currentPageMainReducer from "./features/other/currentPage-mainSlice";
 import verificationReducer from "./features/user/verificationSlice";
 import verificationSentReducer from "./features/user/sendVerificationSlice";
 import { stationsApi } from "./features/api/stationsApiSlice";
+import { verifyApi } from "./features/api/verifyApiSlice";
 
 export const store = configureStore({
   reducer: {
@@ -39,9 +40,10 @@ export const store = configureStore({
     isVerified: verificationReducer,
     isVerificationSent: verificationSentReducer,
     [stationsApi.reducerPath]: stationsApi.reducer,
+    [verifyApi.reducerPath]: verifyApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(stationsApi.middleware),
+    getDefaultMiddleware().concat(stationsApi.middleware, verifyApi.middleware),
 });
 
 setupListeners(store.dispatch);

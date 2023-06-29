@@ -30,7 +30,7 @@ function Toast() {
           }`}
         >
           Logged In{" "}
-          <BsCheckCircleFill className="inline-block text-green-600" />
+          <BsCheckCircleFill className="inline-block text-green-700" />
         </div>
       )}
 
@@ -52,7 +52,7 @@ function Toast() {
         >
           Verification Sent{" "}
           <span className="text-sm text-blue-800">Check Email</span>{" "}
-          <BsCheckCircleFill className="inline-block text-green-600" />
+          <BsCheckCircleFill className="inline-block text-green-700" />
         </div>
       )}
     </>

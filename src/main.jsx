@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./routes/root";
 import ErrorPg from "./routes/errorPg";
 import SignIn from "./routes/signIn";
+import VerifyConfirmationPg from "./routes/verifyConfirmationPg";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "sign-in",
         element: <SignIn />,
+      },
+      {
+        path: "verify/:token",
+        element: <VerifyConfirmationPg />,
       },
       {
         path: "*",
