@@ -13,7 +13,7 @@ function SignIn() {
     <div className="w-full min-h-screen flex justify-center items-center relative">
       {showLogin && <Login setLoading={setLoading} loading={loading} />}
       {showSignUp && <SignUp setLoading={setLoading} loading={loading} />}
-      {loading && <Loading key="loading" height={40} width={40} />}
+      {loading && <Loading key="loading" size={40} />}
     </div>
   );
 }

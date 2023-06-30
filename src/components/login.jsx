@@ -4,12 +4,12 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setShowSignUp } from "../features/sign-in/showSignUpSlice";
 import { resetShowLogin } from "../features/sign-in/showLoginSlice";
-import useLogin from "../hooks/useLogin";
+import useSignIn from "../hooks/useSignIn";
 
 function Login({ loading, setLoading }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { login } = useLogin();
+  const { login } = useSignIn();
   const emailRef = useRef();
   const passwordRef = useRef();
 
@@ -23,6 +23,7 @@ function Login({ loading, setLoading }) {
   const handleSignUp = () => {
     dispatch(resetShowLogin());
     dispatch(setShowSignUp());
+    window.scrollTo(0, 0, "smooth");
   };
 
   const handleLogin = async (e) => {

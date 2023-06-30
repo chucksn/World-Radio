@@ -4,7 +4,10 @@ import {
   resetShowLogin,
   setShowLogin,
 } from "../features/sign-in/showLoginSlice";
-import { setShowSignUp } from "../features/sign-in/showSignUpSlice";
+import {
+  setShowSignUp,
+  resetShowSignUp,
+} from "../features/sign-in/showSignUpSlice";
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import { setUserMenuToggle } from "../features/user/userMenuToggleSlice";
 import useCapitalize from "../hooks/useCapitalize";
@@ -23,10 +26,13 @@ function UserSignIn() {
   const handleSignUp = () => {
     dispatch(resetShowLogin());
     dispatch(setShowSignUp());
+    window.scrollTo(0, 0, "smooth");
   };
 
   const handleLogin = () => {
     dispatch(setShowLogin());
+    dispatch(resetShowSignUp());
+    window.scrollTo(0, 0, "smooth");
   };
 
   return (

@@ -4,8 +4,10 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { resetShowSignUp } from "../features/sign-in/showSignUpSlice";
 import { setShowLogin } from "../features/sign-in/showLoginSlice";
+import useSignIn from "../hooks/useSignIn";
 
 function SignUp({ loading, setLoading }) {
+  const { signUp } = useSignIn();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const emailRef = useRef();
@@ -15,8 +17,6 @@ function SignUp({ loading, setLoading }) {
   const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
   const [nameErrorMsg, setNameErrorMsg] = useState("");
 
-  const baseURL = import.meta.env.VITE_BASE_URL;
-
   const handleClose = () => {
     navigate(-1);
     dispatch(resetShowSignUp());
@@ -25,6 +25,7 @@ function SignUp({ loading, setLoading }) {
   const handleLogin = () => {
     dispatch(setShowLogin());
     dispatch(resetShowSignUp());
+    window.scrollTo(0, 0, "smooth");
   };
 
   const handleCreateAccount = (e) => {
@@ -33,40 +34,15 @@ function SignUp({ loading, setLoading }) {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     const name = nameRef.current.value;
-    const createUser = async () => {
-      try {
-        const response = await fetch(`${baseURL}/api/v1/user/auth/sign-up`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password, name }),
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          dispatch(setShowLogin());
-          dispatch(resetShowSignUp());
-          setLoading(false);
-          console.log(data.message);
-        }
-        if (data.error) {
-          setLoading(false);
-          data.error.email
-            ? setEmailErrorMsg(data.error.email)
-            : setEmailErrorMsg("");
-          data.error.name
-            ? setNameErrorMsg(data.error.name)
-            : setNameErrorMsg("");
-          data.error.password
-            ? setPasswordErrorMsg(data.error.password)
-            : setPasswordErrorMsg("");
-          throw data.error;
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    createUser();
+    signUp(
+      email,
+      password,
+      name,
+      setEmailErrorMsg,
+      setNameErrorMsg,
+      setPasswordErrorMsg,
+      setLoading
+    );
   };
 
   return (

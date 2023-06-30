@@ -32,14 +32,14 @@ function Home() {
             {category === "country" && (
               <div className="location flex items-center mr-4">
                 <i className="fa-solid fa-location-dot text-red-600 text-sm md:text-xl mr-1"></i>{" "}
-                <span className="bg-neutral-800/80 text-amber-300 font-unbounded py-1 px-2 rounded-full text-xs md:text-[15px] text-center">
+                <span className="bg-neutral-800/80 text-amber-300 font-medium py-1 sm:py-2 px-3 rounded-full text-sm md:text-[17px] text-center">
                   {country.label}
                 </span>
               </div>
             )}
             {category === "favorite" && (
-              <span className="bg-neutral-800/80 text-amber-300 font-unbounded py-1 px-2 rounded-full text-xs md:text-[0.85rem] lg:text-base text-center mr-4">
-                {user && `${name}'s Favorite(s)`}
+              <span className="bg-neutral-800/80 text-amber-300 font-medium py-1 sm:py-2 px-3 rounded-full text-sm md:text-[0.85rem] lg:text-base text-center mr-4">
+                {user && `${name}'s Favorites`}
                 {!user && "Favorite Station(s)"}
               </span>
             )}
@@ -47,11 +47,11 @@ function Home() {
               onClick={handleFavoriteBtnClick}
               className="favorite-country-toggle text-slate-200 bg-sky-900 shadow p-2 md:p-3 text-xs lg:text-sm rounded-lg font-unbounded lg:hover:bg-sky-800 lg:hover:cursor-pointer"
             >
-              {category === "country" && "Favorite Station(s)"}
+              {category === "country" && "Favorite Stations"}
               {category === "favorite" && "Back to Searched Stations"}{" "}
               {favorites && favorites.length > 0 && category === "country" && (
-                <span className="inline-block text-[yellow]">
-                  {`- ${favorites.length}`}
+                <span className="inline-block text-[yellow] font-semibold">
+                  &nbsp;{favorites.length}
                 </span>
               )}
             </button>

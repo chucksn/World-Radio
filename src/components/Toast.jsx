@@ -7,6 +7,7 @@ function Toast() {
   const [isVisible, setIsVisible] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const isLogged = useSelector((state) => state.isLogged);
+  const favorites = useSelector((state) => state.favorites);
   const isVerificationSent = useSelector((state) => state.isVerificationSent);
 
   useEffect(() => {
@@ -21,6 +22,16 @@ function Toast() {
       }, 3000);
     }
   }, [isLogged, isVerificationSent]);
+
+  useEffect(() => {
+    if (isMounted) {
+      setIsVisible(true);
+      setTimeout(() => {
+        setIsVisible(false);
+      }, 3000);
+    }
+  }, [favorites]);
+
   return (
     <>
       {isLogged && !isVerificationSent && (

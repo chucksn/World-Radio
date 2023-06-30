@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoggedIn } from "../features/user/loggedSlice";
 import { setUser } from "../features/user/userSlice";
+import { setIsVerified } from "../features/user/verificationSlice";
 import useFavorites from "../hooks/useFavorites";
 import { setPaused, resetPaused } from "../features/player/pausedSlice";
 import { setPlaying, resetPlaying } from "../features/player/playingSlice";
@@ -29,6 +30,7 @@ function Root() {
     if (user) {
       dispatch(setLoggedIn());
       dispatch(setUser(user));
+      dispatch(setIsVerified());
       getFavorites(user.token);
     }
   }, []);
