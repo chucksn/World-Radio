@@ -35,7 +35,6 @@ const useFavorites = () => {
       });
 
       const data = await response.json();
-      if (response.status === 200) console.log("added to favorites");
       if (response.status === 401) {
         logout();
         navigate("/sign-in");
@@ -57,7 +56,6 @@ const useFavorites = () => {
       );
 
       const data = await response.json();
-      if (response.status === 200) console.log("deleted from favorites");
       if (response.status === 401) {
         logout();
         navigate("/sign-in");

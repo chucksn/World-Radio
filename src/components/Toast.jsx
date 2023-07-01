@@ -9,6 +9,9 @@ function Toast() {
   const isLogged = useSelector((state) => state.isLogged);
   const favorites = useSelector((state) => state.favorites);
   const isVerificationSent = useSelector((state) => state.isVerificationSent);
+  const [refFavoriteLength, setRefFavoriteLength] = useState(
+    favorites && favorites.length
+  );
 
   useEffect(() => {
     setIsMounted(true);
@@ -25,10 +28,12 @@ function Toast() {
 
   useEffect(() => {
     if (isMounted) {
-      setIsVisible(true);
-      setTimeout(() => {
-        setIsVisible(false);
-      }, 3000);
+      // setIsVisible(true);
+      // setTimeout(() => {
+      //   setIsVisible(false);
+      // }, 3000);
+      favorites && setRefFavoriteLength(favorites.length);
+      console.log(refFavoriteLength);
     }
   }, [favorites]);
 
