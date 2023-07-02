@@ -20,6 +20,16 @@ function Home() {
   };
 
   useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const encodedData = queryParams.get("data");
+    if (encodedData) {
+      const decodedData = window.atob(encodedData);
+      const data = JSON.parse(decodedData);
+      if (data) console.log(data);
+    }
+  }, []);
+
+  useEffect(() => {
     setCategory("country");
   }, [country]);
 
@@ -32,7 +42,7 @@ function Home() {
             {category === "country" && (
               <div className="location flex items-center mr-4">
                 <i className="fa-solid fa-location-dot text-red-600 text-sm md:text-xl mr-1"></i>{" "}
-                <span className="bg-neutral-800/80 text-amber-300 font-medium py-1 sm:py-2 px-3 rounded-full text-sm md:text-[17px] text-center">
+                <span className="bg-neutral-800/80 text-amber-300 font-medium py-1 sm:py-2 px-3 rounded-full text-sm md:text-[18px] text-center">
                   {country.label}
                 </span>
               </div>

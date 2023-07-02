@@ -2,26 +2,17 @@ import { useParams } from "react-router-dom";
 import { useVerifyQuery } from "../features/api/verifyApiSlice";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/loading";
-import { useDispatch } from "react-redux";
-import { setLoggedIn } from "../features/user/loggedSlice";
-import { setUser } from "../features/user/userSlice";
-import { setIsVerified } from "../features/user/verificationSlice";
-import useFavorites from "../hooks/useFavorites";
+import useLogin from "../hooks/useLogin";
 import { FiCheckCircle } from "react-icons/fi";
 
 function VerifyConfirmationPg() {
   const { token } = useParams();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { getFavorites } = useFavorites();
+  const { verifiedLogin } = useLogin();
   const { isError, isLoading, data, error } = useVerifyQuery(token);
 
   if (data) {
-    localStorage.setItem("user", JSON.stringify(data));
-    dispatch(setLoggedIn());
-    dispatch(setUser(data));
-    dispatch(setIsVerified());
-    getFavorites(data.token);
+    verifiedLogin(data);
   }
 
   const handleClose = () => {

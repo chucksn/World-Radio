@@ -17,6 +17,7 @@ import activePageMainReducer from "./features/other/activePage-mainSlice";
 import currentPageMainReducer from "./features/other/currentPage-mainSlice";
 import verificationReducer from "./features/user/verificationSlice";
 import verificationSentReducer from "./features/user/sendVerificationSlice";
+import addRemoveFavoriteReducer from "./features/favorite/addRemoveFavoriteSlice";
 import { stationsApi } from "./features/api/stationsApiSlice";
 import { verifyApi } from "./features/api/verifyApiSlice";
 
@@ -38,6 +39,7 @@ export const store = configureStore({
     activePage_main: activePageMainReducer,
     currentPage_main: currentPageMainReducer,
     isVerified: verificationReducer,
+    favoriteAddRemoveState: addRemoveFavoriteReducer,
     isVerificationSent: verificationSentReducer,
     [stationsApi.reducerPath]: stationsApi.reducer,
     [verifyApi.reducerPath]: verifyApi.reducer,

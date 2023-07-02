@@ -2,19 +2,16 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { resetShowSignUp } from "../features/sign-in/showSignUpSlice";
 import { setShowLogin } from "../features/sign-in/showLoginSlice";
-import { setLoggedIn } from "../features/user/loggedSlice";
-import { setUser } from "../features/user/userSlice";
-import { setIsVerified } from "../features/user/verificationSlice";
 import { resetVerificationSent } from "../features/user/sendVerificationSlice";
-import useFavorites from "./useFavorites";
+import useLogin from "./useLogin";
 
 const useSignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { getFavorites } = useFavorites();
+  const { unVerifiedLogin, verifiedLogin } = useLogin();
   const baseURL = import.meta.env.VITE_BASE_URL;
 
-  const login = async (
+  const loginByEmail = async (
     email,
     password,
     setLoading,
@@ -36,16 +33,11 @@ const useSignIn = () => {
         dispatch(resetVerificationSent());
 
         if (data.verified) {
-          localStorage.setItem("user", JSON.stringify(data));
-          dispatch(setLoggedIn());
-          dispatch(setUser(data));
-          dispatch(setIsVerified());
-          getFavorites(data.token);
+          verifiedLogin(data);
           navigate(-1);
           setLoading(false);
         } else {
-          dispatch(setLoggedIn());
-          dispatch(setUser(data));
+          unVerifiedLogin(data);
           navigate(-1);
         }
       }
@@ -110,7 +102,21 @@ const useSignIn = () => {
     }
   };
 
-  return { login, signUp };
+  const googleLogin = async (setLoading) => {
+    try {
+      const response = await fetch(`${baseURL}/api/v1/oauth/google/url`);
+      const data = await response.json();
+      if (response.status === 200) {
+        setLoading(false);
+        const authorizeURL = data.authorizeUrl;
+        window.location.href = authorizeURL;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return { loginByEmail, signUp, googleLogin };
 };
 
 export default useSignIn;

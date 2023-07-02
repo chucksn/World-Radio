@@ -2,6 +2,8 @@ import { useDispatch } from "react-redux";
 import { setFavorites } from "../features/favorite/favoritesSlice";
 import useLogout from "./useLogout";
 import { useNavigate } from "react-router-dom";
+import { setAddFavorite } from "../features/favorite/addRemoveFavoriteSlice";
+import { setRemoveFavorite } from "../features/favorite/addRemoveFavoriteSlice";
 
 const useFavorites = () => {
   const dispatch = useDispatch();
@@ -35,6 +37,7 @@ const useFavorites = () => {
       });
 
       const data = await response.json();
+      if (response.status === 200) dispatch(setAddFavorite());
       if (response.status === 401) {
         logout();
         navigate("/sign-in");
@@ -56,6 +59,7 @@ const useFavorites = () => {
       );
 
       const data = await response.json();
+      if (response.status === 200) dispatch(setRemoveFavorite());
       if (response.status === 401) {
         logout();
         navigate("/sign-in");

@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { setShowSignUp } from "../features/sign-in/showSignUpSlice";
 import { resetShowLogin } from "../features/sign-in/showLoginSlice";
 import useSignIn from "../hooks/useSignIn";
+import { FcGoogle } from "react-icons/fc";
 
 function Login({ loading, setLoading }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { login } = useSignIn();
+  const { loginByEmail, googleLogin } = useSignIn();
   const emailRef = useRef();
   const passwordRef = useRef();
 
@@ -31,7 +32,7 @@ function Login({ loading, setLoading }) {
     setLoading(true);
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    login(
+    loginByEmail(
       email,
       password,
       setLoading,
@@ -39,6 +40,11 @@ function Login({ loading, setLoading }) {
       setPasswordErrorMsg,
       setErrorMsg
     );
+  };
+
+  const handleGoogleLogin = () => {
+    setLoading(true);
+    googleLogin(setLoading);
   };
 
   return (
@@ -106,6 +112,17 @@ function Login({ loading, setLoading }) {
           Login
         </button>
       </form>
+
+      <span className="block">OR</span>
+      <button
+        onClick={handleGoogleLogin}
+        disabled={loading}
+        className="border border-sky-600 bg-slate-100 font-medium text-neutral-700 hover:bg-white px-4 py-1 sm:px-6 rounded-lg my-4 outline-none"
+      >
+        <FcGoogle className="inline-block text-3xl" />
+        &nbsp; Continue with Google
+      </button>
+
       {errorMsg && errorMsg === "Invalid email or password" && (
         <span className="block text-red-500 text-center font-medium text-sm">
           <MdErrorOutline className="inline text-xl  " /> {errorMsg}
