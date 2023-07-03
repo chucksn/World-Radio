@@ -4,6 +4,8 @@ import Hero from "../components/hero-section";
 import Stations from "../components/stations";
 import Favorites from "../components/favorites";
 import useCapitalize from "../hooks/useCapitalize";
+import useLogin from "../hooks/useLogin";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const country = useSelector((state) => state.country);
@@ -13,6 +15,8 @@ function Home() {
   const [clickedCardId, setClickedCardId] = useState(null);
   const { extractFirstWord } = useCapitalize();
   const name = user && extractFirstWord(user.name);
+  const { verifiedLogin } = useLogin();
+  const navigate = useNavigate();
 
   const handleFavoriteBtnClick = () => {
     category === "country" ? setCategory("favorite") : setCategory("country");
@@ -25,7 +29,10 @@ function Home() {
     if (encodedData) {
       const decodedData = window.atob(encodedData);
       const data = JSON.parse(decodedData);
-      if (data) console.log(data);
+      if (data) {
+        verifiedLogin(data);
+        navigate("/");
+      }
     }
   }, []);
 
