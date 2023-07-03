@@ -42,6 +42,8 @@ function Toast() {
     }
   }, [favorites]);
 
+  //
+
   return (
     <>
       {isLogged && !isVerificationSent && !favoriteAddRemoveState && (
