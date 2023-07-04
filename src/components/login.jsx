@@ -48,7 +48,7 @@ function Login({ loading, setLoading }) {
   };
 
   return (
-    <div className="login flex flex-col justify-between items-center w-[90%] sm:w-[70%] md:w-[50%] lg:w-[40%] xl:w-[30%] min-h-64 px-12 py-8 bg-slate-300 rounded-lg relative">
+    <div className="login flex flex-col justify-between  w-[90%] sm:w-[70%] md:w-[50%] lg:w-[40%] xl:w-[30%] min-h-64 px-12 py-8 bg-slate-300 rounded-lg relative">
       <span
         className="close absolute text-black/70 right-0 top-0 text-3xl cursor-pointer m-4"
         onClick={handleClose}
@@ -107,17 +107,23 @@ function Login({ loading, setLoading }) {
         <button
           type="submit"
           disabled={loading}
-          className="bg-sky-600 hover:bg-sky-700 text-white px-6 py-1 rounded-lg my-4 outline-none"
+          className="bg-sky-600 hover:bg-sky-700 text-white text-sm sm:text-base px-6 py-2 rounded-lg my-4 outline-none"
         >
-          Login
+          Login with Email
         </button>
       </form>
 
-      <span className="block">OR</span>
+      <div className="relative my-3">
+        <hr className="absolute w-[42%] border-neutral-400 top-1/2 left-0" />
+        <span className="block text-center text-neutral-600 text-sm sm:text-base font-medium">
+          OR
+        </span>
+        <hr className="absolute w-[42%] border-neutral-400 top-1/2 right-0" />
+      </div>
       <button
         onClick={handleGoogleLogin}
         disabled={loading}
-        className="border border-sky-600 bg-slate-100 font-medium text-neutral-700 hover:bg-white px-4 py-1 sm:px-6 rounded-lg my-4 outline-none"
+        className="border border-sky-600 bg-slate-100 font-medium text-sm sm:text-base text-neutral-700 hover:bg-white px-4 py-1 sm:px-6 rounded-lg my-4 outline-none"
       >
         <FcGoogle className="inline-block text-3xl" />
         &nbsp; Continue with Google

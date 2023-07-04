@@ -17,32 +17,41 @@ function Toast() {
     (state) => state.favoriteAddRemoveState
   );
 
+  const timedToastDisplay = () => {
+    setIsVisible(true);
+    setTimeout(() => {
+      setIsVisible(false);
+    }, 3000);
+  };
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
   useEffect(() => {
-    if (isMounted) {
-      dispatch(resetAddRemoveFavorite());
-      setIsVisible(true);
-      setTimeout(() => {
-        setIsVisible(false);
-      }, 3000);
+    if (isLogged) {
+      timedToastDisplay();
     }
-  }, [isLogged, isVerificationSent]);
+
+    if (!isLogged && isMounted) {
+      timedToastDisplay();
+      dispatch(resetAddRemoveFavorite());
+    }
+  }, [isLogged]);
+
+  useEffect(() => {
+    if (isMounted) {
+      timedToastDisplay();
+    }
+  }, [isVerificationSent]);
 
   useEffect(() => {
     if (isMounted) {
       if (favoriteAddRemoveState) {
-        setIsVisible(true);
-        setTimeout(() => {
-          setIsVisible(false);
-        }, 3000);
+        timedToastDisplay();
       }
     }
   }, [favorites]);
-
-  //
 
   return (
     <>
