@@ -42,7 +42,7 @@ function Home() {
 
   return (
     <>
-      <div className="home w-full min-h-screen flex flex-col relative">
+      <div className="home w-full min-h-screen flex flex-col relative pt-11">
         <div className="body-container w-full flex flex-col mb-6 mt-8 items-center sm:mt-14">
           <Hero />
           <div className="country-favorite-txt-ctn w-full px-5 sm:px-10 md:px-14 lg:px-20  flex items-center  justify-between">
