@@ -10,7 +10,7 @@ function SignIn() {
   const [loading, setLoading] = useState(false);
 
   return (
-    <div className="w-full min-h-screen flex justify-center items-center relative">
+    <div className="sign-in w-full min-h-screen flex justify-center items-center relative">
       {showLogin && <Login setLoading={setLoading} loading={loading} />}
       {showSignUp && <SignUp setLoading={setLoading} loading={loading} />}
       {loading && <Loading key="loading" size={40} />}

@@ -60,7 +60,7 @@ function Root() {
   };
 
   return (
-    <div className="shared-layout w-full min-h-screen bg-gradient-to-r from-slate-600 to-gray-900 pt-11 pb-72 relative">
+    <div className="shared-layout w-full h-full bg-gradient-to-r from-slate-600 to-gray-900 pt-11 relative">
       <Header />
       <Outlet />
       <Footer />
