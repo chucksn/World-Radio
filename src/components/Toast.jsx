@@ -57,7 +57,7 @@ function Toast() {
     <>
       {isLogged && !isVerificationSent && !favoriteAddRemoveState && (
         <div
-          className={`fixed left-1/2 -translate-x-1/2 top-[70px] z-[60] sm:top-32 px-4 py-1 bg-green-100/80 rounded-lg md:text-lg font-medium ${
+          className={`fixed left-1/2 -translate-x-1/2 top-[70px] z-[60] sm:top-32 px-4 py-1 bg-green-100/80 rounded-lg text-sm sm:text-base font-semibold ${
             isVisible ? "block" : "hidden"
           }`}
         >
@@ -68,7 +68,7 @@ function Toast() {
 
       {!isLogged && !isVerificationSent && !favoriteAddRemoveState && (
         <div
-          className={`fixed left-1/2 -translate-x-1/2 top-[70px] z-[60] sm:top-32 px-4 py-1 bg-red-100/80 rounded-lg md:text-lg font-medium ${
+          className={`fixed left-1/2 -translate-x-1/2 top-[70px] z-[60] sm:top-32 px-4 py-1 bg-red-100/80 rounded-lg text-sm sm:text-base font-semibold ${
             isVisible ? "block" : "hidden"
           }`}
         >
@@ -78,7 +78,7 @@ function Toast() {
 
       {isVerificationSent && !favoriteAddRemoveState && (
         <div
-          className={`fixed left-1/2 -translate-x-1/2 top-[70px] z-[60] sm:top-32 px-4 py-1 bg-green-100/80 rounded-lg md:text-lg font-medium ${
+          className={`fixed left-1/2 -translate-x-1/2 top-[70px] z-[60] sm:top-32 px-4 py-1 bg-green-100/80 rounded-lg text-sm sm:text-base font-semibold ${
             isVisible ? "block" : "hidden"
           }`}
         >
@@ -90,7 +90,7 @@ function Toast() {
 
       {favoriteAddRemoveState === "added" && (
         <div
-          className={`fixed left-1/2 -translate-x-1/2 top-[70px] z-[60] sm:top-32 px-4 py-1 bg-green-100/80 rounded-lg md:text-lg font-medium ${
+          className={`fixed left-1/2 -translate-x-1/2 top-[70px] z-[60] sm:top-32 px-4 py-1 bg-green-100/80 rounded-lg text-sm sm:text-base font-semibold ${
             isVisible ? "block" : "hidden"
           }`}
         >
@@ -101,7 +101,7 @@ function Toast() {
 
       {favoriteAddRemoveState === "removed" && (
         <div
-          className={`fixed left-1/2 -translate-x-1/2 top-[70px] z-[60] sm:top-32 px-4 py-1 bg-red-100/80 rounded-lg md:text-lg font-medium ${
+          className={`fixed left-1/2 -translate-x-1/2 top-[70px] z-[60] sm:top-32 px-4 py-1 bg-red-100/80 rounded-lg text-sm sm:text-base font-semibold ${
             isVisible ? "block" : "hidden"
           }`}
         >
