@@ -53,7 +53,7 @@ function RadioStationCard({
         state,
         favicon,
         id,
-        country: country.label,
+        country: country.label || country,
       })
     );
 

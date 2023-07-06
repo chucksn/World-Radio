@@ -2,13 +2,12 @@ import AudioPlayer from "react-h5-audio-player";
 import { resetPlayerData } from "../features/player/playerDataSlice";
 import { resetFavCardClicked } from "../features/other/favCardClickSlice";
 import { resetCountryCardClicked } from "../features/other/countryCardClickSlice";
-import { useDispatch } from "react-redux";
-import { useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import radioImg from "../assets/radio2.jpg";
 import audioVisualizer from "../assets/audio.svg";
 import tailSpin from "../assets/tail-spin2.svg";
-import { useState } from "react";
 
 const playerVariant = {
   hidden: {
@@ -37,12 +36,15 @@ function Player({
 }) {
   const dispatch = useDispatch();
   const playerRef = useRef();
+  const playerData = useSelector((state) => state.playerData);
+
+  const [originalTitle] = useState(document.title);
 
   const handleClosePlayer = () => {
     dispatch(resetPlayerData());
     dispatch(resetCountryCardClicked());
     dispatch(resetFavCardClicked());
-
+    document.title = originalTitle;
     playerRef.current.style.display = "none";
   };
 
@@ -51,6 +53,13 @@ function Player({
   const handleImgError = () => {
     setImgHasError(true);
   };
+
+  useEffect(() => {
+    document.title = `${stationName}, ${state && state} ${country}`;
+    return () => {
+      document.title = originalTitle;
+    };
+  }, [playerData]);
 
   const favicon = !icon || imgHasError ? radioImg : icon;
 
