@@ -5,6 +5,7 @@ import useLogout from "../hooks/useLogout";
 import useCapitalize from "../hooks/useCapitalize";
 import { VscUnverified, VscVerifiedFilled } from "react-icons/vsc";
 import useVerification from "../hooks/useVerification";
+import profilePH from "../assets/profilePH.png";
 
 function UserProfileMenu() {
   const user = useSelector((state) => state.user);
@@ -73,6 +74,8 @@ function UserProfileMenu() {
     dispatch(resetUserMenuToggle());
   };
 
+  const profileAvatar = user && user.picture ? user.picture : profilePH;
+
   return (
     <>
       {isLogged && userMenuToggle && (
@@ -82,8 +85,17 @@ function UserProfileMenu() {
         >
           <div className="user-menu-content min-h-72 min-w-[16rem] text-black/80 bg-slate-300 border border-gray-300 rounded-lg absolute top-16 right-4 sm:top-20 sm:right-5 flex flex-col py-4 px-6 justify-between">
             <div className="user-profile p-2 flex flex-col justify-center items-center">
-              <div className="user-avatar text-white font-semibold text-xl bg-green-600 w-12 h-12 my-4 flex justify-center items-center rounded-full">
-                {name.charAt(0).toUpperCase()}
+              <div className="user-avatar w-12 h-12 my-4 ">
+                {isVerified && (
+                  <img
+                    src={profileAvatar}
+                    alt="avatar"
+                    className="rounded-full"
+                  />
+                )}
+                {!isVerified && (
+                  <img src={profilePH} alt="avatar" className="rounded-full" />
+                )}
               </div>
               <span className="name block font-semibold font-roboto">
                 {name}{" "}
