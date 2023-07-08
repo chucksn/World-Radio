@@ -20,7 +20,7 @@ function VerifyConfirmationPg() {
   };
   return (
     <div className="verify-confirm-page w-full h-screen flex justify-center items-center">
-      <div className="verify-confirm-main bg-slate-300 w-[80%] md:w-[60%] h-[60%] rounded-md relative">
+      <div className="verify-confirm-main bg-slate-300 w-[80%] md:w-[50%] h-[50%] rounded-md relative">
         {isError && (
           <div className="content absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center text-center">
             <span className="block sm:text-lg text-red-500 font-semibold">
