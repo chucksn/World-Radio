@@ -3,6 +3,7 @@ import { useVerifyQuery } from "../features/api/verifyApiSlice";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/loading";
 import useLogin from "../hooks/useLogin";
+import useLogout from "../hooks/useLogout";
 import { FiCheckCircle } from "react-icons/fi";
 
 function VerifyConfirmationPg() {
@@ -10,6 +11,8 @@ function VerifyConfirmationPg() {
   const encodeAuthenticationToken = encodeURIComponent(authenticationToken);
   const navigate = useNavigate();
   const { verifiedLogin } = useLogin();
+  const { logout } = useLogout();
+
   const { isError, isLoading, data, error } = useVerifyQuery([
     token,
     encodeAuthenticationToken,
@@ -17,6 +20,8 @@ function VerifyConfirmationPg() {
 
   if (data) {
     verifiedLogin(data);
+  } else {
+    logout();
   }
 
   const handleClose = () => {
@@ -31,8 +36,11 @@ function VerifyConfirmationPg() {
               {error.data.error}
             </span>
 
-            <span className="block text-sm sm:text-base text-blue-600 font-medium mt-2">
-              Login and re-send verification
+            <span className="block text-sm sm:text-base text-blue-700 font-medium mt-2">
+              Login and re-send verification{" "}
+              <span className="text-xs sm:text-sm text-gray-700">
+                (If user Unverified)
+              </span>
             </span>
 
             <button

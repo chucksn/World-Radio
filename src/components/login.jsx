@@ -113,6 +113,12 @@ function Login({ loading, setLoading }) {
         </button>
       </form>
 
+      {errorMsg && errorMsg === "Invalid email or password" && (
+        <span className="block text-red-500 text-center font-medium text-sm">
+          <MdErrorOutline className="inline text-xl  " /> {errorMsg}
+        </span>
+      )}
+
       <div className="relative my-3">
         <hr className="absolute w-[42%] border-neutral-400 top-1/2 left-0" />
         <span className="block text-center text-neutral-600 text-sm sm:text-base font-medium">
@@ -128,12 +134,6 @@ function Login({ loading, setLoading }) {
         <FcGoogle className="inline-block text-3xl" />
         &nbsp; Continue with Google
       </button>
-
-      {errorMsg && errorMsg === "Invalid email or password" && (
-        <span className="block text-red-500 text-center font-medium text-sm">
-          <MdErrorOutline className="inline text-xl  " /> {errorMsg}
-        </span>
-      )}
     </div>
   );
 }

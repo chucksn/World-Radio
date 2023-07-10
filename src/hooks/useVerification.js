@@ -11,11 +11,13 @@ const useVerification = () => {
   const resendVerification = async () => {
     const email = user && user.email;
     const userId = user && user.id;
+    const auth = user && user.auth;
+
     try {
       const response = await fetch(`${baseURL}/resend-verification`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, userId }),
+        body: JSON.stringify({ email, userId, auth }),
       });
       const data = await response.json();
       if (response.status === 200) {
