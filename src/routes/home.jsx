@@ -62,7 +62,7 @@ function Home() {
             )}
             <button
               onClick={handleFavoriteBtnClick}
-              className="favorite-country-toggle text-slate-200 bg-sky-900 shadow p-2 md:p-3 text-xs lg:text-sm rounded-lg font-unbounded lg:hover:bg-sky-800 lg:hover:cursor-pointer"
+              className="favorite-country-toggle text-slate-200 bg-sky-900 shadow px-3 py-2 md:px-5 text-sm lg:text-[17px] rounded-lg font-semibold lg:hover:bg-sky-800 lg:hover:cursor-pointer"
             >
               {category === "country" && "Favorite Stations"}
               {category === "favorite" && "Back to Searched Stations"}{" "}

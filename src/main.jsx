@@ -24,7 +24,7 @@ const router = createBrowserRouter([
         element: <SignIn />,
       },
       {
-        path: "verify/:token",
+        path: "verify/:token/:authenticationToken",
         element: <VerifyConfirmationPg />,
       },
       {

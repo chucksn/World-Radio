@@ -6,10 +6,14 @@ import useLogin from "../hooks/useLogin";
 import { FiCheckCircle } from "react-icons/fi";
 
 function VerifyConfirmationPg() {
-  const { token } = useParams();
+  const { token, authenticationToken } = useParams();
+  const encodeAuthenticationToken = encodeURIComponent(authenticationToken);
   const navigate = useNavigate();
   const { verifiedLogin } = useLogin();
-  const { isError, isLoading, data, error } = useVerifyQuery(token);
+  const { isError, isLoading, data, error } = useVerifyQuery([
+    token,
+    encodeAuthenticationToken,
+  ]);
 
   if (data) {
     verifiedLogin(data);
@@ -33,7 +37,7 @@ function VerifyConfirmationPg() {
 
             <button
               onClick={handleClose}
-              className="favorite-country-toggle text-slate-200 bg-sky-900 mt-6 px-3 py-2 text-xs md:text-sm rounded-lg font-unbounded shadow-md lg:hover:bg-sky-800 lg:hover:cursor-pointer"
+              className="favorite-country-toggle text-slate-200 bg-green-900 mt-6 px-6 py-2 text-sm md:text-base rounded-lg  font-semibold shadow-md lg:hover:bg-green-800 lg:hover:cursor-pointer"
             >
               Close
             </button>

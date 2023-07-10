@@ -5,7 +5,8 @@ export const verifyApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),
   endpoints: (builder) => ({
     verify: builder.query({
-      query: (token) => `/verify/${token}`,
+      query: ([token, authenticationToken]) =>
+        `/verify/${token}/${authenticationToken}`,
     }),
   }),
 });
