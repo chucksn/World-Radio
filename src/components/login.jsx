@@ -55,7 +55,7 @@ function Login({ loading, setLoading }) {
       >
         &times;
       </span>
-      <span className="block my-6">
+      <span className="block my-6 text-center">
         Don't have an account?{" "}
         <span
           onClick={handleSignUp}
