@@ -4,12 +4,12 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        itim: ["Itim", "cursive"],
-        prosto: ["'Prosto One'", "cursive"],
+        itim: ["Itim", "sans-serif"],
+        prosto: ["'Prosto One'", "sans-serif"],
         roboto: ["Roboto", "sans-serif"],
         robotoMono: ["'Roboto Mono'", "monospace"],
         ubuntu: ["Ubuntu", "sans-serif"],
-        unbounded: ["Unbounded", "cursive"],
+        unbounded: ["Unbounded", "sans-serif"],
       },
 
       animation: {
@@ -31,7 +31,7 @@ module.exports = {
         "c-amber": "0 0 3px 1px rgb(217, 119, 6)",
         "c-2": "0 0 6px 2px rgb(30, 41, 59)",
         "c-lime": "0 0 5px 1px rgb(173, 255, 47)",
-        "c-gold": "0 0 3px 1px rgb(212, 175, 55)", //gold
+        "c-gold": "0 0 3px 1px rgb(212, 175, 55)",
         "c-thin-white": "0 0 4px rgb(200, 200, 200)",
         "c-5": "0 0 8px 3px rgb(220, 38, 38)",
         "c-blue": "0 0 5px 1px rgb(30, 144, 255)",
