@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import Loading from "../components/loading";
 import Login from "../components/login";
 import SignUp from "../components/sign-up";
 
@@ -10,10 +9,9 @@ function SignIn() {
   const [loading, setLoading] = useState(false);
 
   return (
-    <div className="sign-in w-full min-h-screen flex justify-center items-center relative">
+    <div className="sign-in w-full min-h-screen flex justify-center items-center">
       {showLogin && <Login setLoading={setLoading} loading={loading} />}
       {showSignUp && <SignUp setLoading={setLoading} loading={loading} />}
-      {loading && <Loading key="loading" size={40} />}
     </div>
   );
 }

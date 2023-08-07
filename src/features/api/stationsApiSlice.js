@@ -7,8 +7,10 @@ export const stationsApi = createApi({
     getStations: builder.query({
       query: ([location, limit, page]) =>
         `/api/v1/stations?countryCode=${location}&limit=${limit}&page=${page}`,
+      keepUnusedDataFor: 600,
     }),
   }),
+  refetchOnMountOrArgChange: 600,
 });
 
 export const { useGetStationsQuery } = stationsApi;

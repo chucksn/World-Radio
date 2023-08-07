@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { resetShowSignUp } from "../features/sign-in/showSignUpSlice";
 import { setShowLogin } from "../features/sign-in/showLoginSlice";
 import useSignIn from "../hooks/useSignIn";
+import { BiLoaderAlt } from "react-icons/bi";
 
 function SignUp({ loading, setLoading }) {
   const { signUp } = useSignIn();
@@ -127,9 +128,14 @@ function SignUp({ loading, setLoading }) {
         <button
           type="submit"
           disabled={loading}
-          className="bg-sky-600 hover:bg-sky-700 text-sm sm:text-base font-medium text-white px-6 py-2 rounded-lg mt-8 mb-4 outline-none"
+          className={`lg:hover:bg-sky-700 text-white px-6 py-2 text-sm sm:text-base rounded-lg my-4 outline-none font-medium ${
+            loading ? "bg-sky-600/60" : "bg-sky-600"
+          }`}
         >
-          Create Account
+          Create Account{" "}
+          {loading && (
+            <BiLoaderAlt className="inline-block text-white  sm:text-xl animate-spin-slow" />
+          )}
         </button>
       </form>
     </div>
