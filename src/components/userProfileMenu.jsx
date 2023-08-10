@@ -74,7 +74,7 @@ function UserProfileMenu() {
     dispatch(resetUserMenuToggle());
   };
 
-  const profileAvatar = user && user.picture ? user.picture : profilePH;
+  const profileAvatar = user?.picture ? user.picture : profilePH;
 
   return (
     <>
